@@ -1,0 +1,18 @@
+{
+  "exams": [
+    {
+      "id": "gh-200",
+      "title": "GH-200: GitHub Actions Certification",
+      "description": "A collection of 80 questions for preparing for the Microsoft GH-200 — GitHub Actions certification.",
+      "file": "gh-200/questions.json",
+      "questionCount": 80
+    },
+    {
+      "id": "saa-c03",
+      "title": "SAA-C03: AWS Certified Solutions Architect - Associate",
+      "description": "65 preguntas del examen de práctica oficial de AWS Skill Builder para la certificación SAA-C03 (Solutions Architect - Associate, español Latam).",
+      "file": "saa-c03/questions.json",
+      "questionCount": 65
+    }
+  ]
+}

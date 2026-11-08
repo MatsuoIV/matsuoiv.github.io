@@ -1,16 +1,59 @@
+import { useEffect, useState } from 'react'
 import { useExam } from './hooks/useExam'
 import { ProgressBar } from './components/ProgressBar'
 import { ExamQuestion } from './components/ExamQuestion'
 import { ExamSummary } from './components/ExamSummary'
 import { ExamTimer } from './components/ExamTimer'
 import { WelcomeScreen } from './components/WelcomeScreen'
+import { ExamPicker } from './components/ExamPicker'
 import { QuestionNavigator } from './components/QuestionNavigator'
 import { EXAM_DURATION_SECONDS } from './config'
+import type { ExamEntry } from './types/exam'
 import './App.css'
 
-const DATA_URL = `${import.meta.env.BASE_URL}data/questions.json`
-
 export default function App() {
+  const [exams, setExams] = useState<ExamEntry[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [selectedExam, setSelectedExam] = useState<ExamEntry | null>(null)
+
+  useEffect(() => {
+    fetch(`${import.meta.env.BASE_URL}data/exams.json`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        return res.json()
+      })
+      .then((data: { exams: ExamEntry[] }) => setExams(data.exams ?? []))
+      .catch(() => setError('No se pudo cargar la lista de exámenes.'))
+      .finally(() => setLoading(false))
+  }, [])
+
+  if (!selectedExam) {
+    return (
+      <ExamPicker
+        exams={exams}
+        loading={loading}
+        error={error}
+        onSelect={setSelectedExam}
+      />
+    )
+  }
+
+  return (
+    <ExamRunner
+      key={selectedExam.id}
+      exam={selectedExam}
+      onChangeExam={() => setSelectedExam(null)}
+    />
+  )
+}
+
+interface ExamRunnerProps {
+  exam: ExamEntry
+  onChangeExam: () => void
+}
+
+function ExamRunner({ exam, onChangeExam }: ExamRunnerProps) {
   const {
     phase,
     examData,
@@ -30,7 +73,7 @@ export default function App() {
     restartExam,
     getScore,
     isAnswerCorrect,
-  } = useExam(DATA_URL, EXAM_DURATION_SECONDS)
+  } = useExam(`${import.meta.env.BASE_URL}data/${exam.file}`, EXAM_DURATION_SECONDS)
 
   if (phase === 'loading') {
     return (
@@ -56,6 +99,7 @@ export default function App() {
         totalQuestions={examData.questions.length}
         durationSeconds={EXAM_DURATION_SECONDS}
         onStart={startExam}
+        onChangeExam={onChangeExam}
       />
     )
   }

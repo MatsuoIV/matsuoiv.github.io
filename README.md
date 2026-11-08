@@ -52,3 +52,27 @@ export default tseslint.config({
   },
 })
 ```
+
+## Bancos de preguntas (multi-examen)
+
+Cada examen vive en su propia carpeta dentro de `public/data/` y expone su propio
+`questions.json` (set completo) y `questions.sample.json` (muestra corta):
+
+```
+public/data/
+├── exams.json              # índice de exámenes para el selector de la app
+├── gh-200/
+│   ├── questions.json
+│   └── questions.sample.json
+└── saa-c03/
+    ├── questions.json
+    └── questions.sample.json
+```
+
+Para añadir un examen nuevo:
+
+1. Crea `public/data/<exam-id>/questions.json` siguiendo el esquema de
+   `src/types/exam.ts` (`title`, `description`, `questions[]`).
+2. Añade su entrada a `public/data/exams.json` (`id`, `title`, `description`,
+   `file`, `questionCount`).
+3. (Opcional) Añade un `questions.sample.json` con una muestra representativa.
