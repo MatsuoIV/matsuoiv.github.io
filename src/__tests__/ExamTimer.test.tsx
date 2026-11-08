@@ -52,6 +52,6 @@ describe('ExamTimer', () => {
 
   it('has accessible aria-label with formatted time', () => {
     render(<ExamTimer timeLeft={90} />)
-    expect(screen.getByLabelText('Tiempo restante: 01:30')).toBeInTheDocument()
+    expect(screen.getByLabelText('Time remaining: 01:30')).toBeInTheDocument()
   })
 })

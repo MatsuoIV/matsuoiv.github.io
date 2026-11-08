@@ -9,9 +9,9 @@ interface ExamSummaryProps {
   onRestart: () => void
 }
 
-/** Returns the display label for an option (text or "Opción X" fallback). */
+/** Returns the display label for an option (text or "Option X" fallback). */
 function optionLabel(option: Option): string {
-  return option.text ?? `Opción ${option.id.toUpperCase()}`
+  return option.text ?? `Option ${option.id.toUpperCase()}`
 }
 
 export function ExamSummary({
@@ -24,11 +24,11 @@ export function ExamSummary({
   return (
     <div className="summary">
       <div className="summary-header">
-        <h1>Tu resultado</h1>
+        <h1>Your result</h1>
         <div className="score-badge" data-passing={score.percentage >= 60}>
           <span className="score-value">{score.percentage}%</span>
           <span className="score-detail">
-            {score.correct} de {score.total} correctas
+            {score.correct} of {score.total} correct
           </span>
         </div>
       </div>
@@ -48,19 +48,19 @@ export function ExamSummary({
 
           return (
             <li key={question.id} className={`summary-item${correct ? ' summary-item--correct' : ' summary-item--wrong'}`}>
-              <p className="summary-item-number">Pregunta {index + 1}</p>
+              <p className="summary-item-number">Question {index + 1}</p>
               <p className="summary-item-text">{question.text}</p>
               {question.image && (
                 <img
                   src={question.image}
-                  alt={`Imagen de pregunta ${index + 1}`}
+                  alt={`Image for question ${index + 1}`}
                   className="question-image question-image--summary"
                 />
               )}
 
               <div className="summary-answers">
                 <div className="summary-answer">
-                  <span className="summary-answer-label">Tu respuesta:</span>
+                  <span className="summary-answer-label">Your answer:</span>
                   {givenOptions.length > 0 ? (
                     <span className={`summary-answer-value${correct ? ' correct' : ' wrong'}`}>
                       {givenOptions.map((o) => optionLabel(o)).join(', ')}
@@ -78,13 +78,13 @@ export function ExamSummary({
                       )}
                     </span>
                   ) : (
-                    <span className="summary-answer-value wrong">Sin respuesta</span>
+                    <span className="summary-answer-value wrong">No answer</span>
                   )}
                 </div>
 
                 {!correct && (
                   <div className="summary-answer">
-                    <span className="summary-answer-label">Respuesta correcta:</span>
+                    <span className="summary-answer-label">Correct answer:</span>
                     <span className="summary-answer-value correct">
                       {correctOptions.map((o) => optionLabel(o)).join(', ')}
                       {correctOptions.some((o) => o.image) && (
@@ -114,7 +114,7 @@ export function ExamSummary({
 
       <div className="summary-footer">
         <button onClick={onRestart} className="btn btn--primary">
-          Reiniciar examen
+          Restart exam
         </button>
         <FeedbackButton />
       </div>

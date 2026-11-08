@@ -13,13 +13,13 @@ export function ExamPicker({ exams, loading, error, onSelect }: ExamPickerProps)
     <div className="welcome">
       <div className="exam-picker">
         <header className="exam-picker-header">
-          <h1 className="welcome-title">Elige un examen</h1>
+          <h1 className="welcome-title">Choose an exam</h1>
           <p className="welcome-description">
-            Selecciona el banco de preguntas con el que quieres practicar.
+            Select the question bank you want to practice with.
           </p>
         </header>
 
-        {loading && <p className="exam-picker-status">Cargando exámenes…</p>}
+        {loading && <p className="exam-picker-status">Loading exams…</p>}
         {error && <p className="exam-picker-status exam-picker-error">{error}</p>}
 
         <ul className="exam-list">
@@ -30,7 +30,7 @@ export function ExamPicker({ exams, loading, error, onSelect }: ExamPickerProps)
                 {exam.description && (
                   <span className="exam-card-description">{exam.description}</span>
                 )}
-                <span className="exam-card-meta">{exam.questionCount} preguntas</span>
+                <span className="exam-card-meta">{exam.questionCount} questions</span>
               </button>
             </li>
           ))}

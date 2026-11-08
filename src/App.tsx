@@ -24,7 +24,7 @@ export default function App() {
         return res.json()
       })
       .then((data: { exams: ExamEntry[] }) => setExams(data.exams ?? []))
-      .catch(() => setError('No se pudo cargar la lista de exámenes.'))
+      .catch(() => setError('Could not load the exam list.'))
       .finally(() => setLoading(false))
   }, [])
 
@@ -81,7 +81,7 @@ function ExamRunner({ exam, onChangeExam }: ExamRunnerProps) {
   if (phase === 'loading') {
     return (
       <div className="app-center">
-        <p>Cargando examen...</p>
+        <p>Loading exam...</p>
       </div>
     )
   }
@@ -89,7 +89,7 @@ function ExamRunner({ exam, onChangeExam }: ExamRunnerProps) {
   if (!examData) {
     return (
       <div className="app-center">
-        <p>No se pudo cargar el examen.</p>
+        <p>Could not load the exam.</p>
       </div>
     )
   }

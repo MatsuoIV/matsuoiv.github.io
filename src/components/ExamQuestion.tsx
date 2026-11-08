@@ -31,18 +31,18 @@ export function ExamQuestion({
   return (
     <div className="question-card">
       <p className="question-counter">
-        Pregunta {questionNumber} de {totalQuestions}
+        Question {questionNumber} of {totalQuestions}
       </p>
       <h2 className="question-text">{question.text}</h2>
       {question.image && (
         <img
           src={question.image}
-          alt={`Imagen de apoyo para pregunta ${questionNumber}`}
+          alt={`Supporting image for question ${questionNumber}`}
           className="question-image"
         />
       )}
       {isMultiple && (
-        <p className="question-hint">Selecciona todas las opciones correctas.</p>
+        <p className="question-hint">Select all correct options.</p>
       )}
 
       <ul className="options-list">
@@ -70,7 +70,7 @@ export function ExamQuestion({
                   {option.image && (
                     <img
                       src={option.image}
-                      alt={option.text ?? `Opción ${option.id.toUpperCase()}`}
+                      alt={option.text ?? `Option ${option.id.toUpperCase()}`}
                       className="option-image"
                     />
                   )}
@@ -83,15 +83,15 @@ export function ExamQuestion({
 
       <div className="question-actions">
         <button onClick={onPrev} disabled={isFirst} className="btn btn--secondary">
-          Anterior
+          Previous
         </button>
         {isLast ? (
           <button onClick={onSubmit} className="btn btn--primary">
-            Finalizar examen
+            Finish exam
           </button>
         ) : (
           <button onClick={onNext} className="btn btn--primary">
-            Siguiente
+            Next
           </button>
         )}
       </div>

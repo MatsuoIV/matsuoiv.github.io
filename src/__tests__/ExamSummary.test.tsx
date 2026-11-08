@@ -43,7 +43,7 @@ describe('ExamSummary', () => {
       />
     )
     expect(screen.getByText('100%')).toBeInTheDocument()
-    expect(screen.getByText('2 de 2 correctas')).toBeInTheDocument()
+    expect(screen.getByText('2 of 2 correct')).toBeInTheDocument()
   })
 
   it('shows explanation when available', () => {
@@ -69,11 +69,11 @@ describe('ExamSummary', () => {
         onRestart={vi.fn()}
       />
     )
-    expect(screen.getAllByText('Respuesta correcta:').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Correct answer:').length).toBeGreaterThan(0)
     expect(screen.getAllByText('Option A').length).toBeGreaterThan(0)
   })
 
-  it('shows "Sin respuesta" when no answer was given', () => {
+  it('shows "No answer" when no answer was given', () => {
     render(
       <ExamSummary
         examData={examData}
@@ -83,10 +83,10 @@ describe('ExamSummary', () => {
         onRestart={vi.fn()}
       />
     )
-    expect(screen.getAllByText('Sin respuesta')).toHaveLength(2)
+    expect(screen.getAllByText('No answer')).toHaveLength(2)
   })
 
-  it('shows "Opción X" label for image-only options in the summary', () => {
+  it('shows "Option X" label for image-only options in the summary', () => {
     const examWithImageOptions: ExamData = {
       title: 'Test',
       questions: [{
@@ -108,10 +108,10 @@ describe('ExamSummary', () => {
         onRestart={vi.fn()}
       />
     )
-    // Given answer label falls back to "Opción A"
-    expect(screen.getByText('Opción A')).toBeInTheDocument()
-    // Correct answer label falls back to "Opción B"
-    expect(screen.getByText('Opción B')).toBeInTheDocument()
+    // Given answer label falls back to "Option A"
+    expect(screen.getByText('Option A')).toBeInTheDocument()
+    // Correct answer label falls back to "Option B"
+    expect(screen.getByText('Option B')).toBeInTheDocument()
   })
 
   it('renders question image in summary when present', () => {
@@ -134,7 +134,7 @@ describe('ExamSummary', () => {
         onRestart={vi.fn()}
       />
     )
-    expect(screen.getByAltText(/imagen de pregunta/i)).toHaveAttribute('src', '/data/images/q1.png')
+    expect(screen.getByAltText(/image for question/i)).toHaveAttribute('src', '/data/images/q1.png')
   })
 
   it('calls onRestart when button is clicked', async () => {
@@ -148,7 +148,7 @@ describe('ExamSummary', () => {
         onRestart={onRestart}
       />
     )
-    await userEvent.click(screen.getByText('Reiniciar examen'))
+    await userEvent.click(screen.getByText('Restart exam'))
     expect(onRestart).toHaveBeenCalledOnce()
   })
 })

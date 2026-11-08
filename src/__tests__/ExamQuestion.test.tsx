@@ -84,7 +84,7 @@ describe('ExamQuestion — single answer', () => {
 
   it('does not show the multi-select hint for single-answer questions', () => {
     render(<ExamQuestion {...defaultProps} question={singleQuestion} />)
-    expect(screen.queryByText(/selecciona todas/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/select all correct/i)).not.toBeInTheDocument()
   })
 
   it('calls onToggleAnswer when an option is clicked', async () => {
@@ -104,27 +104,27 @@ describe('ExamQuestion — multiple answer', () => {
 
   it('shows the multi-select hint', () => {
     render(<ExamQuestion {...defaultProps} question={multiQuestion} />)
-    expect(screen.getByText(/selecciona todas/i)).toBeInTheDocument()
+    expect(screen.getByText(/select all correct/i)).toBeInTheDocument()
   })
 })
 
 describe('ExamQuestion — images', () => {
   it('renders question image when provided', () => {
     render(<ExamQuestion {...defaultProps} question={questionWithImage} />)
-    const img = screen.getByAltText(/imagen de apoyo/i)
+    const img = screen.getByAltText(/supporting image/i)
     expect(img).toBeInTheDocument()
     expect(img).toHaveAttribute('src', '/data/images/q3.png')
   })
 
   it('does not render question image when not provided', () => {
     render(<ExamQuestion {...defaultProps} question={singleQuestion} />)
-    expect(screen.queryByAltText(/imagen de apoyo/i)).not.toBeInTheDocument()
+    expect(screen.queryByAltText(/supporting image/i)).not.toBeInTheDocument()
   })
 
   it('renders option images when options have image field', () => {
     render(<ExamQuestion {...defaultProps} question={questionWithOptionImages} />)
-    expect(screen.getByAltText('Opción A')).toHaveAttribute('src', '/data/images/q4-a.png')
-    expect(screen.getByAltText('Opción B')).toHaveAttribute('src', '/data/images/q4-b.png')
+    expect(screen.getByAltText('Option A')).toHaveAttribute('src', '/data/images/q4-a.png')
+    expect(screen.getByAltText('Option B')).toHaveAttribute('src', '/data/images/q4-b.png')
   })
 
   it('renders both text and image when option has both', () => {
@@ -136,38 +136,38 @@ describe('ExamQuestion — images', () => {
   it('clicking an image-only option calls onToggleAnswer', async () => {
     const onToggleAnswer = vi.fn()
     render(<ExamQuestion {...defaultProps} question={questionWithOptionImages} onToggleAnswer={onToggleAnswer} />)
-    await userEvent.click(screen.getByAltText('Opción A'))
+    await userEvent.click(screen.getByAltText('Option A'))
     expect(onToggleAnswer).toHaveBeenCalledWith('q4', 'a')
   })
 })
 
 describe('ExamQuestion — navigation', () => {
-  it('disables Anterior on the first question', () => {
+  it('disables Previous on the first question', () => {
     render(<ExamQuestion {...defaultProps} question={singleQuestion} isFirst={true} />)
-    expect(screen.getByText('Anterior')).toBeDisabled()
+    expect(screen.getByText('Previous')).toBeDisabled()
   })
 
-  it('shows "Finalizar examen" on the last question', () => {
+  it('shows "Finish exam" on the last question', () => {
     render(<ExamQuestion {...defaultProps} question={singleQuestion} isLast={true} />)
-    expect(screen.getByText('Finalizar examen')).toBeInTheDocument()
+    expect(screen.getByText('Finish exam')).toBeInTheDocument()
   })
 
-  it('shows "Siguiente" when not on the last question', () => {
+  it('shows "Next" when not on the last question', () => {
     render(<ExamQuestion {...defaultProps} question={singleQuestion} isLast={false} />)
-    expect(screen.getByText('Siguiente')).toBeInTheDocument()
+    expect(screen.getByText('Next')).toBeInTheDocument()
   })
 
-  it('calls onSubmit when Finalizar is clicked', async () => {
+  it('calls onSubmit when Finish exam is clicked', async () => {
     const onSubmit = vi.fn()
     render(<ExamQuestion {...defaultProps} question={singleQuestion} isLast={true} onSubmit={onSubmit} />)
-    await userEvent.click(screen.getByText('Finalizar examen'))
+    await userEvent.click(screen.getByText('Finish exam'))
     expect(onSubmit).toHaveBeenCalledOnce()
   })
 
-  it('calls onNext when Siguiente is clicked', async () => {
+  it('calls onNext when Next is clicked', async () => {
     const onNext = vi.fn()
     render(<ExamQuestion {...defaultProps} question={singleQuestion} onNext={onNext} />)
-    await userEvent.click(screen.getByText('Siguiente'))
+    await userEvent.click(screen.getByText('Next'))
     expect(onNext).toHaveBeenCalledOnce()
   })
 })

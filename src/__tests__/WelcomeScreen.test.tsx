@@ -33,33 +33,33 @@ describe('WelcomeScreen', () => {
 
   it('formats duration in minutes', () => {
     render(<WelcomeScreen {...defaultProps} durationSeconds={1800} />)
-    expect(screen.getByText(/30 minutos/i)).toBeInTheDocument()
+    expect(screen.getByText(/30 minutes/i)).toBeInTheDocument()
   })
 
-  it('shows "Sin límite de tiempo" when durationSeconds is 0', () => {
+  it('shows "No time limit" when durationSeconds is 0', () => {
     render(<WelcomeScreen {...defaultProps} durationSeconds={0} />)
-    expect(screen.getByText(/sin límite/i)).toBeInTheDocument()
+    expect(screen.getByText(/no time limit/i)).toBeInTheDocument()
   })
 
-  it('shows "Sin límite de tiempo" when durationSeconds is -1', () => {
+  it('shows "No time limit" when durationSeconds is -1', () => {
     render(<WelcomeScreen {...defaultProps} durationSeconds={-1} />)
-    expect(screen.getByText(/sin límite/i)).toBeInTheDocument()
+    expect(screen.getByText(/no time limit/i)).toBeInTheDocument()
   })
 
-  it('renders the Iniciar button', () => {
+  it('renders the Start exam button', () => {
     render(<WelcomeScreen {...defaultProps} />)
-    expect(screen.getByRole('button', { name: /iniciar/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /start exam/i })).toBeInTheDocument()
   })
 
-  it('calls onStart when Iniciar is clicked', async () => {
+  it('calls onStart when Start exam is clicked', async () => {
     const onStart = vi.fn()
     render(<WelcomeScreen {...defaultProps} onStart={onStart} />)
-    await userEvent.click(screen.getByRole('button', { name: /iniciar/i }))
+    await userEvent.click(screen.getByRole('button', { name: /start exam/i }))
     expect(onStart).toHaveBeenCalledOnce()
   })
 
   it('mentions random order', () => {
     render(<WelcomeScreen {...defaultProps} />)
-    expect(screen.getByText(/aleatorio/i)).toBeInTheDocument()
+    expect(screen.getByText(/random order/i)).toBeInTheDocument()
   })
 })
