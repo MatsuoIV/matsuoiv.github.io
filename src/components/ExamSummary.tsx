@@ -9,9 +9,9 @@ interface ExamSummaryProps {
   onRestart: () => void
 }
 
-/** Returns the display label for an option (text or "Opción X" fallback). */
+/** Returns the display label for an option (text or "Option X" fallback). */
 function optionLabel(option: Option): string {
-  return option.text ?? `Opción ${option.id.toUpperCase()}`
+  return option.text ?? `Option ${option.id.toUpperCase()}`
 }
 
 export function ExamSummary({

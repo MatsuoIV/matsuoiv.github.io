@@ -25,7 +25,7 @@ export function QuestionNavigator({
         onClick={() => setIsOpen((o) => !o)}
         aria-expanded={isOpen}
       >
-        <span>Question Map</span>
+        <span>Question map</span>
         <span className="navigator-toggle-meta">
           {answeredCount} / {questions.length} answered
         </span>

@@ -24,7 +24,7 @@ export default function App() {
         return res.json()
       })
       .then((data: { exams: ExamEntry[] }) => setExams(data.exams ?? []))
-      .catch(() => setError('No se pudo cargar la lista de exámenes.'))
+      .catch(() => setError('Could not load the exam list.'))
       .finally(() => setLoading(false))
   }, [])
 
@@ -73,12 +73,15 @@ function ExamRunner({ exam, onChangeExam }: ExamRunnerProps) {
     restartExam,
     getScore,
     isAnswerCorrect,
-  } = useExam(`${import.meta.env.BASE_URL}data/${exam.file}`, EXAM_DURATION_SECONDS)
+  } = useExam(
+    `${import.meta.env.BASE_URL}data/${exam.file}`,
+    exam.durationMinutes ? exam.durationMinutes * 60 : EXAM_DURATION_SECONDS
+  )
 
   if (phase === 'loading') {
     return (
       <div className="app-center">
-        <p>Cargando examen...</p>
+        <p>Loading exam...</p>
       </div>
     )
   }
@@ -86,7 +89,7 @@ function ExamRunner({ exam, onChangeExam }: ExamRunnerProps) {
   if (!examData) {
     return (
       <div className="app-center">
-        <p>No se pudo cargar el examen.</p>
+        <p>Could not load the exam.</p>
       </div>
     )
   }
@@ -97,7 +100,7 @@ function ExamRunner({ exam, onChangeExam }: ExamRunnerProps) {
         title={examData.title}
         description={examData.description}
         totalQuestions={examData.questions.length}
-        durationSeconds={EXAM_DURATION_SECONDS}
+        durationSeconds={exam.durationMinutes ? exam.durationMinutes * 60 : EXAM_DURATION_SECONDS}
         onStart={startExam}
         onChangeExam={onChangeExam}
       />

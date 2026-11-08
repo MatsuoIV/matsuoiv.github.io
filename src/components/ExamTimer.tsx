@@ -17,7 +17,7 @@ export function ExamTimer({ timeLeft }: ExamTimerProps) {
     <div
       className={`exam-timer${isUrgent ? ' exam-timer--urgent' : ''}`}
       aria-live="polite"
-      aria-label={`Tiempo restante: ${formatTime(timeLeft)}`}
+      aria-label={`Time remaining: ${formatTime(timeLeft)}`}
     >
       <span className="exam-timer-icon">⏱</span>
       <span className="exam-timer-value">{formatTime(timeLeft)}</span>

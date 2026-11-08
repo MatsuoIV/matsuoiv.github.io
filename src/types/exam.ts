@@ -34,4 +34,6 @@ export interface ExamEntry {
   /** Path relative to public/data/. */
   file: string
   questionCount: number
+  /** Duration in minutes. Falls back to VITE_EXAM_DURATION_MINUTES when omitted. */
+  durationMinutes?: number
 }

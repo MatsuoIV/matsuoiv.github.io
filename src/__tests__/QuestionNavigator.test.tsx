@@ -97,7 +97,7 @@ describe('QuestionNavigator', () => {
         onGoTo={vi.fn()}
       />
     )
-    expect(screen.getByText(/2 \/ 5 respondidas/i)).toBeInTheDocument()
+    expect(screen.getByText(/2 \/ 5 answered/i)).toBeInTheDocument()
   })
 
   it('collapses and expands the grid when the toggle is clicked', async () => {
@@ -112,10 +112,10 @@ describe('QuestionNavigator', () => {
     // Grid is open by default
     expect(screen.getAllByRole('listitem')).toHaveLength(5)
 
-    await userEvent.click(screen.getByRole('button', { name: /mapa de preguntas/i }))
+    await userEvent.click(screen.getByRole('button', { name: /question map/i }))
     expect(screen.queryAllByRole('listitem')).toHaveLength(0)
 
-    await userEvent.click(screen.getByRole('button', { name: /mapa de preguntas/i }))
+    await userEvent.click(screen.getByRole('button', { name: /question map/i }))
     expect(screen.getAllByRole('listitem')).toHaveLength(5)
   })
 })

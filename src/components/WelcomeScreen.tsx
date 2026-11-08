@@ -11,9 +11,9 @@ interface WelcomeScreenProps {
 }
 
 function formatDuration(seconds: number): string {
-  if (seconds <= 0) return 'Sin límite de tiempo'
+  if (seconds <= 0) return 'No time limit'
   const minutes = Math.round(seconds / 60)
-  return `${minutes} minute${minutes !== 1 ? 's' : ''}`
+  return `${minutes} minutes`
 }
 
 export function WelcomeScreen({
@@ -51,7 +51,7 @@ export function WelcomeScreen({
 
         {onChangeExam && (
           <button className="btn btn--ghost" onClick={onChangeExam}>
-            ← Cambiar examen
+            ← Change exam
           </button>
         )}
       </div>
