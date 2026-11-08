@@ -6,6 +6,8 @@ interface WelcomeScreenProps {
   totalQuestions: number
   durationSeconds: number   // -1 = sin límite
   onStart: () => void
+  /** Optional: return to the exam picker. */
+  onChangeExam?: () => void
 }
 
 function formatDuration(seconds: number): string {
@@ -20,6 +22,7 @@ export function WelcomeScreen({
   totalQuestions,
   durationSeconds,
   onStart,
+  onChangeExam,
 }: WelcomeScreenProps) {
   return (
     <div className="welcome">
@@ -45,6 +48,12 @@ export function WelcomeScreen({
         <button className="btn btn--primary btn--large" onClick={onStart}>
           Start exam
         </button>
+
+        {onChangeExam && (
+          <button className="btn btn--ghost" onClick={onChangeExam}>
+            ← Cambiar examen
+          </button>
+        )}
       </div>
 
       <FeedbackButton />

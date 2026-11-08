@@ -1,0 +1,1726 @@
+{
+  "title": "SAA-C03: AWS Certified Solutions Architect - Associate",
+  "description": "65 preguntas del examen de práctica oficial de AWS Skill Builder para la certificación SAA-C03 (Solutions Architect - Associate, español Latam).",
+  "questions": [
+    {
+      "id": "q1",
+      "text": "El equipo de operaciones en la nube de una empresa quiere estandarizar la resolución de problemas de recursos. La empresa desea proporcionar un conjunto estándar de evaluaciones y resolución de problemas de gobernanza a todas las cuentas de los miembros de su organización en AWS Organizations. ¿Qué servicio de AWS autoadministrado puede utilizar la empresa para cumplir estos requisitos con la MENOR cantidad de esfuerzo operativo?",
+      "options": [
+        {
+          "id": "a",
+          "text": "AWS CloudTrail"
+        },
+        {
+          "id": "b",
+          "text": "Paquetes de conformidad de AWS Config"
+        },
+        {
+          "id": "c",
+          "text": "Estándares de conformidad de AWS Security Hub"
+        },
+        {
+          "id": "d",
+          "text": "AWS Trusted Advisor"
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "Correcto. Los paquetes de conformidad de AWS Config son un conjunto de normas de AWS Config y acciones de resolución de problemas que se pueden implementar de manera sencilla como una entidad única en una cuenta y una región o en la totalidad de una organización en AWS Organizations. Para obtener más información sobre los paquetes de conformidad de AWS Config, consulte Paquetes de conformidad. https://docs.aws.amazon.com/config/latest/developerguide/conformance-packs.html Para obtener más información sobre AWS Config, consulte ¿Qué es AWS Config? https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html"
+    },
+    {
+      "id": "q2",
+      "text": "Un equipo tiene una aplicación que detecta cuándo se cargan nuevos objetos en un bucket de Amazon S3. Las cargas invocan una función de AWS Lambda para escribir metadatos de objetos en una tabla de Amazon DynamoDB y en una base de datos de Amazon RDS for PostgreSQL. ¿Qué acciones debería realizar el equipo para garantizar la alta disponibilidad?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Crear una función Lambda para cada zona de disponibilidad en la que se implementa la aplicación."
+        },
+        {
+          "id": "b",
+          "text": "Habilitar la replicación entre regiones en el bucket de S3."
+        },
+        {
+          "id": "c",
+          "text": "Crear una transmisión de DynamoDB para la tabla de DynamoDB."
+        },
+        {
+          "id": "d",
+          "text": "Habilitar Multi-AZ en la base de datos de RDS for PostgreSQL."
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Correcto. De forma predeterminada, Amazon RDS se implementa en una única zona de disponibilidad. Multi-AZ es la opción estándar para proporcionar alta disponibilidad. En una configuración Multi-AZ, las instancias de base de datos de RDS se replican de forma sincrónica en otras zonas de disponibilidad para proporcionar alta disponibilidad y soporte de conmutación por error. Para obtener más información sobre las implementaciones Multi-AZ de RDS, consulte Alta disponibilidad (Multi-AZ) para Amazon RDS. https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html"
+    },
+    {
+      "id": "q3",
+      "text": "Una empresa utiliza conexiones de AWS Site-to-Site VPN para una conectividad segura a los recursos de AWS Cloud desde ubicaciones en las instalaciones. Debido al aumento en el tráfico entre las conexiones de VPN a las instancias de Amazon EC2, los usuarios experimentan una conectividad de VPN más lenta. El equipo de red informa que la conexión a Internet utilizada para la VPN tiene un rendimiento adicional no utilizado. ¿Qué solución mejorará el rendimiento de la VPN?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Configurar una gateway privada virtual con enrutamiento de múltiples rutas de igual costo y varios canales."
+        },
+        {
+          "id": "b",
+          "text": "Aumentar el número de túneles en la configuración de VPN."
+        },
+        {
+          "id": "c",
+          "text": "Utilizar una transit gateway con enrutamiento de múltiples rutas de igual costo y agregar túneles de VPN adicionales."
+        },
+        {
+          "id": "d",
+          "text": "Implementar varias gateways de clientes para la misma red."
+        }
+      ],
+      "correctAnswers": [
+        "c"
+      ],
+      "explanation": "Correcto. El rendimiento máximo de una conexión de Site-to-Site VPN es de 1,25 Gbps. Si se necesita un mayor rendimiento, se podría utilizar el enrutamiento de múltiples rutas (ECMP) de igual costo. El enrutamiento ECMP está disponible para conexiones de VPN adjuntas a una transit gateway. Con el enrutamiento ECMP, se pueden agregar varias conexiones de VPN para lograr un rendimiento más efectivo. Para obtener más información sobre ECMP y otras opciones de enrutamiento, consulte Opciones de enrutamiento de Site-to-Site VPN. https://docs.aws.amazon.com/vpn/latest/s2svpn/VPNRoutingTypes.html"
+    },
+    {
+      "id": "q4",
+      "text": "Un equipo de aplicaciones ha comenzado a utilizar Amazon EMR para ejecutar trabajos por lotes con conjuntos de datos ubicados en Amazon S3. Durante la prueba inicial de la carga de trabajo, un arquitecto de soluciones observa que la cuenta está comenzando a acumular costos de procesamiento de datos de gateway NAT. ¿Cómo puede el equipo optimizar el costo de la carga de trabajo?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Configurar una ACL de red en las subredes en las que se ejecutan los clústeres de Amazon EMR para acceso abierto a Amazon S3."
+        },
+        {
+          "id": "b",
+          "text": "Desconectar la gateway NAT de la subred en la que se ejecutan los clústeres de Amazon EMR."
+        },
+        {
+          "id": "c",
+          "text": "Sustituir la gateway NAT por una gateway de cliente."
+        },
+        {
+          "id": "d",
+          "text": "Sustituir la gateway NAT por un punto de enlace de la VPC de S3."
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Correcto. Un punto de enlace de la VPC de S3 es un punto de enlace de gateway que no incurre en cargos por el tráfico a Amazon S3. Para obtener más información sobre los puntos de enlace de la VPC de gateway, consulte Precios de los puntos de enlace de gateway https://docs.aws.amazon.com/vpc/latest/userguide/vpce-gateway.html#gateway-endpoint-pricing"
+    },
+    {
+      "id": "q5",
+      "text": "Una empresa tiene previsto utilizar Amazon S3 para almacenar imágenes cargadas por sus usuarios. Las imágenes se deben cifrar en reposo en Amazon S3. La empresa no quiere perder tiempo en la administración y la rotación de las claves, pero sí quiere controlar quién puede acceder a ellas. ¿Qué debería usar un arquitecto de soluciones para lograrlo?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Cifrado del lado del servidor con claves proporcionadas por el cliente (SSE-C)"
+        },
+        {
+          "id": "b",
+          "text": "Cifrado del lado del servidor con claves administradas de AWS KMS (SSE-KMS)"
+        },
+        {
+          "id": "c",
+          "text": "Cifrado del lado del servidor con claves de cifrado almacenadas en un bucket de S3"
+        },
+        {
+          "id": "d",
+          "text": "Cifrado del lado del servidor con claves de cifrado almacenadas en el almacén de parámetros de AWS Systems Manager"
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "Correcto. SSE-KMS usa AWS Key Management Service (AWS KMS) para crear, administrar, rotar y controlar el acceso a las claves de cifrado. Para más información sobre SSE-KMS, consulte Uso del cifrado del servidor con claves de AWS KMS (SSE-KMS) . Para más información sobre AWS KMS, consulte AWS Key Management Service ."
+    },
+    {
+      "id": "q6",
+      "text": "Un arquitecto de bases de datos diseña una aplicación de juegos en línea que utiliza un formato de datos simple y no estructurado. La base de datos debe tener la capacidad de almacenar información del usuario y hacer un seguimiento del progreso de cada usuario. La base de datos debe tener la capacidad de escalar a millones de usuarios a lo largo de la semana. ¿Qué servicio de base de datos cumplirá estos requisitos con la MENOR cantidad de soporte operativo?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Amazon DynamoDB"
+        },
+        {
+          "id": "b",
+          "text": "Amazon Neptune"
+        },
+        {
+          "id": "c",
+          "text": "Las zonas de disponibilidad múltiples (Multi-AZ) de Amazon RDS"
+        },
+        {
+          "id": "d",
+          "text": "Amazon Aurora"
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "Correcto. DynamoDB es un servicio de base de datos NoSQL rápido y flexible para un rendimiento de milisegundos de un solo dígito y a cualquier escala. DynamoDB admite plataformas de juegos con datos de usuario, historial de sesiones y tablas de clasificación para millones de usuarios simultáneos. Para obtener más información sobre DynamoDB, consulte Amazon DynamoDB ."
+    },
+    {
+      "id": "q7",
+      "text": "Un administrador quiere aplicar una política basada en recursos y denominada \"iam-policy-testbucket\" al S3 Bucket para restringir el acceso y permitir que las cuentas solo escriban objetos en el bucket. Cuando el administrador intenta aplicar la siguiente política al bucket \"iam-policy-testbucket\", el S3 Bucket presenta un error. { \"Version\": \"2012-10-17\", \"Id\": \"Policy1646946718956\", \"Statement\": [ { \"Sid\": \"Stmt1646946717210\", \"Effect\": \"Allow\", \"Action\": \"s3:PutObject\", \"Resource\": \"arn:aws:s3:::iam-policy-testbucket/*\" } ]} ¿Cómo puede el administrador corregir la política para resolver el error y aplicarla correctamente?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Cambiar el elemento Action de s3:PutObject a s3:\\*."
+        },
+        {
+          "id": "b",
+          "text": "Cambiar el elemento Resource a NotResource."
+        },
+        {
+          "id": "c",
+          "text": "Agregar un elemento Principal a la política para declarar qué cuentas tienen acceso."
+        },
+        {
+          "id": "d",
+          "text": "Eliminar el elemento Resource, ya que no es necesario para las políticas basadas en recursos."
+        }
+      ],
+      "correctAnswers": [
+        "c"
+      ],
+      "explanation": "Correcto. Las políticas basadas en recursos deben incluir un elemento Principal en la política. Para obtener más información sobre las políticas basadas en recursos, consulte Resource-Based Policies (Políticas basadas en recursos)."
+    },
+    {
+      "id": "q8",
+      "text": "Una empresa diseña una aplicación móvil para que sus clientes carguen fotografías en un sitio web. La aplicación necesita un inicio de sesión seguro con autenticación multifactor (MFA). La empresa quiere limitar el tiempo de creación inicial y el mantenimiento de la solución. ¿Qué solución debería recomendar un arquitecto de soluciones para cumplir estos requisitos?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Utilizar Identidad de Amazon Cognito con MFA basada en SMS."
+        },
+        {
+          "id": "b",
+          "text": "Federar IAM contra el Active Directory corporativo que solicita MFA."
+        },
+        {
+          "id": "c",
+          "text": "Utilizar Amazon API Gateway y solicitar cifrado del lado del servidor (SSE) para las fotografías."
+        },
+        {
+          "id": "d",
+          "text": "Editar las políticas de IAM para solicitar MFA a todos los usuarios."
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "Correcto. Los grupos de usuarios de Amazon Cognito son directorios de usuarios que proporcionan opciones de registro e inicio de sesión para usuarios web y usuarios de aplicaciones móviles. Se puede agregar MFA a los grupos de usuarios de Amazon Cognito para una validación secundaria. Para obtener más información sobre Amazon Cognito, consulte Situaciones comunes de Amazon Cognito. https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-scenarios.html Para obtener más información sobre mensajes de texto SMS de MFA para los usuarios, consulte MFA por mensaje de texto SMS. https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-mfa-sms-text-message.html"
+    },
+    {
+      "id": "q9",
+      "text": "Una empresa tiene una aplicación con buena arquitectura que transmite datos de audio mediante UDP en la nube de AWS. La empresa aloja la aplicación en la región eu-central-1. La empresa planea ofrecer servicios a los usuarios de América del Norte. Un Solutions Architect debe mejorar el rendimiento de la red de aplicaciones para los usuarios de América del Norte. ¿Cuál de las siguientes opciones es la solución MÁS rentable?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Utilizar AWS CloudFormation para implementar una infraestructura de aplicaciones adicional en las regiones us-east-1 y us-west-1."
+        },
+        {
+          "id": "b",
+          "text": "Crear una distribución de Amazon CloudFront y utilizar las clases de precios de América del Norte (Estados Unidos, México, Canadá) y Europa e Israel."
+        },
+        {
+          "id": "c",
+          "text": "Configurar la aplicación para usar una política de enrutamiento basada en la latencia de Amazon Route 53."
+        },
+        {
+          "id": "d",
+          "text": "Crear un acelerador estándar de AWS Global Accelerator con un grupo de puntos de enlace en eu-central-1."
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Correcto. Global Accelerator mejora el rendimiento de la red TCP y UDP para los usuarios de todo el mundo, incluso si una empresa aloja una aplicación en una sola región. Global Accelerator dirige el tráfico de aplicaciones a su ubicación perimetral más cercana. El tráfico viaja a través de la red global de AWS, que es redundante, está bien monitoreada y no tiene congestiones, hasta el punto de enlace. Global Accelerator optimiza la ruta de la red al maximizar el tiempo que el tráfico permanece en la red de AWS. Para obtener más información sobre los grupos de punto de enlace de Global Accelerator, consulte Work with Standard Accelerators in AWS Global Accelerator (Trabajo con aceleradores estándar en AWS Global Accelerator) ."
+    },
+    {
+      "id": "q10",
+      "text": "Un entorno tiene un grupo de Auto Scaling en dos zonas de disponibilidad denominadas AZ-a y AZ-b. AZ-a tiene cuatro instancias de Amazon EC2 y AZ-b tiene tres instancias EC2. El grupo de Auto Scaling utiliza una política de terminación predeterminada. Ninguna de las instancias esta protegida contra un evento de reducción de instancias ¿Cómo procederá Auto Scaling si hay un evento de reducción horizontal?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Auto Scaling selecciona una instancia para terminar de manera aleatoria."
+        },
+        {
+          "id": "b",
+          "text": "Auto Scaling termina la instancia con la siguiente hora de facturación más cercana de todas las instancias."
+        },
+        {
+          "id": "c",
+          "text": "Auto Scaling selecciona la zona de disponibilidad con cuatro instancias EC2 y, a continuación, continúa evaluando."
+        },
+        {
+          "id": "d",
+          "text": "Auto Scaling termina la instancia con la configuración de lanzamiento más antigua de todas las instancias."
+        }
+      ],
+      "correctAnswers": [
+        "c"
+      ],
+      "explanation": "Correcto. La política de terminación predeterminada ayuda a garantizar que las instancias se distribuyan de manera uniforme entre las zonas de disponibilidad para lograr una alta disponibilidad. Esta acción es el punto de partida de la política de terminación predeterminada si las zonas de disponibilidad tienen un número desigual de instancias y las instancias no tienen protección. Para obtener más información sobre la política de terminación predeterminada, consulte Control de qué instancias de Auto Scaling terminan durante la reducción horizontal. https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#default-termination-policy"
+    },
+    {
+      "id": "q11",
+      "text": "Una empresa aloja su sitio web en AWS. Para abordar la demanda altamente variable, la empresa ha implementado Amazon EC2 Auto Scaling. A la administración le preocupa que la empresa sobreaprovisione su infraestructura, especialmente en el frontend de la aplicación de tres niveles. Un Solutions Architect debe garantizar que los costos se optimicen sin afectar el rendimiento. ¿Qué debería hacer el Solutions Architect para lograrlo?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Utilizar el Auto Scaling con la característica de suspensión-reanudación."
+        },
+        {
+          "id": "b",
+          "text": "Utilizar el Auto Scaling con una política de escalado de seguimiento de destino."
+        },
+        {
+          "id": "c",
+          "text": "Utilizar el Auto Scaling con una política de escalado programada."
+        },
+        {
+          "id": "d",
+          "text": "Utilizar el Auto Scaling con instancias reservadas."
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "Correcto. Una política de escalado de seguimiento de destino crea y administra las alarmas de Amazon CloudWatch que invocan la política de escalado. Una política de escalado de seguimiento de destino también calcula el ajuste de escalado en función de la métrica y el valor de destino. Para obtener más información sobre las políticas de escalado de seguimiento de objetivos para EC2 Auto Scaling, consulte Políticas de escalado de seguimiento de destino para Amazon EC2 Auto Scaling ."
+    },
+    {
+      "id": "q12",
+      "text": "Una empresa está desarrollando una solución de lago de datos en Amazon S3 para analizar conjuntos de datos a gran escala. La solución solo realiza consultas SQL poco frecuentes. Además, la empresa quiere minimizar los costos de infraestructura. ¿Qué servicio de AWS se debería utilizar para cumplir estos requisitos?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Amazon Redshift Spectrum"
+        },
+        {
+          "id": "b",
+          "text": "Amazon Aurora"
+        },
+        {
+          "id": "c",
+          "text": "Amazon Athena"
+        },
+        {
+          "id": "d",
+          "text": "Amazon RDS for PostgreSQL"
+        }
+      ],
+      "correctAnswers": [
+        "c"
+      ],
+      "explanation": "Correcto. Con Athena, se pueden ejecutar consultas SQL directamente con los datos almacenados en Amazon S3 sin aprovisionar ninguna infraestructura. Athena es sin servidor. No hay que administrar ninguna infraestructura y solo se paga por las consultas que se ejecutan. Esta solución es la opción más rentable porque la empresa solo necesita realizar consultas de manera periódica. Para obtener más información sobre Athena, consulte Amazon Athena. https://aws.amazon.com/athena/"
+    },
+    {
+      "id": "q13",
+      "text": "Un usuario está diseñando un nuevo servicio que recibe actualizaciones de ubicación de 3600 automóviles de alquiler por hora. Los automóviles cargan su ubicación en un bucket de Amazon S3. Se debe verificar la distancia de cada ubicación con respecto a la ubicación de alquiler original. ¿Qué servicios procesarán las actualizaciones y escalarán automáticamente?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Amazon Kinesis Data Firehose y Amazon S3"
+        },
+        {
+          "id": "b",
+          "text": "Eventos de Amazon S3 y AWS Lambda"
+        },
+        {
+          "id": "c",
+          "text": "Amazon EC2 y Amazon Elastic Block Store (Amazon EBS)"
+        },
+        {
+          "id": "d",
+          "text": "Amazon Elastic Container Service (Amazon ECS) y Amazon RDS"
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "Correcto. Cuando se coloca un objeto en un bucket de S3, esa acción debe invocar una acción que calcula la distancia desde el automóvil hasta la ubicación de alquiler original. Las notificaciones de eventos de S3 llaman a la función Lambda y Lambda ejecuta el código para realizar el cálculo. Para obtener más información sobre las notificaciones de eventos de S3, consulte Notificaciones de eventos de Amazon S3 . Para obtener más información sobre cómo crear un procesamiento de eventos confiable con las notificaciones de eventos de S3, consulte Procesamiento confiable de eventos con notificaciones de eventos de Amazon S3 ."
+    },
+    {
+      "id": "q14",
+      "text": "Una empresa tiene una aplicación que se ejecuta como servicio en Amazon Elastic Container Service (Amazon ECS) mediante el tipo de lanzamiento de Amazon EC2. El código de la aplicación realiza llamadas a la API de AWS para publicar mensajes en Amazon Simple Queue Service (Amazon SQS). ¿Cuál es el método MÁS seguro para otorgar permiso a la aplicación a fin de publicar mensajes en Amazon SQS?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Crear un nuevo rol de IAM con permisos SQS. A continuación, actualizar la definición de tarea a fin de utilizar el rol para la configuración del rol de tarea."
+        },
+        {
+          "id": "b",
+          "text": "Crear un nuevo usuario de IAM con permisos SQS. A continuación, actualizar la definición de la tarea para declarar la ID de clave de acceso y la clave de acceso secreta como variables del entorno."
+        },
+        {
+          "id": "c",
+          "text": "Utilizar AWS Identity and Access Management (IAM) para conceder permisos SQS al rol utilizado por la configuración de lanzamiento para el grupo de Auto Scaling del clúster ECS."
+        },
+        {
+          "id": "d",
+          "text": "Actualizar el grupo de seguridad utilizado por el clúster de ECS para permitir el acceso a Amazon SQS."
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "Correcto. La creación de un nuevo rol de IAM (basado en la plantilla mínima de roles de tareas de Amazon Elastic Container Service) garantiza que solo los contenedores creados con esta tarea recibirán acceso a Amazon SQS. Para obtener más información sobre los roles de IAM para tareas, consulte Roles de IAM para tareas. https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html"
+    },
+    {
+      "id": "q15",
+      "text": "Una empresa necesita implementar una base de datos relacional con un objetivo de punto de recuperación (RPO) multirregional de recuperación de desastres de 1 segundo y un objetivo de tiempo de recuperación (RTO) de 1 minuto. ¿Qué solución de AWS puede lograrlo?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Tablas globales de Amazon DynamoDB"
+        },
+        {
+          "id": "b",
+          "text": "Amazon RDS para MySQL con una copia instantánea entre regiones"
+        },
+        {
+          "id": "c",
+          "text": "Base de datos global de Amazon Aurora"
+        },
+        {
+          "id": "d",
+          "text": "Amazon RDS para MySQL con Multi-AZ activado"
+        }
+      ],
+      "correctAnswers": [
+        "c"
+      ],
+      "explanation": "Correcto. Esta solución proporciona a su aplicación un RPO efectivo de 1 segundo y un RTO de menos de 1 minuto. Para obtener más información sobre la base de datos global de Aurora, consulte Uso de la base de datos global de Amazon Aurora ."
+    },
+    {
+      "id": "q16",
+      "text": "Un Solutions Architect diseña una aplicación segura basada en la nube que usa instancias Amazon EC2 dentro de una VPC. La aplicación utiliza otros servicios de AWS admitidos dentro de la misma región. El tráfico de red entre las instancias y los servicios de AWS debe permanecer privado y no debe viajar por la Internet pública. ¿Qué servicio o recurso cumplirá con los requisitos de seguridad con la MAYOR eficiencia operativa?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Gateway NAT"
+        },
+        {
+          "id": "b",
+          "text": "Gateway de internet"
+        },
+        {
+          "id": "c",
+          "text": "AWS Direct Connect"
+        },
+        {
+          "id": "d",
+          "text": "Punto de enlace de VPC"
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Correcto. Los puntos de enlace de la VPC son dispositivos virtuales que hacen posible la comunicación entre los servicios de la VPC y los servicios de AWS compatibles sin necesidad de utilizar la Internet pública. Esta solución proporciona una ruta privada entre la VPC y otros servicios de AWS. Para obtener más información sobre los puntos de enlace de la VPC, consulte AWS PrivateLink Concepts (Conceptos de AWS PrivateLink) ."
+    },
+    {
+      "id": "q17",
+      "text": "Un Solutions Architect de una empresa de comercio electrónico quiere almacenar datos de registro de aplicaciones mediante Amazon S3. El Solutions Architect no sabe con qué frecuencia se accederá a los registros ni cuáles serán los más consultados. La empresa quiere mantener los costos lo más bajos posible con el uso de la clase de almacenamiento de S3 adecuada. ¿Qué clase de almacenamiento de S3 se debe implementar para cumplir estos requisitos?",
+      "options": [
+        {
+          "id": "a",
+          "text": "S3 Intelligent-Tiering"
+        },
+        {
+          "id": "b",
+          "text": "S3 One Zone-Acceso poco frecuente (S3 One Zone-IA)"
+        },
+        {
+          "id": "c",
+          "text": "S3 Glacier Flexible Retrieval (antes S3 Glacier)"
+        },
+        {
+          "id": "d",
+          "text": "S3 Standard - Acceso poco frecuente (S3 Standard-IA)"
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "Correcto. S3 Intelligent-Tiering mueve automáticamente los datos al nivel de acceso más rentable con base la frecuencia de acceso, lo que proporciona un ahorro de costos automático para los datos con patrones de acceso desconocidos o variables. Y lo hace sin cargos de recuperación, impacto en el rendimiento ni sobrecarga operativa. S3 Intelligent-Tiering supervisa los patrones de acceso y mueve los objetos a los que no se ha accedido durante 30 días consecutivos al nivel Infrequent Access. Tras 90 días sin acceso, S3 Intelligent-Tiering mueve los datos al nivel Archive Instant Access. En los datos que no requieren recuperación inmediata, puede configurar S3 Intelligent-Tiering para supervisar y mover automáticamente los objetos a los que no se tuvo acceso durante 180 días o más al nivel Deep Archive Access para lograr hasta un 95 % de ahorro en los costos de almacenamiento. Para obtener más información sobre las clases de almacenamiento de objetos de S3, consulte Clases de almacenamiento de Amazon S3 ."
+    },
+    {
+      "id": "q18",
+      "text": "Una empresa aloja una aplicación web popular. La aplicación web se conecta a una base de datos que se ejecuta en una subred de VPC privada. Los servidores web deben ser accesibles solo para los clientes en una conexión SSL. El servidor de base de datos Amazon RDS for MySQL debe ser accesible solo desde los servidores web. ¿Cómo debería diseñar un arquitecto de soluciones una solución para cumplir los requisitos sin afectar las aplicaciones en ejecución?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Crear una ACL de red en la subred del servidor web y permitir la entrada HTTPS y la salida de MySQL. Colocar la base de datos y los servidores web en la misma subred."
+        },
+        {
+          "id": "b",
+          "text": "Abrir el puerto MySQL en el grupo de seguridad para servidores web y establecer la fuente como 0.0.0.0/0. Abrir el puerto HTTPS del grupo de seguridad de la base de datos y adjuntarlo a la instancia de MySQL. Establecer la fuente en el grupo de seguridad del servidor web."
+        },
+        {
+          "id": "c",
+          "text": "Crear una ACL de red en la subred del servidor web, permitir la entrada HTTPS y especificar la fuente como 0.0.0.0/0. Crear una ACL de red en una subred de base de datos, permitir la entrada de puertos MySQL para servidores web y denegar todo el tráfico saliente."
+        },
+        {
+          "id": "d",
+          "text": "Abrir un puerto HTTPS en el grupo de seguridad para servidores web y establecer la fuente como 0.0.0.0/0. Abrir el puerto MySQL en el grupo de seguridad de la base de datos y adjuntarlo a la instancia de MySQL. Establecer la fuente en el grupo de seguridad del servidor web."
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Correcto. Si se deja la base de datos en una subred privada y el servidor web en una subred pública, se restringe el acceso a Internet solo al servidor de aplicaciones. Un grupo de seguridad para cada nivel exige el acceso con menos privilegios. Los grupos de seguridad son grupos con estado. Por lo tanto, si se abre una ruta, la ruta de retorno también está abierta. Para obtener más información sobre los grupos de seguridad, consulte Grupos de seguridad de la VPC. https://docs.aws.amazon.com/vpc/latest/userguide/VPC\\_SecurityGroups.html Para obtener más información sobre las ACL de red, consulte ACL de red. https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html Para obtener más información sobre las diferencias entre las ACL de red y los grupos de seguridad, consulte Privacidad del tráfico entre redes en Amazon VPC. https://docs.aws.amazon.com/vpc/latest/userguide/VPC\\_Security.html"
+    },
+    {
+      "id": "q19",
+      "text": "Una aplicación que se ejecuta en AWS Lambda requiere una clave de API para acceder a un servicio de terceros. La clave debe almacenarse de forma segura con acceso auditado solo a la función Lambda. ¿Cuál es la forma MÁS segura de guardar la clave?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Como una cadena segura en AWS Systems Manager Parameter Store"
+        },
+        {
+          "id": "b",
+          "text": "Como un objeto en Amazon S3"
+        },
+        {
+          "id": "c",
+          "text": "Dentro de un archivo de secretos almacenado en Amazon EFS"
+        },
+        {
+          "id": "d",
+          "text": "Dentro de un archivo de un volumen de Amazon EBS adjunto a la función de Lambda"
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "Correcto. Parameter Store proporciona un almacenamiento seguro y jerárquico para administrar los datos de configuración y los secretos. Se pueden almacenar datos como contraseñas, cadenas de base de datos, ID de Amazon Machine Image (AMI) y códigos de licencia como valores de parámetros. Se pueden almacenar valores como texto sin formato o como datos cifrados. Se pueden referenciar parámetros de Systems Manager en los scripts, comandos, documentos de Systems Manager y flujos de trabajo de configuración y automatización con el uso del nombre único que se especifico al crear el parámetro. Para obtener más información sobre Parameter Store, consulte AWS Systems Manager Parameter Store . Para obtener más información sobre cómo se utiliza Parameter Store de AWS Key Management Service (AWS KMS), consulte Cómo AWS Systems Manager Parameter Store utiliza AWS KMS ."
+    },
+    {
+      "id": "q20",
+      "text": "Un arquitecto de soluciones diseña una aplicación elástica que tendrá entre 10 y 50 instancias simultáneas de Amazon EC2 en ejecución, según la carga. En cada instancia se debe montar un almacenamiento en el que se pueda leer y escribir en la misma carpeta de 50 GB. ¿Qué tipo de almacenamiento cumple los requisitos?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Amazon S3"
+        },
+        {
+          "id": "b",
+          "text": "Amazon Elastic File System (Amazon EFS)"
+        },
+        {
+          "id": "c",
+          "text": "Volúmenes de Amazon Elastic Block Store (Amazon EBS)"
+        },
+        {
+          "id": "d",
+          "text": "Almacén de instancias Amazon EC2"
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "Correcto. Amazon EFS proporciona un sistema de archivos NFS elástico, escalable y completamente administrado para su uso con los servicios de la nube de AWS y los recursos en las instalaciones. Varias instancias de EC2 pueden leer y escribir en un sistema de archivos EFS al mismo tiempo. Amazon EFS proporciona una fuente de datos común para cargas de trabajo y aplicaciones que se ejecutan en más de una instancia o servidor. Para más información sobre Amazon EFS, consulte ¿Qué es Amazon Elastic File System? ."
+    },
+    {
+      "id": "q21",
+      "text": "Una empresa crea una aplicación web de tres niveles que consta de un servidor web, un servidor de aplicaciones y un servidor de base de datos. La aplicación rastreará las coordenadas GPS de los paquetes a medida que se entreguen. La aplicación actualizará la base de datos cada 0,5 segundos. El seguimiento deberá leerse lo más rápido posible para que los usuarios puedan comprobar el estado de sus paquetes. Solo se puede hacer seguimiento de unos pocos paquetes en algunos días, mientras que se puede rastrear a millones de paquetes en otros. El seguimiento se tendrá que poder buscar mediante ID de seguimiento, de cliente y de pedido. Ya no es necesario hacer un seguimiento de los pedidos de más de 1 mes. ¿Qué debe recomendar un Solutions Architect para lograrlo con un costo total de propiedad mínimo?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Utilizar una instancia bajo demanda de Amazon RDS con IOPS provisionadas (PIOPS). Configurar las alarmas de Amazon CloudWatch para enviar notificaciones cuando se superen los PIOPS. Aumentar y disminuir los PIOPS según sea necesario."
+        },
+        {
+          "id": "b",
+          "text": "Utilizar una instancia reservada de Amazon RDS con IOPS provisionadas (PIOPS). Configurar las alarmas de Amazon CloudWatch para enviar notificaciones cuando se superen los PIOPS. Aumentar y disminuir los PIOPS según sea necesario."
+        },
+        {
+          "id": "c",
+          "text": "Utilizar Amazon DynamoDB con índices secundarios globales. Activar el Auto Scaling para la tabla de DynamoDB y los índices secundarios globales. Activar TTL para la tabla de DynamoDB."
+        },
+        {
+          "id": "d",
+          "text": "Utilizar Amazon DynamoDB. Activar el Auto Scaling para la tabla de DynamoDB. Programar una secuencia de comandos de eliminación automática para los elementos de más de 1 mes."
+        }
+      ],
+      "correctAnswers": [
+        "c"
+      ],
+      "explanation": "Correcto. DynamoDB es la mejor opción debido a las altas tasas de lectura y escritura. Los índices secundarios globales admitirán escaneos y consultas a un costo mínimo. El Auto Scaling sería una forma más eficiente de administrar la capacidad a medida que cambie la demanda. Además, puede ayudar a minimizar los costos de almacenamiento al establecer un TTL para los artículos. Para obtener más información sobre los índices secundarios globales, consulte Consulta de un índice secundario global . Para obtener más información sobre el Auto Scaling, consulte Administración automática de la capacidad de rendimiento con el Auto Scaling de DynamoDB . Para obtener más información sobre el TTL, consulte Vencimiento de elementos mediante el periodo de vida (TTL) de DynamoDB ."
+    },
+    {
+      "id": "q22",
+      "text": "Un Solutions Architect descubre que un clúster de Amazon Aurora con precios de instancias bajo demanda se infrautiliza en una aplicación de blog. La aplicación se usa para las lecturas, tan solo unos minutos, varias veces al día. ¿Qué debe hacer un Solutions Architect para optimizar la utilización de manera MÁS rentable?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Refactorizar la aplicación de blog para usar la consulta paralela de Aurora."
+        },
+        {
+          "id": "b",
+          "text": "Convertir la base de datos de Aurora original en Amazon Aurora Serverless."
+        },
+        {
+          "id": "c",
+          "text": "Convertir la base de datos de Aurora original en una base de datos global de Aurora."
+        },
+        {
+          "id": "d",
+          "text": "Activar el Auto Scaling en la base de datos de Aurora original."
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "Correcto. Si usa Aurora Serverless, paga solo por los recursos de base de datos que consume por segundo. Para obtener más información sobre los casos de uso de Aurora Serverless, consulte Uso de Amazon Aurora Serverless v2 ."
+    },
+    {
+      "id": "q23",
+      "text": "En el explorador de costos, se muestran cargos más altos que los esperados para los volúmenes de Amazon Elastic Block Store (Amazon EBS) conectados a los servidores de aplicaciones de una cuenta de producción. Muchos de los cargos de Amazon EBS proceden de volúmenes creados como tipos de volumen SSD de IOPS provisionadas (io2). El control de costos es la máxima prioridad para esta aplicación. ¿Qué pasos debería realizar el usuario para analizar y reducir los costos de EBS sin incurrir en tiempo de inactividad de la aplicación?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Utilizar la acción ModifyVolume de Amazon EC2 para reducir el tamaño de los volúmenes de io2 poco utilizados."
+        },
+        {
+          "id": "b",
+          "text": "Utilizar la acción ModifyVolume de Amazon EC2 para cambiar el tipo de volumen de los volúmenes de io2 poco utilizados a SSD de uso general (gp3)."
+        },
+        {
+          "id": "c",
+          "text": "Utilizar la acción ModifyInstanceAttribute de Amazon EC2 para habilitar la optimización de EBS en las instancias del servidor de aplicaciones."
+        },
+        {
+          "id": "d",
+          "text": "Utilizar la acción GetMetricData de Amazon CloudWatch para evaluar las operaciones de lectura y escritura, y los bytes de lectura y escritura de cada volumen."
+        },
+        {
+          "id": "e",
+          "text": "Utilizar una acción PutBucketPolicy de Amazon S3 para migrar instantáneas de volumen existentes a Amazon S3 Glacier Flexible Retrieval."
+        }
+      ],
+      "correctAnswers": [
+        "b",
+        "d"
+      ],
+      "explanation": "Correcto. Se puede realizar un cambio con la acción ModifyVolume de EC2 sin incurrir en tiempo de inactividad del volumen. En primer lugar, se debe utilizar CloudWatch para obtener las métricas de los volúmenes de io2 poco utilizados. A continuación, se debe utilizar ModifyVolume para cambiar de io2 a gp3 y reducir los costos. Para más información sobre cómo solicitar modificaciones a los volúmenes de EBS, consulte Solicitar modificaciones a los volúmenes de EBS. https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/requesting-ebs-volume-modifications.html Correcto. La acción GetMetricData de CloudWatch puede mostrar las IOPS y el rendimiento de un volumen de io2 para ayudar a determinar si es una buena opción modificar el volumen de io2 a un tipo de volumen de menor costo. Para más información sobre las características de E/S y la supervisión, consulte Características de E/S y monitoreo. https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-io-characteristics.html"
+    },
+    {
+      "id": "q24",
+      "text": "Una empresa está diseñando un sitio web que se alojará en Amazon S3. ¿Cómo se debería evitar que los usuarios se vinculen directamente a los activos del bucket de S3?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Crear una distribución de Amazon CloudFront con un _origin access control_ (OAC, control de acceso de origen) y actualizar la política del bucket para conceder permiso únicamente al OAC."
+        },
+        {
+          "id": "b",
+          "text": "Crear un sitio web estático y, a continuación, actualizar la política del bucket para solicitar a los usuarios que accedan a los recursos con la URL estática del sitio web."
+        },
+        {
+          "id": "c",
+          "text": "Crear una distribución de Amazon CloudFront con una ACL web de AWS WAF que permita el acceso al servidor de origen solo a través de la distribución."
+        },
+        {
+          "id": "d",
+          "text": "Crear un sitio web estático y, a continuación, configurar un conjunto de registros de Amazon Route 53 con un alias que apunte al sitio web estático. Proporcionar esta URL a los usuarios."
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "Correcto. Para restringir el acceso a los activos de los buckets de S3, puede crear un OAC y asociarlo a la distribución del sitio web. Se configurarían los permisos del bucket de S3 para que CloudFront pueda utilizar el OAC para acceder a los archivos del bucket de S3 y entregar los archivos a los usuarios. Luego, los usuarios pueden acceder a los archivos estáticos del sitio web solo a través de CloudFront, no directamente desde el bucket de S3. Para más información sobre cómo usar un OAC para restringir el acceso al contenido de S3, consulte Restricción del acceso a un origen de Amazon S3 ."
+    },
+    {
+      "id": "q25",
+      "text": "Durante una revisión de las aplicaciones empresariales, un arquitecto de soluciones identifica una aplicación crítica con una base de datos relacional que fue creada por un usuario empresarial y que se ejecuta en el escritorio del usuario. Para reducir el riesgo de interrupción del negocio, el arquitecto de soluciones quiere migrar la aplicación a una solución de varios niveles de alta disponibilidad en AWS. ¿Qué debería hacer el arquitecto de soluciones para lograrlo con la MENOR cantidad de interrupciones al negocio?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Preconfigurar nuevas instancias de Amazon EC2 que ejecuten el código de la aplicación en AWS tras un Balanceador de carga de aplicaciones y una instancia de base de datos Multi-AZ de Amazon RDS."
+        },
+        {
+          "id": "b",
+          "text": "Crear una imagen del escritorio del usuario y migrar a Amazon EC2 con VM Import. Colocar la instancia EC2 en un grupo de Auto Scaling."
+        },
+        {
+          "id": "c",
+          "text": "Crear un paquete de importación del código de aplicación para cargarlo en AWS Lambda e incluir una función para crear otra función Lambda para migrar datos a una base de datos de Amazon RDS."
+        },
+        {
+          "id": "d",
+          "text": "Utilizar AWS Database Migration Service (AWS DMS) para migrar la base de datos de backend a una instancia de base de datos Multi-AZ de Amazon RDS. Migrar el código de aplicación a AWS Elastic Beanstalk."
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Correcto. Se puede utilizar AWS DMS para realizar una migración de base de datos en segundo plano. La transición es mínima porque AWS DMS mantiene la base de datos sincronizada. Elastic Beanstalk y Amazon RDS son servicios administrados y se pueden configurar para obtener alta disponibilidad con una implementación Multi-AZ. Con Elastic Beanstalk, se puede implementar y administrar aplicaciones rápidamente en AWS Cloud sin tener que preocuparse por la infraestructura que las ejecuta. Elastic Beanstalk reduce la complejidad de la administración sin restringir la libertad de elección ni el control. Una vez que se carga la aplicación, Elastic Beanstalk gestiona de manera automática los detalles de aprovisionamiento de capacidad, equilibrio de carga, escalado y monitoreo del estado de la aplicación. Para obtener más información, consulte Cómo funciona AWS Database Migration Services. https://docs.aws.amazon.com/dms/latest/userguide/CHAP\\_Introduction.html Para obtener más información, consulte Alta disponibilidad (Multi-AZ) para Amazon RDS. https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html Para obtener más información, consulte ¿Qué es AWS Elastic Beanstalk? https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html"
+    },
+    {
+      "id": "q26",
+      "text": "Una empresa lleva a cabo una revisión del marco de AWS Well-Architected de una carga de trabajo existente implementada en AWS. La revisión identificó un sitio web público que se ejecutaba en la misma instancia Amazon EC2 que un controlador de dominio de Microsoft Active Directory que se instaló recientemente para admitir otros servicios de AWS. Un arquitecto de soluciones tiene recomendar un nuevo diseño que mejore la seguridad de la arquitectura y minimice la demanda administrativa del personal de TI. ¿Qué debería recomendar el arquitecto de soluciones?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Cree otra instancia EC2 en la misma subred y vuelva a instalar Active Directory en ella. Desinstale Active Directory en la instancia EC2 actual."
+        },
+        {
+          "id": "b",
+          "text": "Configure AWS IAM Identity Center con la federación del Lenguaje de marcado para confirmaciones de seguridad (SAML, Security Assertion Markup Language) 2.0 con el controlador de Active Directory actual. Modifique el grupo de seguridad de la instancia EC2 para denegar el acceso público a Active Directory."
+        },
+        {
+          "id": "c",
+          "text": "Utilizar AWS Directory Service para crear un conector de Active Directory. Hacer proxy de solicitudes de Active Directory en el controlador de dominio de Active Directory que se ejecuta en la instancia EC2 actual."
+        },
+        {
+          "id": "d",
+          "text": "Utilizar AWS Managed Microsoft AD para crear una instancia de Active Directory administrada. Desinstale Active Directory en la instancia EC2 actual."
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Correcto. AWS Managed Microsoft AD funciona con una instancia de Active Directory de Microsoft Windows Server real que AWS administra en la nube de AWS. Esta configuración reduce la sobrecarga administrativa y es segura. Además, puede mitigar los riesgos de seguridad al desinstalar Active Directory del servidor actual para que este y el sitio web no estén en el mismo servidor. Para obtener más información sobre AWS Managed Active Directory, consulte AWS Managed Microsoft AD ."
+    },
+    {
+      "id": "q27",
+      "text": "Una empresa quiere crear una aplicación que transmita información de salud protegida (PHI) a miles de consumidores de servicios en diferentes cuentas de AWS. Los servidores de aplicaciones se ubicarán en subredes de VPC privadas. El enrutamiento de la aplicación debe tolerar fallos. ¿Qué se debe hacer para cumplir estos requisitos?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Crear una conexión de gateway privada virtual entre cada par de VPC de proveedores de servicios y VPC de consumidores de servicios."
+        },
+        {
+          "id": "b",
+          "text": "Crear un balanceador de carga de aplicaciones interno en la VPC del proveedor de servicios y respaldar los servidores de aplicaciones."
+        },
+        {
+          "id": "c",
+          "text": "Crear un servidor proxy en la VPC del proveedor de servicios para dirigir las solicitudes de los consumidores de servicios a los servidores de aplicaciones."
+        },
+        {
+          "id": "d",
+          "text": "Crear un servicio de punto de enlace de la VPC y conceder permisos a consumidores de servicios específicos para crear una conexión."
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Correcto. Con un punto de enlace de la VPC, se puede conectar de forma privada la VPC a los servicios de AWS compatibles y a servicios de punto de enlace de la VPC powered by AWS PrivateLink sin necesidad de una puerta de enlace de Internet, un dispositivo NAT, una conexión de VPN o una conexión de AWS Direct Connect. Las instancias de la VPC no necesitan direcciones IP públicas para comunicarse con los recursos del servicio. El tráfico entre la VPC y el servicio no sale de la red de Amazon. Para obtener más información sobre los puntos de enlace de la VPC, consulte Servicios de puntos de enlace de la VPC (AWS PrivateLink). https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/endpoint-service.html"
+    },
+    {
+      "id": "q28",
+      "text": "Una aplicación se ejecuta en instancias de Amazon EC2 en varias zonas de disponibilidad detrás de un Balanceador de carga de aplicaciones. El balanceador de carga se encuentra en subredes públicas. Las instancias EC2 se encuentran en subredes privadas y no deben ser accesibles desde Internet. Las instancias EC2 deben llamar a servicios externos en Internet. Cada zona de disponibilidad debe poder llamar a los servicios externos, independientemente del estado de las demás zonas de disponibilidad. ¿Cómo deberían cumplirse estos requisitos?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Crear una instancia NAT en la subred privada de cada zona de disponibilidad. Actualizar las tablas de enrutamiento de cada subred privada para dirigir el tráfico vinculado a Internet a la instancia NAT."
+        },
+        {
+          "id": "b",
+          "text": "Crear una gateway NAT en cada zona de disponibilidad. Actualizar las tablas de enrutamiento de cada subred privada para dirigir el tráfico vinculado a Internet a la gateway NAT."
+        },
+        {
+          "id": "c",
+          "text": "Configurar una puerta de enlace de Internet. Agregar una ruta a la gateway que se conecta a cada tabla de enrutamiento de subred privada."
+        },
+        {
+          "id": "d",
+          "text": "Crear una gateway NAT adjunta a la VPC. Agregar una ruta a la gateway que se conecta a cada tabla de enrutamiento de subred privada."
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "Correcto. Una gateway NAT se asigna a una subred pública y está asociada a una única zona de disponibilidad. Esta solución garantiza que cada zona de disponibilidad sea independiente de las demás para el enrutamiento de Internet. Para obtener más información sobre las gateway NAT, consulte Conceptos básicos de las gateways NAT. https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html#nat-gateway-basics"
+    },
+    {
+      "id": "q29",
+      "text": "Una empresa desea implementar un clúster de base de datos Amazon Aurora MySQL adicional con fines de desarrollo. Este clúster se utilizará varias veces a la semana durante unos minutos si se solicita para depurar problemas de consulta de producción. La empresa quiere mantener bajos los gastos generales de este recurso. ¿Qué solución cumple con los requisitos de la empresa de la forma MÁS rentable?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Ejecutar las instancias de base de datos en Aurora Serverless."
+        },
+        {
+          "id": "b",
+          "text": "Crear una función de AWS Lambda para detener las instancias de base de datos si no hay conexiones activas."
+        },
+        {
+          "id": "c",
+          "text": "Crear una programación de detención y comienzo para las instancias de base de datos."
+        },
+        {
+          "id": "d",
+          "text": "Adquirir una instancia reservada para las instancias de base de datos."
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "Correcto. Aurora Serverless es una configuración de escalado automático bajo demanda de Aurora. Aurora Serverless se inicia, se apaga y escala la capacidad automáticamente según las necesidades de una aplicación. Permite ejecutar la base de datos en la nube sin administrar ninguna capacidad de base de datos. Sin servidor es la solución adecuada para cargas de trabajo impredecibles o cargas de trabajo que tienen poca frecuencia de uso. Para obtener más información sobre Aurora Serverless, consulte Casos de uso de Aurora Serverless v1. https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.html#aurora-serverless.use-cases"
+    },
+    {
+      "id": "q30",
+      "text": "Una aplicación de reservas para restaurantes necesita acceder a una lista de espera. Cuando un cliente intenta reservar una mesa y no hay ninguna disponible, la aplicación del cliente pondrá al usuario en la lista de espera y la aplicación notificará al cliente cuando se libere una mesa. La lista de espera debe conservar el orden en que se agregaron los clientes. ¿Qué servicio debería recomendar el arquitecto de soluciones para almacenar esta lista de espera?",
+      "options": [
+        {
+          "id": "a",
+          "text": "AWS Step Functions que invoquen funciones de AWS Lambda"
+        },
+        {
+          "id": "b",
+          "text": "Una cola FIFO en Amazon Simple Queue Service (Amazon SQS)"
+        },
+        {
+          "id": "c",
+          "text": "Una cola estándar en Amazon Simple Queue Service (Amazon SQS)"
+        },
+        {
+          "id": "d",
+          "text": "Amazon Simple Notification Service (Amazon SNS)"
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "Correcto. Amazon SQS crea mensajes que permanecen en la cola hasta que se eliminan. Se crearía un mensaje cuando se solicita una mesa. El mensaje se eliminaría cuando la mesa esté disponible. Las colas FIFO respetan el orden en que los elementos ingresan en la cola. Esta solución garantizaría que la persona que ha esperado más tiempo por una mesa reciba la siguiente mesa disponible. Para obtener más información sobre Amazon SQS, consulte ¿Qué es Amazon Simple Queue Service? https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/Welcome.html Para obtener más información sobre las colas FIFO de SQS, consulte Colas FIFO de Amazon SQS (primero en entrar, primero en salir). https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html"
+    },
+    {
+      "id": "q31",
+      "text": "Una aplicación lanzada en instancias de Amazon EC2 debe publicar información de identificación personal (PII) sobre los clientes que utilizan Amazon Simple Notification Service (Amazon SNS). La aplicación se lanza en subredes privadas dentro de una Amazon VPC. ¿Cuál es la forma MÁS segura de permitir que la aplicación acceda a los puntos de enlace de servicio en la misma región de AWS?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Utilizar una instancia de proxy."
+        },
+        {
+          "id": "b",
+          "text": "Utilizar una puerta de enlace de Internet."
+        },
+        {
+          "id": "c",
+          "text": "Utilizar AWS PrivateLink."
+        },
+        {
+          "id": "d",
+          "text": "Utilizar una gateway NAT."
+        }
+      ],
+      "correctAnswers": [
+        "c"
+      ],
+      "explanation": "Correcto. El uso de PrivateLink no requiere una dirección IP pública en las instancias ni el acceso público desde la subred de instancias. El tráfico permanece dentro de la región de la VPC y no proporciona un único punto de error con el punto de enlace de la VPC. PrivateLink es la característica que alimenta los puntos de enlace de la VPC. Para obtener más información sobre los puntos de enlace de la VPC y Amazon SNS, consulte Privacidad del tráfico entre redes. https://docs.aws.amazon.com/sns/latest/dg/sns-vpc.html"
+    },
+    {
+      "id": "q32",
+      "text": "Una empresa tiene una aplicación web de tres niveles en AWS para el almacenamiento y la recuperación de documentos. La aplicación almacena documentos en un volumen NFS compartido y hace referencia a los documentos mediante una implementación Multi-AZ de una instancia de base de datos de Amazon RDS para MySQL. Los metadatos del documento se consultan con regularidad. No se accede a los documentos más de una vez al año, pero deben permanecer disponibles de inmediato. Un Solutions Architect necesita optimizar la carga de trabajo e implementar modificaciones en las aplicaciones. ¿Qué solución cumplirá con estos requisitos de la forma MÁS rentable?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Utilizar un volumen compartido de Amazon FSx para Lustre para el almacenamiento de documentos. Utilizar una implementación Multi-AZ de una instancia de base de datos RDS para MySQL para conservar los metadatos del documento."
+        },
+        {
+          "id": "b",
+          "text": "Utilizar un Amazon S3 Bucket con la clase de almacenamiento S3 Standard - Acceso poco frecuente (S3 Standard-IA) para el almacenamiento de documentos. Utilizar una tabla de Amazon DynamoDB para conservar los metadatos del documento."
+        },
+        {
+          "id": "c",
+          "text": "Utilizar un sistema de archivos de Amazon Elastic File System (Amazon EFS) con la clase de almacenamiento EFS Standard - Acceso poco frecuente (EFS Standard-IA) para el almacenamiento de documentos. Utilizar una implementación Multi-AZ de una instancia de base de datos RDS para MySQL para conservar los metadatos del documento."
+        },
+        {
+          "id": "d",
+          "text": "Utilizar un Amazon S3 Bucket con la clase de almacenamiento S3 Glacier Deep Archive para el almacenamiento de documentos. Utilizar una tabla de Amazon DynamoDB para conservar los metadatos del documento."
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "Correcto. Los documentos almacenados deben ser resistentes para su uso a largo plazo. La empresa no puede reproducir fácilmente los documentos. Por lo tanto, la empresa debe usar un S3 Bucket Multi-AZ. Debido a que la empresa no suele acceder a los documentos más de una vez al año, puede usar el nivel de almacenamiento S3 Standard-IA. S3 Intelligent Tier es otra opción. DynamoDB es un servicio administrado más rentable que Amazon RDS para almacenar y recuperar los metadatos del documento. DynamoDB tendría beneficios adicionales, como una menor sobrecarga de administración en comparación con una base de datos MySQL. Para obtener más información sobre los precios de la capacidad provisionada de DynamoDB, consulte Precios de la capacidad provisionada . Para obtener más información sobre las características y los precios de S3 Standard-IA, consulte Clases de almacenamiento de Amazon S3 ."
+    },
+    {
+      "id": "q33",
+      "text": "Una aplicación web se ejecuta en instancias Amazon EC2 detrás de un Application Load Balancer (ALB). La aplicación permite a los usuarios crear informes personalizados de datos meteorológicos históricos. La generación de un informe puede tardar hasta 5 minutos. Estas solicitudes de larga duración utilizan muchas de las conexiones entrantes disponibles, lo que hace que el sistema no responda a otros usuarios. ¿Cómo puede un Solutions Architect hacer que el sistema responda mejor?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Aumentar el tiempo de espera de inactividad del ALB a 5 minutos."
+        },
+        {
+          "id": "b",
+          "text": "Actualizar el código de la aplicación del lado del cliente para aumentar el tiempo de espera de las solicitudes a 5 minutos."
+        },
+        {
+          "id": "c",
+          "text": "Publicar los informes en Amazon S3 y utilice Amazon CloudFront para descargarlos al usuario."
+        },
+        {
+          "id": "d",
+          "text": "Utilizar Amazon SQS con AWS Lambda para generar informes."
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Correcto. Si la empresa usa Amazon SQS y Lambda para reducir la carga de la generación de informes, el sistema ya no utilizará los recursos de los servidores de aplicaciones web para procesarlos. Por lo tanto, el sistema ya no consumirá todas las conexiones. Para obtener más información sobre cómo usar Amazon SQS para reducir la carga de informes, consulte Using service integrations and asynchronous processing (Uso de integraciones de servicios y procesamiento asincrónico) ."
+    },
+    {
+      "id": "q34",
+      "text": "Una empresa creó una aplicación para pedir de alimentos que captura los datos de los usuarios y los almacena con el fin de analizarlos en el futuro. El frontend estático de la aplicación se implementa en una instancia Amazon EC2. La aplicación frontend envía las solicitudes a la aplicación backend que se ejecuta en una instancia de EC2 independiente. A continuación, la aplicación backend almacena los datos en Amazon RDS. ¿Qué debe hacer un arquitecto de soluciones para desacoplar la arquitectura y hacerla escalable?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Utilizar Amazon S3 para servir la aplicación frontend estática, que envía solicitudes a Amazon EC2 para ejecutar la aplicación backend. La aplicación backend procesará y almacenará los datos en Amazon RDS."
+        },
+        {
+          "id": "b",
+          "text": "Utilizar Amazon S3 para servir la aplicación frontend estática y enviar solicitudes a Amazon API Gateway, que las escribe en una cola de Amazon SQS. Colocar las instancias de backend en un grupo de escalado automático y escale en función de la longitud de la cola para procesar y almacenar los datos en Amazon RDS."
+        },
+        {
+          "id": "c",
+          "text": "Utilizar una instancia EC2 para servir la aplicación frontend estática y escribir solicitudes en una cola de Amazon SQS. Colocar la instancia de backend en un grupo de Auto Scaling y escale en función de la profundidad de la cola para procesar y almacenar los datos en Amazon RDS."
+        },
+        {
+          "id": "d",
+          "text": "Utilizar Amazon S3 para servir la aplicación frontend estática y escribir solicitudes en un tema de Amazon Simple Notification Service (Amazon SNS). Suscribir el punto de enlace HTTP/S de la instancia Amazon EC2 de backend al tema, además, procese y almacene los datos en Amazon RDS."
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "Correcto. Una solución que traslade la aplicación frontend estática a Amazon S3 desacoplará la aplicación frontend de la backend. Esta solución permitirá la escalabilidad y mejorará la disponibilidad de las aplicaciones mediante la eliminación de la instancia EC2 como punto único de error. Un servicio administrado sin servidor, como API Gateway y Amazon SQS, también eliminaría los puntos únicos de error y desacoplaría aún más las solicitudes de frontend de las operaciones de procesamiento. API Gateway es un servicio de AWS que crea, publica, mantiene, supervisa y asegura las API REST, HTTP y WebSocket a cualquier escala. Amazon SQS ofrece un servicio de colas de mensajes escalable y de alta disponibilidad. La adición de una instancia EC2 de backend a un grupo de EC2 Auto Scaling mejorará la escalabilidad del backend y eliminará otro punto único de error. Para obtener más información sobre cómo alojar sitios web estáticos mediante Amazon S3, consulte Alojamiento de un sitio web estático con Amazon S3 . Para obtener más información sobre API Gateway, consulte ¿Qué es Amazon API Gateway? . Para obtener más información sobre Amazon SQS, consulte ¿Qué es Amazon Simple Queue Service? . Para obtener más información sobre EC2 Auto Scaling, consulte Introducción a Amazon EC2 Auto Scaling ."
+    },
+    {
+      "id": "q35",
+      "text": "La aplicación heredada de una empresa depende actualmente de una base de datos MySQL de Amazon RDS con una sola instancia sin cifrado. Debido a los nuevos requisitos de cumplimiento, se tienen que cifrar todos los datos existentes y nuevos de esta base de datos. ¿Cómo debería lograrse esto?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Crear una réplica de lectura de RDS con el cifrado en reposo activado. Promover la réplica de lectura para que sea la primaria y cambiar la aplicación a la nueva primaria. Eliminar la instancia RDS anterior."
+        },
+        {
+          "id": "b",
+          "text": "Crear un Amazon S3 Bucket con el cifrado del lado del servidor activado. Mover todos los datos a Amazon S3. Eliminar la instancia RDS."
+        },
+        {
+          "id": "c",
+          "text": "Configurar el modo Multi-AZ de RDS con el cifrado en reposo activado. Llevar a cabo una conmutación por error en la instancia en espera para eliminar la instancia original."
+        },
+        {
+          "id": "d",
+          "text": "Tomar una instantánea de la instancia RDS. Crear una copia cifrada de la instantánea. Restaurar la instancia RDS desde la instantánea cifrada."
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Correcto. Puede configurar el cifrado de una instancia de base de datos de RDS solo al crear la instancia de base de datos. Si lo prefiere, puede crear una instantánea de la instancia RDS. A continuación, creará una copia cifrada de la instantánea. Por último, puede crear una instancia RDS a partir de la instantánea cifrada. Para obtener más información acerca de las instancias de base de datos cifradas de RDS, consulte Limitaciones de las instancias de base de datos cifradas de RDS ."
+    },
+    {
+      "id": "q36",
+      "text": "Una empresa utiliza Amazon DynamoDB con un rendimiento aprovisionado para el nivel de base de datos de inventario de su sitio web de comercio electrónico. Durante las ventas relámpago, los clientes experimentan periodos en los que la base de datos no puede gestionar la gran cantidad de transacciones que se llevan a cabo. Esto hace que la empresa pierda transacciones. Durante los periodos normales, la base de datos funciona correctamente. ¿Qué solución resuelve el problema de rendimiento que enfrenta la empresa?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Utilizar Amazon Kinesis a fin de poner en cola las transacciones para procesarlas en DynamoDB."
+        },
+        {
+          "id": "b",
+          "text": "Utilizar Amazon Simple Queue Service (Amazon SQS) para poner en cola las transacciones hacia DynamoDB."
+        },
+        {
+          "id": "c",
+          "text": "Implementar DynamoDB Accelerator (DAX)."
+        },
+        {
+          "id": "d",
+          "text": "Cambiar DynamoDB al modo bajo demanda durante las ventas relámpago."
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Correcto. Esta solución le permite a DynamoDB escalar para satisfacer los aumentos repentinos en la demanda que se producen durante las ventas relámpago. Para obtener más información sobre el escalado de DynamoDB, consulte Modo de capacidad de lectura y escritura. https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html"
+    },
+    {
+      "id": "q37",
+      "text": "Una empresa quiere crear una versión en audio del manual del producto. El manual del producto contiene nombres y abreviaturas de productos personalizados. El manual del producto está dividido en secciones. ¿Qué solución cumplirá estos requisitos con la MENOR sobrecarga operativa?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Utilizar Amazon Textract. Crear léxicos personalizados para los nombres y abreviaturas de los productos. Utilizar la operación de la API StartTranscriptionJob para cada sección del manual del producto."
+        },
+        {
+          "id": "b",
+          "text": "Utilizar Amazon Polly. Crear léxicos personalizados para los nombres y abreviaturas de los productos. Utilizar la operación de la API StartSpeechSynthesiTask para cada sección del manual del producto."
+        },
+        {
+          "id": "c",
+          "text": "Utilizar Amazon Polly. Crear Speech Synthesis Markup Language (SSML) personalizado para los nombres y abreviaturas de los productos. Utilizar la operación de la API StartDocumentTextDetection para cada sección del manual del producto."
+        },
+        {
+          "id": "d",
+          "text": "Utilizar Amazon Textract. Crear Speech Synthesis Markup Language (SSML) personalizado para los nombres y abreviaturas de los productos. Utilizar la operación de la API StartDocumentTextDetection para cada sección del manual del producto."
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "Correcto. Amazon Polly convierte el texto en voz realista. El texto puede incluir un acrónimo, como \"W3C\". Puede usar un léxico para definir un alias de esas palabras. Los léxicos son apropiados para el vocabulario personalizado que se utiliza en los manuales de los productos. Amazon Polly es el servicio adecuado para usar en estos casos. Para obtener más información sobre Amazon Polly, consulte What is Amazon Polly? (¿Qué es Amazon Polly?) . Para obtener más información sobre cómo administrar léxicos, consulte Managing Lexicons (Administración de léxicos) . Para obtener más información sobre cómo crear una tarea de síntesis asíncrona, consulte StartSpeechSynthesisTask ."
+    },
+    {
+      "id": "q38",
+      "text": "Un arquitecto de soluciones está diseñando una nueva carga de trabajo en la que una función AWS Lambda tendrá acceso a una tabla de Amazon DynamoDB. ¿Cuál es el medio MÁS seguro de conceder a la función Lambda acceso a la tabla de DynamoDB?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Crear un rol de IAM con los permisos necesarios para acceder a la tabla de DynamoDB. Asignar el rol a la función Lambda."
+        },
+        {
+          "id": "b",
+          "text": "Crear un usuario de IAM y crear claves secretas y de acceso para el usuario. Otorgar al usuario los permisos necesarios para acceder a la tabla de DynamoDB. Pedir al desarrollador que use estas claves para acceder a los recursos."
+        },
+        {
+          "id": "c",
+          "text": "Crear un nombre de usuario y contraseña de DynamoDB y dárselos al desarrollador para que lo use en la función Lambda."
+        },
+        {
+          "id": "d",
+          "text": "Crear un rol de IAM que permita el acceso desde AWS Lambda. Asignar el rol a la tabla de DynamoDB."
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "Correcto. Un rol de IAM es una entidad de IAM que define un conjunto de permisos para realizar solicitudes de servicios de AWS. Los roles de IAM no están asociados a un usuario o grupo específicos. En su lugar, las entidades de confianza, como los usuarios de IAM, las aplicaciones o los servicios de AWS, asumen roles. Para obtener más información sobre los roles de IAM, consulte Roles de IAM. https://docs.aws.amazon.com/IAM/latest/UserGuide/id\\_roles.html"
+    },
+    {
+      "id": "q39",
+      "text": "El sitio web de una empresa recibe 50 000 solicitudes por segundo. La empresa quiere utilizar varias aplicaciones para analizar los patrones de navegación de los usuarios del sitio web a fin de que la experiencia sea personalizada. ¿Qué servicio o característica de AWS debería utilizar un arquitecto de soluciones para recopilar clics en la página del sitio web y procesarlos de manera secuencial para cada usuario?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Amazon Kinesis Data Streams"
+        },
+        {
+          "id": "b",
+          "text": "AWS CloudTrail"
+        },
+        {
+          "id": "c",
+          "text": "Cola FIFO de Amazon Simple Queue Service (Amazon SQS)"
+        },
+        {
+          "id": "d",
+          "text": "Cola estándar de Amazon Simple Queue Service (Amazon SQS)"
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "Correcto. Kinesis Data Streams está diseñado para gestionar los datos de streaming y de secuencias de clics. Está creado para el análisis de grandes volúmenes de clics en tiempo real. Para obtener más información sobre los casos de uso de Amazon Kinesis, consulte Amazon Kinesis. https://aws.amazon.com/kinesis/#:~:text=Build%20video%20analytics%20applications,machine%20learning%2C%20and%20other%20analytics Para obtener más información sobre Kinesis Data Streams, consulte ¿Qué es Amazon Kinesis Data Streams? https://docs.aws.amazon.com/streams/latest/dev/introduction.html"
+    },
+    {
+      "id": "q40",
+      "text": "Una aplicación proporciona una característica que permite a los usuarios descargar de forma segura archivos privados y personales. Actualmente, el servidor web está saturado con la entrega de archivos para descargar. Un arquitecto de soluciones debe encontrar una solución más efectiva para reducir la carga y el costo del servidor web y debe permitir a los usuarios descargar solo sus propios archivos. ¿Qué solución cumple todos los requisitos?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Almacenar los archivos de forma segura en Amazon S3 y hacer que la aplicación genere una URL prefirmada de Amazon S3 para que el usuario los descargue."
+        },
+        {
+          "id": "b",
+          "text": "Almacenar los archivos en un volumen cifrado de Amazon Elastic Block Store (Amazon EBS) y utilizar un conjunto independiente de servidores para entregar las descargas."
+        },
+        {
+          "id": "c",
+          "text": "Hacer que la aplicación cifre los archivos y los almacene en el almacén de instancias local de Amazon EC2 antes de entregarlos para su descarga."
+        },
+        {
+          "id": "d",
+          "text": "Crear una distribución de Amazon CloudFront para distribuir y almacenar en caché los archivos."
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "Correcto. Se pueden utilizar URL prefirmadas para compartir el acceso a los buckets de S3. Cuando se crea una URL prefirmada, se asocia a una acción específica y a una fecha de vencimiento. Cualquier persona que tenga acceso a la URL puede realizar la acción incrustada en la URL como si fuera el usuario firmante original. Para obtener más información sobre las URL prefirmadas, consulte Uso de URL prefirmadas. https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html Para obtener más información sobre cómo compartir un objeto con una URL prefirmada, consulte Compartir un objeto con una URL prefirmada. https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html"
+    },
+    {
+      "id": "q41",
+      "text": "Un arquitecto de soluciones está diseñando una solución de base de datos que debe admitir una alta velocidad de lecturas y escrituras aleatorias del disco. Debe proporcionar un rendimiento coherente y requiere persistencia a largo plazo. ¿Qué solución de almacenamiento cumple estos requisitos?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un volumen de uso general de Amazon Elastic Block Store (Amazon EBS)"
+        },
+        {
+          "id": "b",
+          "text": "Un almacén de instancias de Amazon EC2"
+        },
+        {
+          "id": "c",
+          "text": "Un volumen de IOPS provisionadas de Amazon Elastic Block Store (Amazon EBS)"
+        },
+        {
+          "id": "d",
+          "text": "Un volumen magnético de Amazon Elastic Block Store (Amazon EBS)"
+        }
+      ],
+      "correctAnswers": [
+        "c"
+      ],
+      "explanation": "Correcto. Los volúmenes de IOPS provisionadas admiten una alta velocidad de lecturas y escrituras aleatorias del disco. Los volúmenes de IOPS provisionadas manejan cargas de trabajo de E/S intensivas (especialmente las cargas de trabajo de bases de datos) sensibles al rendimiento y la consistencia del almacenamiento. Los volúmenes de IOPS provisionadas utilizan una velocidad de IOPS coherente que se especifica al crearlos. Amazon EBS ofrece el rendimiento aprovisionado el 99,9 % del tiempo. Para obtener más información sobre los volúmenes de IOPS provisionadas, consulte Unidades de estado sólido (SSD). https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html#solid-state-drives"
+    },
+    {
+      "id": "q42",
+      "text": "Un Solutions Architect rediseña una aplicación monolítica para que sea una aplicación poco acoplada compuesta por dos microservicios: Microservicio A y microservicio B. El microservicio A coloca los mensajes en una cola principal de Amazon Simple Queue Service (Amazon SQS) para que los consuma el microservicio B. Cuando el microservicio B no procesa un mensaje después de cuatro reintentos, es necesario eliminar el mensaje de la cola y almacenarlo para su posterior investigación. ¿Qué debe hacer el Solutions Architect para cumplir estos requisitos?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Crear una cola de SQS para los mensajes con errores. El microservicio A agrega mensajes con errores a esa cola después de que el microservicio B lo recibe y no procesa el mensaje cuatro veces."
+        },
+        {
+          "id": "b",
+          "text": "Crear una cola de SQS para los mensajes con errores. Configurar la cola de SQS para los mensajes con errores a fin de extraer los mensajes de la cola principal de SQS después de que se configure el mensaje original cuatro veces."
+        },
+        {
+          "id": "c",
+          "text": "Crear una cola de mensajes no entregados de SQS. El microservicio B agrega mensajes con errores a esa cola después de recibirlos y no procesa el mensaje cuatro veces."
+        },
+        {
+          "id": "d",
+          "text": "Crear una cola de mensajes no entregados de SQS. Configurar la cola principal de SQS para entregar los mensajes a la cola de mensajes no entregados después de que se reciba el mensaje cuatro veces."
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Correcto. Esta solución utiliza una política de reconducción en la cola principal de SQS para enviar mensajes a una cola de mensajes no entregados después de que el consumo falle un cierto número de veces. Para obtener más información sobre las colas de mensajes fallidos de SQS consulte ¿Cómo funcionan las colas de mensajes fallidos? ."
+    },
+    {
+      "id": "q43",
+      "text": "Una empresa tiene una aplicación web que realiza solicitudes a un servicio de API de backend. El servicio de API se ejecuta en instancias de Amazon EC2 a las que se accede tras un equilibrador de carga de aplicación. La mayoría de las llamadas de punto de enlace del servicio de API del backend finalizan muy rápidamente, pero un punto de enlace que realiza llamadas para crear objetos en un servicio externo tarda mucho tiempo en completarse. Estas llamadas de larga duración provocan tiempos de espera para los clientes y aumentan la latencia general del sistema. ¿Qué se debería hacer para minimizar el impacto en el rendimiento del sistema en el punto de enlace que funciona con lentitud?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Utilizar Amazon ElastiCache (Redis OSS) para almacenar en caché las respuestas del servicio externo."
+        },
+        {
+          "id": "b",
+          "text": "Cambiar el tamaño de la instancia EC2 para aumentar la memoria y la capacidad de cómputo."
+        },
+        {
+          "id": "c",
+          "text": "Utilizar Amazon Simple Queue Service (Amazon SQS) para descargar las solicitudes de larga duración a fin de que empleados distintos las procesen de manera asincrónica."
+        },
+        {
+          "id": "d",
+          "text": "Aumentar el tiempo de espera de inactividad del equilibrador de carga para permitir que se completen las solicitudes de larga duración."
+        }
+      ],
+      "correctAnswers": [
+        "c"
+      ],
+      "explanation": "Correcto. Se pueden mover las llamadas de larga duración fuera de la ruta de solicitud interactiva para que los recursos independientes puedan completarlas de forma asincrónica. Esta solución garantiza que el servicio de API de backend no agote los recursos de conexión entrantes y limite las solicitudes normales de los clientes. Para obtener más información sobre la descarga de solicitudes con Amazon SQS, consulte Detalles del producto Amazon SQS (revise la sección Uso de Amazon SQS con otros servicios web de infraestructura de AWS) ."
+    },
+    {
+      "id": "q44",
+      "text": "Un arquitecto de soluciones está diseñando una aplicación híbrida con AWS Cloud. La red entre el centro de datos en las instalaciones y AWS utilizará una conexión de AWS Direct Connect (DX). La conectividad de las aplicaciones entre AWS y el centro de datos en las instalaciones debe ser altamente resistente. ¿Qué configuración DX debería implementarse para cumplir estos requisitos?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Configurar una conexión DX con el socio de DX más confiable."
+        },
+        {
+          "id": "b",
+          "text": "Configurar una conexión DX con una VPN encima."
+        },
+        {
+          "id": "c",
+          "text": "Configurar las conexiones DX en varias ubicaciones DX."
+        },
+        {
+          "id": "d",
+          "text": "Configurar varias interfaces virtuales encima de una conexión DX."
+        }
+      ],
+      "correctAnswers": [
+        "c"
+      ],
+      "explanation": "Correcto. Se puede conseguir la máxima resiliencia para cargas de trabajo críticas mediante el uso de conexiones independientes que terminan en dispositivos independientes en más de una ubicación. Para obtener más información sobre la resiliencia en Direct Connect, consulte Resistencia en AWS Direct Connect. https://docs.aws.amazon.com/directconnect/latest/UserGuide/disaster-recovery-resiliency.html"
+    },
+    {
+      "id": "q45",
+      "text": "Una empresa detiene un clúster de instancias de Amazon EC2 durante un fin de semana. Los costos disminuyen, pero no se reducen a cero. ¿Qué recursos podrían seguir generando costos?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Transferencia de datos de salida"
+        },
+        {
+          "id": "b",
+          "text": "Volúmenes de Amazon Elastic Block Store (Amazon EBS)"
+        },
+        {
+          "id": "c",
+          "text": "Direcciones IP elásticas"
+        },
+        {
+          "id": "d",
+          "text": "AWS Auto Scaling"
+        },
+        {
+          "id": "e",
+          "text": "Transferencias de datos regionales"
+        }
+      ],
+      "correctAnswers": [
+        "b",
+        "c"
+      ],
+      "explanation": "Correcto. Los volúmenes de EBS se pueden aprovisionar, administrar y facturar independientemente de las instancias EC2. Si se detiene o termina una instancia EC2, los volúmenes de EBS que se estén utilizando se pueden retener como almacenamiento persistente más allá del ciclo de vida de la instancia EC2. Amazon EBS genera costos por la cantidad de almacenamiento que se aprovisiona en la cuenta (medida en gigabyte/meses). Las instancias EC2 acumulan cargos solo mientras se están ejecutando, pero los volúmenes de EBS que se aprovisionan en la cuenta a instancias siguen acumulando cargos incluso cuando los volúmenes no están en uso. Para obtener más información sobre los precios de EBS, consulte Precios de Amazon EBS. https://aws.amazon.com/ebs/pricing/ Correcto. Para garantizar un uso eficiente de las direcciones IP elásticas, AWS establece un pequeño cargo por hora si una dirección IP elástica no está asociada a una instancia en ejecución, o bien cuando está asociada a una instancia detenida o a una interfaz de red no adjunta. Por este motivo, si una instancia EC2 se encuentra en estado detenido, pero sigue teniendo una dirección IP elástica asociada, la instancia EC2 seguirá generando cargos. Para obtener más información sobre las direcciones IP elásticas, consulte Direcciones IP elásticas. https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html"
+    },
+    {
+      "id": "q46",
+      "text": "Un arquitecto de soluciones está diseñando una solución que implica organizar una serie de tareas de Amazon Elastic Container Service (Amazon ECS). Las tareas se ejecutan en un clúster de ECS que utiliza instancias de Amazon EC2 en varias zonas de disponibilidad. Los datos de salida y de estado de todas las tareas deben almacenarse. La cantidad de datos que genera cada tarea es de aproximadamente 10 MB y pueden ejecutarse cientos de tareas a la vez. Dado que los datos de salida antiguos se archivan y eliminan, el tamaño de almacenamiento no superará 1 TB. ¿Qué solución de almacenamiento debería recomendar el arquitecto de soluciones para cumplir estos requisitos con el MAYOR rendimiento?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Una tabla de Amazon DynamoDB a la que pueden acceder todas las instancias de clúster de ECS"
+        },
+        {
+          "id": "b",
+          "text": "Un volumen de Amazon Elastic Block Store (Amazon EBS) montado en las instancias de clúster de ECS"
+        },
+        {
+          "id": "c",
+          "text": "Un sistema de archivos de Amazon Elastic File System (Amazon EFS) con modo de rendimiento por ráfagas"
+        },
+        {
+          "id": "d",
+          "text": "Un sistema de archivos de Amazon Elastic File System (Amazon EFS) con modo de rendimiento aprovisionado"
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Correcto. Existen dos modos de rendimiento a elegir para su sistema de archivos: modo de rendimiento por ráfagas y modo de rendimiento aprovisionado. Con el modo de rendimiento por ráfagas, el rendimiento de Amazon EFS escala a medida que aumenta el tamaño del sistema de archivos. Con el modo de rendimiento aprovisionado, se puede aprovisionar al instante el rendimiento del sistema de archivos (en MiB/s), independientemente de la cantidad de datos almacenados. Esta solución proporciona el mayor rendimiento sin cambiar el tamaño del sistema de archivos. Para obtener más información sobre los modos de rendimiento de EFS, consulte Rendimiento de Amazon EFS. https://docs.aws.amazon.com/efs/latest/ug/performance.html"
+    },
+    {
+      "id": "q47",
+      "text": "Una empresa ejecuta una aplicación en tres instancias de Amazon EC2 muy grandes en una única zona de disponibilidad de la región us-east-1. Hay varios volúmenes de Amazon Elastic Block Store (Amazon EBS) de 16 TB adjuntos a cada instancia EC2. El equipo de operaciones utiliza un script de AWS Lambda desencadenado por una regla de Amazon EventBridge basada en horarios para detener las instancias por la noche y los fines de semana y iniciar las instancias en las mañanas de los días laborales. Antes de implementar la solución, la empresa utilizó la documentación pública de precios de AWS para estimar los costos generales de ejecutar esta solución de almacenamiento de datos 5 días a la semana durante 10 horas al día. Cuando se analizan los cargos mensuales de Cost Explorer para esta nueva cuenta, los cargos generales son más altos que los de la estimación. ¿Cuál factor de costo es MÁS probable que la empresa haya pasado por alto?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Los cargos por transferencia de datos de EC2 entre las instancias son mucho más altos que los esperados."
+        },
+        {
+          "id": "b",
+          "text": "Las tasas de EC2 y EBS son más altas en us-east-1 que en la mayoría de las demás regiones de AWS."
+        },
+        {
+          "id": "c",
+          "text": "Los cargos de Lambda para detener y comenzar las instancias son mucho más altos que los esperados."
+        },
+        {
+          "id": "d",
+          "text": "Se factura a la empresa el almacenamiento de EBS por las noches y los fines de semana."
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Correcto. Cuando se detiene una instancia EC2, AWS no cobra por el uso o la transferencia de datos. Sin embargo, AWS cobra por el almacenamiento de los volúmenes de EBS que se adjunten a la instancia. Para obtener más información sobre lo que ocurre cuando se inician y detienen instancias, consulte Detener y comenzar la instancia. https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Stop\\_Start.html"
+    },
+    {
+      "id": "q48",
+      "text": "Actualmente, una empresa opera una aplicación web respaldada por una base de datos MySQL de Amazon RDS. Cuenta con copias de seguridad automatizadas que se ejecutan a diario y no están cifradas. Una auditoría de seguridad requiere que las copias de seguridad futuras se cifren y que se destruyan las copias de seguridad no cifradas. La empresa hará al menos un respaldo cifrado antes de destruir las antiguas. ¿Qué se debe hacer para configurar el cifrado de futuras copias de seguridad?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Activar el cifrado predeterminado para el Amazon S3 Bucket en el que se almacenan las copias de seguridad."
+        },
+        {
+          "id": "b",
+          "text": "Modificar la sección de respaldo de la configuración de la base de datos para activar la casilla Enable encryption (Activar cifrado)."
+        },
+        {
+          "id": "c",
+          "text": "Crear una instantánea de la base de datos. Copiarlo en una instantánea cifrada. Restaurar la base de datos desde la instantánea cifrada."
+        },
+        {
+          "id": "d",
+          "text": "Configurar una réplica de lectura cifrada en RDS para MySQL. Promover la réplica de lectura cifrada para que sea la primaria. Eliminar la instancia de base de datos original."
+        }
+      ],
+      "correctAnswers": [
+        "c"
+      ],
+      "explanation": "Correcto. No puede crear una instantánea cifrada de una instancia de base de datos no cifrada. Sin embargo, puede cifrar una copia de la instantánea no cifrada y restaurar la instantánea en una nueva instancia de base de datos. Para obtener más información sobre cómo cifrar instantáneas de RDS, consulte Cifrado de recursos de Amazon RDS"
+    },
+    {
+      "id": "q49",
+      "text": "Un equipo de desarrollo está implementando un nuevo producto en AWS y utiliza AWS Lambda como parte de la implementación. El equipo asigna 512 MB de memoria para una de las funciones Lambda. Con esta asignación de memoria, la función se completa en 2 minutos. La función se ejecuta millones de veces al mes y al equipo de desarrollo le preocupa el costo. El equipo realiza pruebas para ver cómo las distintas asignaciones de memoria para Lambda afectan el costo de la función. ¿Qué pasos reducirán los costos de Lambda del producto?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Aumentar la asignación de memoria para esta función Lambda a 1 024 MB si este cambio hace que el tiempo de ejecución de cada función sea inferior a 1 minuto."
+        },
+        {
+          "id": "b",
+          "text": "Reducir la asignación de memoria para esta función Lambda a 256 MB si este cambio hace que el tiempo de ejecución de cada función sea inferior a 5 minutos."
+        },
+        {
+          "id": "c",
+          "text": "Aumentar la asignación de memoria para esta función Lambda a 1 024 MB si este cambio hace que el tiempo de ejecución de cada función sea inferior a 90 segundos."
+        },
+        {
+          "id": "d",
+          "text": "Aumentar la asignación de memoria para esta función Lambda a 2 048 MB si este cambio hace que el tiempo de ejecución de cada función sea inferior a 1 minuto."
+        },
+        {
+          "id": "e",
+          "text": "Reducir la asignación de memoria para esta función Lambda a 256 MB si este cambio hace que el tiempo de ejecución de cada función sea inferior a 4 minutos."
+        }
+      ],
+      "correctAnswers": [
+        "a",
+        "e"
+      ],
+      "explanation": "Correcto. En este caso, el equipo aumenta la asignación de memoria en un 100 %. El nuevo tiempo de ejecución es más del 100 % más rápido (menos de 1 minuto), por lo que se producirá una reducción de los costos generales. La duración se calcula desde el momento en que el código comienza a ejecutarse hasta que arroja un resultado o termina de otro modo, redondeado hacia arriba a los 100 milisegundos más cercanos. El precio depende de la cantidad de memoria que asigne a la función. En el modelo de recursos Lambda, elige la cantidad de memoria que desea para su función y recibe una potencia de CPU proporcional y otros recursos. Un aumento del tamaño de la memoria inicia un aumento equivalente de la CPU disponible para su función. Para obtener más información sobre los precios de Lambda, consulte Precios de AWS Lambda. https://aws.amazon.com/lambda/pricing/ Correcto. En este caso, el equipo reduce la memoria en un 50 %. El nuevo tiempo de ejecución es inferior a un 200 % más lento (menos de 4 minutos), por lo que se producirá una reducción de los costos generales. La duración se calcula desde el momento en que el código comienza a ejecutarse hasta que arroja un resultado o termina de otro modo, redondeado hacia arriba a los 100 milisegundos más cercanos. El precio depende de la cantidad de memoria que asigne a la función. En el modelo de recursos Lambda, elige la cantidad de memoria que desea para su función y recibe una potencia de CPU proporcional y otros recursos. Un aumento del tamaño de la memoria inicia un aumento equivalente de la CPU disponible para su función. Para obtener más información sobre los precios de Lambda, consulte Precios de AWS Lambda. https://aws.amazon.com/lambda/pricing/"
+    },
+    {
+      "id": "q50",
+      "text": "Un Solutions Architect es responsable de una nueva arquitectura de tres niveles de alta disponibilidad en AWS. Un Application Load Balancer distribuye el tráfico a dos zonas de disponibilidad diferentes con un grupo de Auto Scaling que consta de instancias Amazon EC2 y de una instancia de base de datos de zonas de disponibilidad múltiples (Multi-AZ) de Amazon RDS. El Solutions Architect debe recomendar un plan de recuperación multiregional con un objetivo de tiempo de recuperación (RTO) de 30 minutos. Debido a las restricciones presupuestarias, el Solutions Architect no puede recomendar un plan que replique toda la arquitectura. El plan de recuperación no debe usar la región secundaria a menos que sea necesario. ¿Qué estrategia de recuperación de desastres cumpliría con estos requisitos?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Respaldo y restauración"
+        },
+        {
+          "id": "b",
+          "text": "Espera activa"
+        },
+        {
+          "id": "c",
+          "text": "Luz piloto"
+        },
+        {
+          "id": "d",
+          "text": "Activo/activo de varios sitios"
+        }
+      ],
+      "correctAnswers": [
+        "c"
+      ],
+      "explanation": "Correcto. Una estrategia de luz piloto cumple con todos los requisitos. Esta estrategia no tiene un gran aumento en el costo. Esta estrategia ofrece un RTO en decenas de minutos. Para obtener más información sobre la recuperación de desastres, consulte Opciones de recuperación de desastres en la nube ."
+    },
+    {
+      "id": "q51",
+      "text": "Una aplicación de fotografías en línea permite a los usuarios cargar fotos y hacer edición de imágenes. La aplicación se basa en instancias Amazon EC2 y ofrece dos clases de servicio: gratuito y de pago. Las fotos enviadas por los usuarios de pago se procesan antes que las enviadas por los usuarios gratuitos. Las fotos se cargan en Amazon S3 y la información del trabajo se envía a Amazon SQS. ¿Qué configuración debe recomendar un Solutions Architect?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Utilizar una cola First-In-First-Out (FIFO, Primero en entrar, primero en salir) de SQS. Asignar una prioridad más alta a las fotos de los usuarios de pago para que se procesen primero."
+        },
+        {
+          "id": "b",
+          "text": "Utilizar dos colas estándar de SQS: una para usuarios de pago y otra para gratuitos. Configurar la aplicación en las instancias Amazon EC2 para priorizar el sondeo de la cola de pago sobre la gratuita."
+        },
+        {
+          "id": "c",
+          "text": "Utilizar dos colas FIFO de SQS: una para los usuarios de pago y otra para los gratuitos. Configurar la cola libre para usar sondeos cortos y la de pago para sondeos largos."
+        },
+        {
+          "id": "d",
+          "text": "Utilizar una cola estándar de SQS. Establecer en cero el tiempo de espera de visibilidad de las fotos de los usuarios de pago. Configure la aplicación en las instancias Amazon EC2 para priorizar la configuración de visibilidad, de modo que las fotos de los usuarios de pago se procesen primero."
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "Correcto. Se necesitan dos colas separadas para las solicitudes gratuitas y de pago. La priorización se produciría en la aplicación que se ejecuta en las instancias EC2. Para obtener más información sobre las colas estándar, consulte Colas estándar de Amazon SQS ."
+    },
+    {
+      "id": "q52",
+      "text": "Una empresa de medios tiene una aplicación que realiza un seguimiento de los clics de los usuarios en sus sitios web y los analiza para ofrecer recomendaciones casi en tiempo real. La aplicación tiene una flota de instancias de Amazon EC2 que recibe datos de los sitios web y envía los datos a una instancia de base de datos de Amazon RDS para su retención a largo plazo. Otra flota de instancias EC2 aloja la parte de la aplicación que verifica continuamente los cambios en la base de datos y ejecuta consultas SQL para ofrecer recomendaciones. La administración ha solicitado un nuevo diseño para desacoplar la infraestructura. La solución debe garantizar de que los analistas de datos escriban SQL para analizar únicamente los nuevos datos. No se pueden perder datos durante la implementación. ¿Qué debería recomendar un arquitecto de soluciones para cumplir estos requisitos y ofrecer el acceso MÁS RÁPIDO a la actividad del usuario?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Utilizar Amazon Kinesis Data Streams para capturar los datos de los sitios web, Amazon Data Firehose para conservar los datos en Amazon S3 y Amazon Athena para consultar los datos."
+        },
+        {
+          "id": "b",
+          "text": "Utilizar Amazon Simple Notification Service (Amazon SNS) para recibir datos de los sitios web y delegar los mensajes a las funciones de AWS Lambda que ejecutan las consultas y conservan los datos. Cambiar Amazon RDS por Amazon Aurora Serverless para conservar los datos."
+        },
+        {
+          "id": "c",
+          "text": "Utilizar Amazon Simple Queue Service (Amazon SQS) para capturar los datos de los sitios web, mantener la flota de instancias EC2 y cambiar a un tipo de instancia mayor en la configuración del grupo de escalado automático."
+        },
+        {
+          "id": "d",
+          "text": "Utilizar Amazon Kinesis Data Streams para capturar los datos de los sitios web, Amazon Managed Service para Apache Flink a fin de consultar los datos y Amazon Data Firehose para conservar los datos en Amazon S3."
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Correcto. Esta solución ofrece consultas de los datos antes de que los datos se envíen al almacenamiento persistente. Firehose retiene los registros durante un tiempo predeterminado de 24 horas si se necesita una repetición. Para obtener más información sobre Firehose, consulte What Is Amazon Kinesis Data Firehose? (¿Qué es Amazon Data Firehose?) Para obtener más información sobre Firehose, consulte Troubleshooting Amazon Data Firehose (Solucionar errores en Amazon Data Firehose)."
+    },
+    {
+      "id": "q53",
+      "text": "Una empresa tiene una solución de arquitectura de tres niveles en la que una aplicación escribe en una base de datos relacional. Debido a las solicitudes frecuentes, la empresa desea almacenar datos en caché cada vez que la aplicación escribe datos en la base de datos. La prioridad de la empresa es minimizar la latencia para la recuperación de datos y garantizar que los datos de la caché nunca queden obsoletos. ¿Qué estrategia de almacenamiento en caché debe usar la empresa para cumplir con estos requisitos?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Amazon DynamoDB Accelerator (DAX)"
+        },
+        {
+          "id": "b",
+          "text": "Amazon ElastiCache con carga diferida"
+        },
+        {
+          "id": "c",
+          "text": "Amazon Simple Queue Service (Amazon SQS)"
+        },
+        {
+          "id": "d",
+          "text": "Amazon ElastiCache con escritura simultánea"
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Correcto. La estrategia de escritura simultánea agrega o actualiza datos que están en la memoria caché cada vez que la aplicación los escribe en la base de datos. Los datos de la memoria caché nunca están obsoletos porque se actualizan cada vez que la aplicación escribe los datos en la base de datos. ElastiCache admite bases de datos relacionales. Para obtener más información sobre la escritura simultánea, consulte Escritura simultánea ."
+    },
+    {
+      "id": "q54",
+      "text": "Una empresa ha implementado uno de sus microservicios en AWS Lambda que accede a una tabla de Amazon DynamoDB denominada \"Books\". Un Solutions Architect diseña una política de IAM que se adjuntará al rol de IAM de la función Lambda y le dará acceso para colocar, actualizar y eliminar elementos de la tabla \"Books\". La política de IAM debe impedir que la función lleve a cabo cualquier otra acción en \"Books\" y en cualquier otra tabla. ¿Qué política de IAM satisfaría estas necesidades y proporcionaría el acceso MENOS privilegiado?",
+      "options": [
+        {
+          "id": "a",
+          "text": "{ \"Version\": \"2012-10-17\", \"Statement\": \\[ { \"Sid\": \"PutUpdateDeleteOnBooks\", \"Effect\": \"Allow\", \"Action\": \\[ \"dynamodb:PutItem\", \"dynamodb:UpdateItem\", \"dynamodb:DeleteItem\" \\], \"Resource\": \"arn:aws:dynamodb:us-west-2:123456789012:table/\\*\" } \\] }"
+        },
+        {
+          "id": "b",
+          "text": "{ \"Version\": \"2012-10-17\", \"Statement\": \\[ { \"Sid\": \"PutUpdateDeleteOnBooks\", \"Effect\": \"Allow\", \"Action\": \"dynamodb:\\*\", \"Resource\": \"arn:aws:dynamodb:us-west-2:123456789012:table/Books\" } \\] }"
+        },
+        {
+          "id": "c",
+          "text": "{ \"Version\": \"2012-10-17\", \"Statement\": \\[ { \"Sid\": \"PutUpdateDeleteOnBooks\", \"Effect\": \"Allow\", \"Action\": \"dynamodb:\\*\", \"Resource\": \"arn:aws:dynamodb:us-west-2:123456789012:table/Books\" }, { \"Sid\": \"PutUpdateDeleteOnBooks\", \"Effect\": \"Deny\", \"Action\": \"dynamodb:\\*:\\*\", \"Resource\": \"arn:aws:dynamodb:us-west-2:123456789012:table/Books\" \\] }"
+        },
+        {
+          "id": "d",
+          "text": "{ \"Version\": \"2012-10-17\", \"Statement\": \\[ { \"Sid\": \"PutUpdateDeleteOnBooks\", \"Effect\": \"Allow\", \"Action\": \\[ \"dynamodb:PutItem\", \"dynamodb:UpdateItem\", \"dynamodb:DeleteItem\" \\], \"Resource\": \"arn:aws:dynamodb:us-west-2:123456789012:table/Books\" } \\] }"
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Correcto. Esta política proporcionará las acciones Put, Update y Delete necesarias solo a la tabla \"Books\". Para obtener más información sobre las políticas de IAM de DynamoDB, consulte Using Identity-Based Policies (IAM Policies) with Amazon DynamoDB (Uso de las políticas basadas en la identidad (políticas de IAM) con Amazon DynamoDB)."
+    },
+    {
+      "id": "q55",
+      "text": "Una empresa crea una aplicación de almacenamiento de documentos en AWS. La aplicación se ejecuta en instancias Amazon EC2 en varias zonas de disponibilidad. La empresa exige que el almacén de documentos esté altamente disponible. Los documentos deben estar disponibles para todas las instancias EC2 que alojen la aplicación y deben devolverse inmediatamente cuando se soliciten varias veces al mes. El ingeniero jefe ha configurado la aplicación para usar Amazon Elastic Block Store (Amazon EBS) para almacenar los documentos, pero está dispuesto a considerar otras opciones con el fin de cumplir el requisito de disponibilidad. ¿Qué debería recomendar un Solutions Architect?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Utilizar Amazon EBS para los volúmenes raíz de las instancias EC2. Configurar la aplicación para crear el almacén de documentos en Amazon S3 Standard."
+        },
+        {
+          "id": "b",
+          "text": "Utilizar al menos tres volúmenes de EBS de IOPS provisionadas para las instancias EC2. Montar los volúmenes en las instancias EC2 en una configuración RAID 5."
+        },
+        {
+          "id": "c",
+          "text": "Hacer instantáneas de los volúmenes de EBS con regularidad y crear nuevos volúmenes con esas instantáneas en zonas de disponibilidad adicionales."
+        },
+        {
+          "id": "d",
+          "text": "Utilizar Amazon EBS para los volúmenes raíz de las instancias EC2. Configurar la aplicación para crear el almacén de documentos en Amazon S3 Glacier Flexible Retrieval."
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "Correcto. Esta solución satisface el requisito de disponibilidad de datos mediante S3 Standard. Esta solución también sigue las prácticas recomendadas para el diseño del almacenamiento de datos. Dado que Amazon S3 es un servicio regional, el almacén de documentos estará altamente disponible y será accesible para las instancias EC2 en todas las zonas de disponibilidad. La aplicación devolverá los documentos inmediatamente después de solicitarlos. Para obtener más información sobre cómo usar Amazon S3 para el almacenamiento de EC2, consulte Uso de Amazon S3 con Amazon EC2 ."
+    },
+    {
+      "id": "q56",
+      "text": "Una empresa quiere construir una infraestructura inmutable para sus aplicaciones de software. La empresa quiere probar las aplicaciones de software antes de enviarles tráfico. La empresa busca una solución eficiente que limite los efectos de los errores en las aplicaciones. ¿Qué combinación de pasos debe recomendar un Solutions Architect?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Utilizar AWS CloudFormation para actualizar la infraestructura de producción y restaurar la pila si la actualización tiene errores."
+        },
+        {
+          "id": "b",
+          "text": "Utilizar AWS CloudFormation con un parámetro establecido en el valor de preparación en un entorno independiente distinto al entorno de producción."
+        },
+        {
+          "id": "c",
+          "text": "Utilizar AWS CloudFormation para implementar el entorno de preparación con una política de eliminación de instantáneas y reutilizar los recursos en el entorno de producción si se superan las pruebas."
+        },
+        {
+          "id": "d",
+          "text": "Aplicar el direccionamiento ponderado de Amazon Route 53 para probar el entorno de preparación y aumentar gradualmente el tráfico a medida que se superen las pruebas."
+        },
+        {
+          "id": "e",
+          "text": "Aplicar el enrutamiento de conmutación por error de Amazon Route 53 para probar el entorno de preparación y conmutar por error al entorno de producción si se superan las pruebas."
+        }
+      ],
+      "correctAnswers": [
+        "b",
+        "d"
+      ],
+      "explanation": "Correcto. La empresa podría usar un entorno independiente para probar los cambios antes de que los implemente en la producción. Para obtener más información sobre cómo usar CloudFormation para crear varios entornos y probar los cambios antes de publicar actualizaciones en un entorno de producción, consulte Reutilización de plantillas para replicar pilas en varios entornos . Correcto. El direccionamiento ponderado de Route 53 le permite enviar un porcentaje del tráfico a varios recursos. Puede utilizar una estrategia de implementación azul/verde para implementar aplicaciones de software de manera predecible y restaurar rápidamente las implementaciones si las pruebas fallan. Para obtener más información sobre el direccionamiento ponderado, consulte Direccionamiento ponderado ."
+    },
+    {
+      "id": "q57",
+      "text": "Una aplicación que se ejecuta en una subred privada accede a una tabla de Amazon DynamoDB. Para cumplir los requisitos de seguridad, los datos no pueden salir de la red de AWS. ¿Cómo debería cumplirse este requisito?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Agregar una gateway NAT y configurar la tabla de enrutamiento en la subred privada."
+        },
+        {
+          "id": "b",
+          "text": "Habilitar el cifrado de DynamoDB en reposo mediante una clave de AWS Key Management Service (AWS KMS)."
+        },
+        {
+          "id": "c",
+          "text": "Configurar una ACL de red en DynamoDB para limitar el tráfico a la subred privada."
+        },
+        {
+          "id": "d",
+          "text": "Crear un punto de enlace de la VPC para DynamoDB y configurar la política de punto de enlace."
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Correcto. Con un punto de enlace dentro de la VPC y el enrutamiento a ese punto de enlace, el tráfico destinado a DynamoDB no saldría de la red. Para obtener más información sobre cómo utilizar puntos de enlace de la VPC a fin de acceder a DynamoDB, consulte Uso de los puntos de enlace de Amazon VPC para acceder a DynamoDB. https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/vpc-endpoints-dynamodb.html Para obtener más información en este tutorial sobre cómo configurar un punto de enlace de la VPC para DynamoDB, consulte Tutorial: Uso de un punto de enlace de la VPC para DynamoDB. https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/vpc-endpoints-dynamodb-tutorial.html"
+    },
+    {
+      "id": "q58",
+      "text": "Una empresa ejecuta un sitio web en instancias Amazon EC2 detrás de un Application Load Balancer de ELB. Amazon Route 53 se utiliza para el sistema de nombres de dominio (DNS). La empresa quiere configurar un sitio web de respaldo con un mensaje que incluya un número de teléfono y una dirección de correo electrónico a los que los usuarios puedan contactar si el sitio web principal no funciona. ¿Cómo debe la empresa implementar esta solución?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Utilizar el alojamiento de sitios web de Amazon S3 para el sitio web de respaldo y una política de enrutamiento de latencia de Route 53."
+        },
+        {
+          "id": "b",
+          "text": "Implementar la aplicación en otra región de AWS y utilizar las comprobaciones de estado de ELB para el enrutamiento de conmutación por error."
+        },
+        {
+          "id": "c",
+          "text": "Implementar la aplicación en otra región de AWS y utilizar la redirección del lado del servidor en el sitio web principal."
+        },
+        {
+          "id": "d",
+          "text": "Utilizar el alojamiento de sitios web de Amazon S3 para el sitio web de respaldo y una política de enrutamiento de conmutación por error de Route 53."
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Correcto. Dado que el sitio web de respaldo utiliza datos estáticos, Amazon S3 es una solución ideal. Además, una política de conmutación por error de Route 53 dirigirá a los usuarios al sitio web alojado en S3 solo si no está disponible el punto de enlace principal basado en ELB. Para obtener más información sobre cómo usar Amazon S3 para alojar un sitio web estático, consulte Alojamiento de un sitio web estático con Amazon S3 . Para obtener más información sobre el enrutamiento de conmutación por error, consulte Enrutamiento de conmutación por error ."
+    },
+    {
+      "id": "q59",
+      "text": "Una empresa utiliza Amazon DynamoDB para preparar su catálogo de productos, que tiene un tamaño de 1 TB. Una entrada de producto consta de un promedio de 100 KB de datos y el tráfico promedio es de unas 250 solicitudes por segundo. Un administrador de bases de datos ha aprovisionado 3000 unidades de capacidad de lectura (RCU) de rendimiento. Sin embargo, algunos productos son populares entre los usuarios. Los usuarios están experimentando retrasos o tiempos de espera debido a la limitación controlada. Se espera que la popularidad siga aumentando, pero el número de productos se mantendrá constante. ¿Qué debería hacer un arquitecto de soluciones como solución a largo plazo para este problema?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Aumentar el rendimiento aprovisionado a 6 000 RCU."
+        },
+        {
+          "id": "b",
+          "text": "Cambiar la clave de partición para que conste de un resumen de la clave del producto y del tipo de producto en lugar de solo la clave de producto."
+        },
+        {
+          "id": "c",
+          "text": "Aumentar DynamoDB almacenando solo los atributos clave del producto, con los detalles almacenados en Amazon S3."
+        },
+        {
+          "id": "d",
+          "text": "Utilizar DynamoDB Accelerator (DAX) para mantener los elementos de lectura frecuente."
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Correcto. DAX proporciona un mayor rendimiento para cargas de trabajo de lectura masiva. DAX también proporciona un ahorro potencial de costos al reducir la necesidad de aprovisionamiento excesivo de RCU. Esta característica resulta especialmente beneficiosa para aplicaciones que requieren lecturas repetidas para los productos populares. Para obtener más información sobre DAX, consulte Amazon DynamoDB Accelerator (DAX). https://aws.amazon.com/dynamodb/dax/ Para obtener más información sobre DAX, consulte Aceleración en memoria con Dynamo DB Accelerator (DAX). https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.html"
+    },
+    {
+      "id": "q60",
+      "text": "Una empresa planea utilizar un servicio de terceros para análisis de aplicaciones. Un arquitecto de soluciones establece una interconexión de VPC entre la VPC de la empresa en AWS y la VPC del proveedor de análisis de terceros en AWS. ¿Qué paso adicional debería tomar el arquitecto de soluciones para que el tráfico de red pueda fluir entre las dos VPC?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Configurar las tablas de enrutamiento para ambas VPC."
+        },
+        {
+          "id": "b",
+          "text": "Comprobar que las puertas de enlace de Internet estén adjuntas a cada VPC."
+        },
+        {
+          "id": "c",
+          "text": "Comprobar que ninguna de las VPC tenga interconexiones adicionales."
+        },
+        {
+          "id": "d",
+          "text": "Resolver los rangos CIDR superpuestos."
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "Correcto. Una tabla de enrutamiento contiene un conjunto de reglas, conocidas como rutas. Estas rutas determinan hacia dónde dirigir el tráfico de red desde su subred o gateway. Las rutas permiten controlar si el tráfico de red se dirige a través de la interconexión. Para obtener más información sobre la interconexión de VPC, consulte Conceptos básicos de las interconexiones de VPC. https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-basics.html Para obtener más información sobre las tablas de enrutamiento para la interconexión de VPC, consulte Actualización de las tablas de enrutamiento para una interconexión de VPC. https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-routing.html"
+    },
+    {
+      "id": "q61",
+      "text": "Una empresa revisa una migración reciente de una aplicación de tres niveles a una VPC. El equipo de seguridad descubre que el principio de mínimo privilegio no se aplica a las reglas de entrada y salida del grupo de seguridad de Amazon EC2 entre los niveles de aplicaciones. ¿Qué debe hacer un arquitecto de soluciones para corregir este problema?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Crear reglas del grupo de seguridad con el ID del grupo de seguridad como fuente o destino."
+        },
+        {
+          "id": "b",
+          "text": "Crear reglas del grupo de seguridad con los bloques de CIDR de la subred como fuente o destino."
+        },
+        {
+          "id": "c",
+          "text": "Crear reglas del grupo de seguridad con los bloques de CIDR de la VPC como fuente o destino."
+        },
+        {
+          "id": "d",
+          "text": "Crear reglas del grupo de seguridad con el ID de instancia como fuente o destino."
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "Correcto. Las reglas del grupo de seguridad se utilizan para controlar el tráfico entrante y saliente que puede llegar a las instancias asociadas a un grupo de seguridad. Puede especificar el ID del grupo de seguridad como fuente o destino. Esta solución garantiza que las reglas del grupo de seguridad se implementen correctamente y que los niveles de las aplicaciones puedan comunicarse. Para más información sobre los grupos de seguridad, consulte las Reglas del grupo de seguridad . Para más información sobre cómo controlar el tráfico hacia los recursos de AWS, consulte Controlar el tráfico hacia los recursos de AWS mediante grupos de seguridad ."
+    },
+    {
+      "id": "q62",
+      "text": "Un arquitecto de soluciones debe permitir que los desarrolladores tengan conectividad SSH con servidores web. Los requisitos son los siguientes: Limitar el acceso a los usuarios procedentes de la red corporativa. Los servidores web no pueden tener acceso SSH directamente desde Internet. Los servidores web residen en una subred privada. ¿Qué combinación de pasos debe completar el arquitecto para cumplir estos requisitos?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Crear un host bastión con reglas de grupo de seguridad que solo permitan el tráfico de la red corporativa."
+        },
+        {
+          "id": "b",
+          "text": "Denegar todo el tráfico SSH de la red corporativa en la ACL de red entrante."
+        },
+        {
+          "id": "c",
+          "text": "Crear un host bastión que autentique a los usuarios en el directorio corporativo."
+        },
+        {
+          "id": "d",
+          "text": "Adjuntar un rol de IAM al host bastión con los permisos pertinentes."
+        },
+        {
+          "id": "e",
+          "text": "Configurar el grupo de seguridad de los servidores web para permitir el tráfico SSH desde un host bastión."
+        }
+      ],
+      "correctAnswers": [
+        "a",
+        "e"
+      ],
+      "explanation": "Correcto. Un host bastión cumple el requisito de impedir el acceso directo SSH desde Internet. La implementación de una regla del grupo de seguridad que solo permite el acceso SSH desde la red corporativa cumple el requisito de limitar el acceso de forma adecuada. Para obtener más información sobre los hosts bastión, consulte Host Bastión de Linux en AWS. https://aws.amazon.com/quickstart/architecture/linux-bastion/ . Para obtener más información sobre las reglas del grupo de seguridad, consulte Reglas del grupo de seguridad. https://docs.aws.amazon.com/vpc/latest/userguide/VPC\\_SecurityGroups.html#SecurityGroupRules Correcto. La configuración del grupo de seguridad de los servidores web para permitir el acceso SSH solo desde el host bastión impedirá el acceso desde otros sistemas. Para obtener más información sobre las reglas del grupo de seguridad, consulte Reglas del grupo de seguridad. https://docs.aws.amazon.com/vpc/latest/userguide/VPC\\_SecurityGroups.html#SecurityGroupRules"
+    },
+    {
+      "id": "q63",
+      "text": "Una empresa quiere medir la eficacia de sus campañas de marketing recientes. La empresa lleva a cabo el procesamiento por lotes en archivos .csv de datos de ventas y, una vez cada hora, almacena los resultados en un bucket de Amazon S3. El bucket de S3 contiene petabytes de objetos. La empresa lleva a cabo consultas únicas en Amazon Athena para determinar qué productos son los más populares en una fecha determinada para una región determinada. A veces, las consultas tienen errores o tardan más de lo esperado en terminar de ejecutarse. ¿Qué acciones debe tomar un arquitecto de soluciones para mejorar el rendimiento y la fiabilidad de las consultas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Reducir el tamaño de los objetos de S3 a menos de 128 MB."
+        },
+        {
+          "id": "b",
+          "text": "Almacenar los archivos como objetos grandes y únicos en Amazon S3."
+        },
+        {
+          "id": "c",
+          "text": "Utilizar un proceso de extracción, transformación y carga (ETL) de AWS Glue para convertir los archivos .csv al formato Apache Parquet."
+        },
+        {
+          "id": "d",
+          "text": "Utilizar Amazon Managed Service para Apache Flink con el fin de ejecutar las consultas como parte de la operación de procesamiento por lotes."
+        },
+        {
+          "id": "e",
+          "text": "Particionar los datos por fecha y región en Amazon S3."
+        }
+      ],
+      "correctAnswers": [
+        "c",
+        "e"
+      ],
+      "explanation": "Correcto. Apache Parquet y Apache ORC son almacenes de datos columnares populares. Estos almacenes de datos proporcionan características que almacenan datos de manera eficiente mediante el empleo de compresión por columnas, diferentes codificaciones, compresión basada en el tipo de datos e inserción de predicados. También puede dividir estos almacenes de datos. En general, puede reducir el número de bytes que Athena lee de Amazon S3 si logra obtiene mejores proporciones de compresión u omite bloques de datos. Estas estrategias pueden mejorar el rendimiento de las consultas. Para obtener más información sobre las prácticas recomendadas al usar Athena con AWS Glue, consulte ¿Cuándo debo usar Athena? . Correcto. Las particiones dividen la tabla en partes y mantienen los datos relacionados entre si en función de los valores de las columnas, como la fecha, el país o la región. Las particiones actúan como columnas virtuales. Las particiones se definen al crear la tabla. Las particiones pueden ayudar a reducir la cantidad de datos que Athena analiza en cada consulta, lo que mejora el rendimiento. Puede crear filtros basados en las particiones para reducir la cantidad de datos que Athena analiza en cada consulta. Para obtener más información sobre cómo mejorar el rendimiento de las consultas en Athena, consulte Los 10 mejores consejos para ajustar el rendimiento de Amazon Athena . Para obtener más información sobre cómo particionar datos en Athena, consulte Partición de datos en Athena ."
+    },
+    {
+      "id": "q64",
+      "text": "Una empresa administra un sitio multimedia en línea alojado en las instalaciones. Un empleado publicó una reseña de productos que contenía videos e imágenes. La reseña se hizo viral y la empresa necesita gestionar el consiguiente pico en el tráfico del sitio web. ¿Qué acciones proporcionarían una solución inmediata?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Rediseñar el sitio web para utilizar Amazon API Gateway y utilizar AWS Lambda para entregar contenido."
+        },
+        {
+          "id": "b",
+          "text": "Entregar las imágenes y los videos mediante una distribución de Amazon CloudFront creada con el sitio de noticias como origen."
+        },
+        {
+          "id": "c",
+          "text": "Utilizar Amazon ElastiCache (Redis OSS) para almacenar en caché y reducir las solicitudes de carga del origen."
+        },
+        {
+          "id": "d",
+          "text": "Agregar instancias de servidor mediante Amazon EC2 y utilizar Amazon Route 53 con una política de direccionamiento de conmutación por error."
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "Correcto. La reseña contiene videos e imágenes, por lo que la empresa puede reducir la carga mediante la descarga del contenido que se publica desde los servidores a una red de entrega de contenido (CDN) como CloudFront. Para obtener más información sobre CloudFront, consulte Características clave de Amazon CloudFront ."
+    },
+    {
+      "id": "q65",
+      "text": "Una empresa ha decidido usar AWS para alcanzar una alta disponibilidad. La arquitectura de la empresa consiste en un Application Load Balancer frente a un grupo de Auto Scaling que consta de instancias Amazon EC2. La empresa utiliza métricas y alarmas de Amazon CloudWatch para supervisar la arquitectura. Un Solutions Architect se da cuenta de que la empresa no puede lanzar algunas instancias. El Solutions Architect encuentra el siguiente mensaje: SE HA SUPERADO LA CUOTA DE EC2. ¿Cómo puede el Solutions Architect garantizar que la empresa lance correctamente todas las instancias EC2?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Utilizar Service Quotas para solicitar un aumento en la cantidad de instancias EC2 que la empresa puede lanzar."
+        },
+        {
+          "id": "b",
+          "text": "Volver a crear el grupo de Auto Scaling para asegurarse de que esté conectado al Application Load Balancer."
+        },
+        {
+          "id": "c",
+          "text": "Modificar la métrica de CloudWatch que la empresa supervisa para lanzar las instancias."
+        },
+        {
+          "id": "d",
+          "text": "Modificar el grupo de Auto Scaling para aumentar el número máximo de instancias que la empresa puede lanzar."
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "Correcto. El mensaje \"SE HA SUPERADO LA CUOTA DE EC2\" significa que la empresa ha alcanzado el límite actual de un servicio. Para lanzar más recursos, la empresa debe usar Service Quotas para solicitar un aumento del límite. Para obtener más información sobre cómo solicitar el aumento del límite de servicio, consulte Solicitar un aumento ."
+    }
+  ]
+}

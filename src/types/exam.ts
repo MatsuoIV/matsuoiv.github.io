@@ -26,3 +26,12 @@ export interface ExamData {
 export type UserAnswers = Record<string, string[]>
 
 export type ExamPhase = 'loading' | 'welcome' | 'exam' | 'summary'
+
+export interface ExamEntry {
+  id: string
+  title: string
+  description?: string
+  /** Path relative to public/data/. */
+  file: string
+  questionCount: number
+}

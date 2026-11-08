@@ -1,0 +1,136 @@
+{
+  "title": "SAA-C03: AWS Certified Solutions Architect - Associate (muestra)",
+  "description": "Preguntas de muestra del examen SAA-C03.",
+  "questions": [
+    {
+      "id": "q1",
+      "text": "El equipo de operaciones en la nube de una empresa quiere estandarizar la resolución de problemas de recursos. La empresa desea proporcionar un conjunto estándar de evaluaciones y resolución de problemas de gobernanza a todas las cuentas de los miembros de su organización en AWS Organizations. ¿Qué servicio de AWS autoadministrado puede utilizar la empresa para cumplir estos requisitos con la MENOR cantidad de esfuerzo operativo?",
+      "options": [
+        {
+          "id": "a",
+          "text": "AWS CloudTrail"
+        },
+        {
+          "id": "b",
+          "text": "Paquetes de conformidad de AWS Config"
+        },
+        {
+          "id": "c",
+          "text": "Estándares de conformidad de AWS Security Hub"
+        },
+        {
+          "id": "d",
+          "text": "AWS Trusted Advisor"
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "Correcto. Los paquetes de conformidad de AWS Config son un conjunto de normas de AWS Config y acciones de resolución de problemas que se pueden implementar de manera sencilla como una entidad única en una cuenta y una región o en la totalidad de una organización en AWS Organizations. Para obtener más información sobre los paquetes de conformidad de AWS Config, consulte Paquetes de conformidad. https://docs.aws.amazon.com/config/latest/developerguide/conformance-packs.html Para obtener más información sobre AWS Config, consulte ¿Qué es AWS Config? https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html"
+    },
+    {
+      "id": "q2",
+      "text": "Un equipo tiene una aplicación que detecta cuándo se cargan nuevos objetos en un bucket de Amazon S3. Las cargas invocan una función de AWS Lambda para escribir metadatos de objetos en una tabla de Amazon DynamoDB y en una base de datos de Amazon RDS for PostgreSQL. ¿Qué acciones debería realizar el equipo para garantizar la alta disponibilidad?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Crear una función Lambda para cada zona de disponibilidad en la que se implementa la aplicación."
+        },
+        {
+          "id": "b",
+          "text": "Habilitar la replicación entre regiones en el bucket de S3."
+        },
+        {
+          "id": "c",
+          "text": "Crear una transmisión de DynamoDB para la tabla de DynamoDB."
+        },
+        {
+          "id": "d",
+          "text": "Habilitar Multi-AZ en la base de datos de RDS for PostgreSQL."
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Correcto. De forma predeterminada, Amazon RDS se implementa en una única zona de disponibilidad. Multi-AZ es la opción estándar para proporcionar alta disponibilidad. En una configuración Multi-AZ, las instancias de base de datos de RDS se replican de forma sincrónica en otras zonas de disponibilidad para proporcionar alta disponibilidad y soporte de conmutación por error. Para obtener más información sobre las implementaciones Multi-AZ de RDS, consulte Alta disponibilidad (Multi-AZ) para Amazon RDS. https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html"
+    },
+    {
+      "id": "q3",
+      "text": "Una empresa utiliza conexiones de AWS Site-to-Site VPN para una conectividad segura a los recursos de AWS Cloud desde ubicaciones en las instalaciones. Debido al aumento en el tráfico entre las conexiones de VPN a las instancias de Amazon EC2, los usuarios experimentan una conectividad de VPN más lenta. El equipo de red informa que la conexión a Internet utilizada para la VPN tiene un rendimiento adicional no utilizado. ¿Qué solución mejorará el rendimiento de la VPN?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Configurar una gateway privada virtual con enrutamiento de múltiples rutas de igual costo y varios canales."
+        },
+        {
+          "id": "b",
+          "text": "Aumentar el número de túneles en la configuración de VPN."
+        },
+        {
+          "id": "c",
+          "text": "Utilizar una transit gateway con enrutamiento de múltiples rutas de igual costo y agregar túneles de VPN adicionales."
+        },
+        {
+          "id": "d",
+          "text": "Implementar varias gateways de clientes para la misma red."
+        }
+      ],
+      "correctAnswers": [
+        "c"
+      ],
+      "explanation": "Correcto. El rendimiento máximo de una conexión de Site-to-Site VPN es de 1,25 Gbps. Si se necesita un mayor rendimiento, se podría utilizar el enrutamiento de múltiples rutas (ECMP) de igual costo. El enrutamiento ECMP está disponible para conexiones de VPN adjuntas a una transit gateway. Con el enrutamiento ECMP, se pueden agregar varias conexiones de VPN para lograr un rendimiento más efectivo. Para obtener más información sobre ECMP y otras opciones de enrutamiento, consulte Opciones de enrutamiento de Site-to-Site VPN. https://docs.aws.amazon.com/vpn/latest/s2svpn/VPNRoutingTypes.html"
+    },
+    {
+      "id": "q4",
+      "text": "Un equipo de aplicaciones ha comenzado a utilizar Amazon EMR para ejecutar trabajos por lotes con conjuntos de datos ubicados en Amazon S3. Durante la prueba inicial de la carga de trabajo, un arquitecto de soluciones observa que la cuenta está comenzando a acumular costos de procesamiento de datos de gateway NAT. ¿Cómo puede el equipo optimizar el costo de la carga de trabajo?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Configurar una ACL de red en las subredes en las que se ejecutan los clústeres de Amazon EMR para acceso abierto a Amazon S3."
+        },
+        {
+          "id": "b",
+          "text": "Desconectar la gateway NAT de la subred en la que se ejecutan los clústeres de Amazon EMR."
+        },
+        {
+          "id": "c",
+          "text": "Sustituir la gateway NAT por una gateway de cliente."
+        },
+        {
+          "id": "d",
+          "text": "Sustituir la gateway NAT por un punto de enlace de la VPC de S3."
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Correcto. Un punto de enlace de la VPC de S3 es un punto de enlace de gateway que no incurre en cargos por el tráfico a Amazon S3. Para obtener más información sobre los puntos de enlace de la VPC de gateway, consulte Precios de los puntos de enlace de gateway https://docs.aws.amazon.com/vpc/latest/userguide/vpce-gateway.html#gateway-endpoint-pricing"
+    },
+    {
+      "id": "q5",
+      "text": "Una empresa tiene previsto utilizar Amazon S3 para almacenar imágenes cargadas por sus usuarios. Las imágenes se deben cifrar en reposo en Amazon S3. La empresa no quiere perder tiempo en la administración y la rotación de las claves, pero sí quiere controlar quién puede acceder a ellas. ¿Qué debería usar un arquitecto de soluciones para lograrlo?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Cifrado del lado del servidor con claves proporcionadas por el cliente (SSE-C)"
+        },
+        {
+          "id": "b",
+          "text": "Cifrado del lado del servidor con claves administradas de AWS KMS (SSE-KMS)"
+        },
+        {
+          "id": "c",
+          "text": "Cifrado del lado del servidor con claves de cifrado almacenadas en un bucket de S3"
+        },
+        {
+          "id": "d",
+          "text": "Cifrado del lado del servidor con claves de cifrado almacenadas en el almacén de parámetros de AWS Systems Manager"
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "Correcto. SSE-KMS usa AWS Key Management Service (AWS KMS) para crear, administrar, rotar y controlar el acceso a las claves de cifrado. Para más información sobre SSE-KMS, consulte Uso del cifrado del servidor con claves de AWS KMS (SSE-KMS) . Para más información sobre AWS KMS, consulte AWS Key Management Service ."
+    }
+  ]
+}
