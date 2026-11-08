@@ -13,7 +13,7 @@ interface WelcomeScreenProps {
 function formatDuration(seconds: number): string {
   if (seconds <= 0) return 'Sin límite de tiempo'
   const minutes = Math.round(seconds / 60)
-  return `${minutes} minute${minutes !== 1 ? 's' : ''}`
+  return `${minutes} minutos`
 }
 
 export function WelcomeScreen({
@@ -33,7 +33,7 @@ export function WelcomeScreen({
         <ul className="welcome-meta">
           <li>
             <span className="welcome-meta-icon">📋</span>
-            <span><strong>{totalQuestions}</strong> questions</span>
+            <span><strong>{totalQuestions}</strong> preguntas</span>
           </li>
           <li>
             <span className="welcome-meta-icon">⏱</span>
@@ -41,12 +41,12 @@ export function WelcomeScreen({
           </li>
           <li>
             <span className="welcome-meta-icon">🔀</span>
-            <span>Questions presented in random order</span>
+            <span>Preguntas en orden aleatorio</span>
           </li>
         </ul>
 
         <button className="btn btn--primary btn--large" onClick={onStart}>
-          Start exam
+          Iniciar examen
         </button>
 
         {onChangeExam && (

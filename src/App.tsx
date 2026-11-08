@@ -73,7 +73,10 @@ function ExamRunner({ exam, onChangeExam }: ExamRunnerProps) {
     restartExam,
     getScore,
     isAnswerCorrect,
-  } = useExam(`${import.meta.env.BASE_URL}data/${exam.file}`, EXAM_DURATION_SECONDS)
+  } = useExam(
+    `${import.meta.env.BASE_URL}data/${exam.file}`,
+    exam.durationMinutes ? exam.durationMinutes * 60 : EXAM_DURATION_SECONDS
+  )
 
   if (phase === 'loading') {
     return (
@@ -97,7 +100,7 @@ function ExamRunner({ exam, onChangeExam }: ExamRunnerProps) {
         title={examData.title}
         description={examData.description}
         totalQuestions={examData.questions.length}
-        durationSeconds={EXAM_DURATION_SECONDS}
+        durationSeconds={exam.durationMinutes ? exam.durationMinutes * 60 : EXAM_DURATION_SECONDS}
         onStart={startExam}
         onChangeExam={onChangeExam}
       />

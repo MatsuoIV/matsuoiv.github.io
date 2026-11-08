@@ -74,5 +74,6 @@ Para añadir un examen nuevo:
 1. Crea `public/data/<exam-id>/questions.json` siguiendo el esquema de
    `src/types/exam.ts` (`title`, `description`, `questions[]`).
 2. Añade su entrada a `public/data/exams.json` (`id`, `title`, `description`,
-   `file`, `questionCount`).
+   `file`, `questionCount`, `durationMinutes`). Cada examen define su propia
+   duración; si se omite, se usa `VITE_EXAM_DURATION_MINUTES`.
 3. (Opcional) Añade un `questions.sample.json` con una muestra representativa.
