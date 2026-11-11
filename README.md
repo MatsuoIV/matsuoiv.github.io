@@ -77,3 +77,40 @@ Para añadir un examen nuevo:
    `file`, `questionCount`, `durationMinutes`). Cada examen define su propia
    duración; si se omite, se usa `VITE_EXAM_DURATION_MINUTES`.
 3. (Opcional) Añade un `questions.sample.json` con una muestra representativa.
+
+### Formato de los enunciados
+
+`Question.text` admite un subconjunto pequeño de Markdown pensado para el
+contenido de los exámenes:
+
+- **Código inline** con backticks: `` `runs-on: [gpu]` ``.
+- **Bloques de código** con triples backticks y lenguaje opcional:
+
+  ````
+  ```yaml
+  steps:
+    - run: |
+        echo hello
+  ```
+  ````
+
+- **Números de línea** añadiendo `linenums` al lenguaje. Útil cuando el
+  enunciado referencia líneas concretas:
+
+  ````
+  ```yaml linenums
+  steps:
+    - run: |
+        echo hello
+
+  ```
+  ````
+
+El renderizador (`src/components/QuestionText.tsx`) muestra los bloques en un
+`<pre><code>` con scroll horizontal, conserva la indentación y usa una fuente
+monoespaciada. Los saltos de línea simples se respetan y las líneas en blanco
+separan párrafos.
+
+Las preguntas con más de una respuesta correcta muestran automáticamente el
+número de opciones a marcar a partir de `correctAnswers` (por ejemplo,
+"Select the two correct options."). No es necesario escribirlo en el enunciado.

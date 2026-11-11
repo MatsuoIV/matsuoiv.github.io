@@ -207,6 +207,84 @@
   color: #ececec;
 }
 
+.question-text--heading {
+  font-weight: 600;
+}
+
+.question-text-paragraph {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.question-text-paragraph + .question-text-paragraph {
+  margin-top: 0.75rem;
+}
+
+/* ── Code snippets in question statements ───────────────── */
+.code-block {
+  margin: 0.25rem 0;
+  border: 1px solid #243b55;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: #0e1f35;
+}
+
+.code-block-language {
+  padding: 0.3rem 0.75rem;
+  background: #142d4c;
+  border-bottom: 1px solid #243b55;
+  color: #9fd3c7;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.code-block-pre {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: #ececec;
+  tab-size: 2;
+}
+
+.code-block-pre code {
+  font: inherit;
+  white-space: pre;
+}
+
+.code-line {
+  display: flex;
+  gap: 0.9rem;
+  min-height: 1.55em;
+}
+
+.code-line-number {
+  flex: 0 0 auto;
+  min-width: 1.5em;
+  text-align: right;
+  color: #6b8ca8;
+  user-select: none;
+}
+
+.code-line-content {
+  white-space: pre;
+}
+
+.inline-code {
+  padding: 0.1em 0.35em;
+  border-radius: 0.25rem;
+  background: #142d4c;
+  border: 1px solid #243b55;
+  color: #9fd3c7;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
 .question-hint {
   font-size: 0.85rem;
   color: #9fd3c7;
@@ -537,8 +615,13 @@
 
 .summary-item-text {
   font-weight: 500;
+  font-size: 0.95rem;
   margin: 0;
   color: #ececec;
+}
+
+.summary-item-text .code-block-pre {
+  font-size: 0.78rem;
 }
 
 .summary-answers {

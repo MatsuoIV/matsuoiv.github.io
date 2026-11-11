@@ -609,7 +609,7 @@
     },
     {
       "id": "q54",
-      "text": "You are a DevOps engineer working on custom Actions development. You need to handle the errors or exceptions as part of the JavaScript based action code. What should be added to handle errors?\n\nconst core = require('@actions/core');\ntry { /* action code */ }\ncatch (error) { << insert snippet here >> }",
+      "text": "You are a DevOps engineer working on custom Actions development. You need to handle the errors or exceptions as part of the JavaScript based action code. What should be added to handle errors?\n\n```javascript\nconst core = require('@actions/core');\ntry { /* action code */ }\ncatch (error) { << insert snippet here >> }\n```",
       "options": [
         { "id": "a", "text": "core.setException(error.message);" },
         { "id": "b", "text": "action.setError(error.message);" },
@@ -736,7 +736,7 @@
     },
     {
       "id": "q64",
-      "text": "In the following workflow file, line 5 interprets lines 3 and 4 as Python. Which of the following is a valid option to complete line 5?\n\n1 steps:\n2 - run: |\n3   import os\n4   print(os.environ['PATH'])\n5",
+      "text": "In the following workflow file, line 5 interprets lines 3 and 4 as Python. Which of the following is a valid option to complete line 5?\n\n```yaml linenums\nsteps:\n  - run: |\n      import os\n      print(os.environ['PATH'])\n\n```",
       "options": [
         { "id": "a", "text": "shell: python" },
         { "id": "b", "text": "working-directory: .github/python" },
@@ -959,7 +959,7 @@
     },
     {
       "id": "q82",
-      "text": "A workflow that had been working now stalls in a waiting state until failing. The workflow file process-ml.yaml has not changed and contains jobs specifying runs-on: [gpu]. Which of the following steps would troubleshoot the issue? (Each answer presents a complete solution. Choose two.)",
+      "text": "A workflow that had been working now stalls in a waiting state until failing. The workflow file `process-ml.yaml` has not changed and contains jobs specifying `runs-on: [gpu]`. Which of the following steps would troubleshoot the issue? (Each answer presents a complete solution. Choose two.)",
       "options": [
         { "id": "a", "text": "Review the contents of the Runner_*.log files in the _diag folder." },
         { "id": "b", "text": "Increase the usage limits for the GitHub-hosted runners." },
