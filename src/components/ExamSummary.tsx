@@ -49,7 +49,16 @@ export function ExamSummary({
 
           return (
             <li key={question.id} className={`summary-item${correct ? ' summary-item--correct' : ' summary-item--wrong'}`}>
-              <p className="summary-item-number">Question {index + 1}</p>
+              <div className="summary-item-header">
+                <p className="summary-item-number">Question {index + 1}</p>
+                <span
+                  className={`summary-status${correct ? ' summary-status--correct' : ' summary-status--wrong'}`}
+                  data-testid={`question-status-${index + 1}`}
+                >
+                  {correct ? 'Correct' : 'Incorrect'}
+                </span>
+              </div>
+
               <QuestionText text={question.text} className="summary-item-text" />
               {question.image && (
                 <img
@@ -105,8 +114,46 @@ export function ExamSummary({
                 )}
               </div>
 
+              <div className="option-review">
+                <p className="option-review-title">Review by option</p>
+                <ul className="option-review-list">
+                  {question.options.map((option) => {
+                    const isCorrectOption = question.correctAnswers.includes(option.id)
+                    const wasSelected = givenIds.includes(option.id)
+
+                    return (
+                      <li
+                        key={option.id}
+                        className={`option-review-item${isCorrectOption ? ' option-review-item--correct' : ' option-review-item--incorrect'}${wasSelected ? ' option-review-item--selected' : ''}`}
+                      >
+                        <div className="option-review-header">
+                          <span className="option-review-letter">{option.id.toUpperCase()}</span>
+                          <span className="option-review-text">{optionLabel(option)}</span>
+                          <span className="option-review-badge">
+                            {isCorrectOption ? 'Correct' : 'Incorrect'}
+                          </span>
+                        </div>
+                        {option.image && (
+                          <img
+                            src={option.image}
+                            alt={optionLabel(option)}
+                            className="option-image option-image--summary"
+                          />
+                        )}
+                        <p className={`option-review-rationale${option.rationale ? '' : ' option-review-rationale--missing'}`}>
+                          {option.rationale ?? 'No rationale available.'}
+                        </p>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </div>
+
               {question.explanation && (
-                <p className="summary-explanation">{question.explanation}</p>
+                <>
+                  <p className="summary-explanation-label">Explanation</p>
+                  <p className="summary-explanation">{question.explanation}</p>
+                </>
               )}
             </li>
           )
