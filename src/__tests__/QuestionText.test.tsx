@@ -9,6 +9,10 @@ describe('parseQuestionText', () => {
     expect(blocks).toEqual([{ type: 'text', content: 'Which option is correct?' }])
   })
 
+  it('returns an empty text block for empty input', () => {
+    expect(parseQuestionText('')).toEqual([{ type: 'text', content: '' }])
+  })
+
   it('splits text around a fenced code block', () => {
     const blocks = parseQuestionText(
       'Review this snippet:\n\n```js\nconst answer = 42\n```\n\nWhat does it return?'
@@ -73,6 +77,11 @@ describe('QuestionText', () => {
     expect(screen.getByText('1')).toHaveClass('code-line-number')
     expect(screen.getByText('2')).toHaveClass('code-line-number')
     expect(screen.getByText('a: 1')).toHaveClass('code-line-content')
+  })
+
+  it('renders a paragraph that is only inline code', () => {
+    render(<QuestionText text={'`only`'} />)
+    expect(screen.getByText('only')).toHaveClass('inline-code')
   })
 
   it('renders multiple inline code spans in one paragraph', () => {
