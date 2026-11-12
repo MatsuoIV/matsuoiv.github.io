@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { QuestionText } from '../components/QuestionText'
-import { parseQuestionText } from '../utils/questionText'
+import { multipleAnswerHint, parseQuestionText } from '../utils/questionText'
 
 describe('parseQuestionText', () => {
   it('keeps plain text as a single block', () => {
@@ -36,6 +36,16 @@ describe('parseQuestionText', () => {
     expect(blocks[0].type === 'code' && blocks[0].code.split('\n')).toHaveLength(4)
   })
 
+  it('parses multiple fenced blocks', () => {
+    const blocks = parseQuestionText('A\n\n```js\none\n```\n\nB\n\n```json\n{}\n```')
+    expect(blocks.filter((block) => block.type === 'code')).toHaveLength(2)
+  })
+
+  it('accepts the linenums flag before the language', () => {
+    const blocks = parseQuestionText('```linenums yaml\na: 1\n```')
+    expect(blocks[0]).toMatchObject({ type: 'code', language: 'yaml', lineNumbers: true })
+  })
+
   it('renders an unclosed fence as plain text', () => {
     const blocks = parseQuestionText('Broken ```js\nconst answer = 42')
     expect(blocks).toEqual([{ type: 'text', content: 'Broken ```js\nconst answer = 42' }])
@@ -65,8 +75,35 @@ describe('QuestionText', () => {
     expect(screen.getByText('a: 1')).toHaveClass('code-line-content')
   })
 
+  it('renders multiple inline code spans in one paragraph', () => {
+    render(<QuestionText text={'Use `a` and `b` here.'} />)
+    const codeSpans = screen.getAllByText(/^[ab]$/)
+    expect(codeSpans).toHaveLength(2)
+    for (const span of codeSpans) {
+      expect(span).toHaveClass('inline-code')
+    }
+    expect(screen.getByText(/here\./)).toBeInTheDocument()
+  })
+
+  it('does not interpret backticks inside a code block', () => {
+    render(<QuestionText text={'```md\nUse `code` here\n```'} />)
+    expect(screen.getByText('Use `code` here')).toHaveClass('code-line-content')
+    expect(screen.queryByText('code')).not.toBeInTheDocument()
+  })
+
   it('preserves code indentation', () => {
     render(<QuestionText text={'```yaml\nroot:\n  child: true\n```'} />)
     expect(screen.getByText('child: true').textContent).toBe('  child: true')
+  })
+})
+
+
+describe('multipleAnswerHint', () => {
+  it('uses the singular form for one correct option', () => {
+    expect(multipleAnswerHint(1)).toBe('Select the one correct option.')
+  })
+
+  it('falls back to digits above ten', () => {
+    expect(multipleAnswerHint(12)).toBe('Select the 12 correct options.')
   })
 })
