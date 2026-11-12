@@ -102,9 +102,34 @@ describe('ExamQuestion — multiple answer', () => {
     expect(checkboxes).toHaveLength(3)
   })
 
-  it('shows the multi-select hint', () => {
+  it('shows the number of correct options to select', () => {
     render(<ExamQuestion {...defaultProps} question={multiQuestion} />)
-    expect(screen.getByText(/select all correct/i)).toBeInTheDocument()
+    expect(screen.getByText('Select the two correct options.')).toBeInTheDocument()
+  })
+
+  it('spells out the count for questions with three correct options', () => {
+    const threeAnswers: Question = {
+      ...multiQuestion,
+      id: 'q6',
+      correctAnswers: ['a', 'b', 'c'],
+    }
+    render(<ExamQuestion {...defaultProps} question={threeAnswers} />)
+    expect(screen.getByText('Select the three correct options.')).toBeInTheDocument()
+  })
+
+  it('links the hint to every checkbox for accessibility', () => {
+    render(<ExamQuestion {...defaultProps} question={multiQuestion} />)
+    const hint = screen.getByText('Select the two correct options.')
+    for (const checkbox of screen.getAllByRole('checkbox')) {
+      expect(checkbox).toHaveAttribute('aria-describedby', hint.id)
+    }
+  })
+
+  it('does not link a hint on single-answer questions', () => {
+    render(<ExamQuestion {...defaultProps} question={singleQuestion} />)
+    for (const radio of screen.getAllByRole('radio')) {
+      expect(radio).not.toHaveAttribute('aria-describedby')
+    }
   })
 })
 

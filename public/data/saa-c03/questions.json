@@ -160,7 +160,7 @@
     },
     {
       "id": "q7",
-      "text": "Un administrador quiere aplicar una política basada en recursos y denominada \"iam-policy-testbucket\" al S3 Bucket para restringir el acceso y permitir que las cuentas solo escriban objetos en el bucket. Cuando el administrador intenta aplicar la siguiente política al bucket \"iam-policy-testbucket\", el S3 Bucket presenta un error. { \"Version\": \"2012-10-17\", \"Id\": \"Policy1646946718956\", \"Statement\": [ { \"Sid\": \"Stmt1646946717210\", \"Effect\": \"Allow\", \"Action\": \"s3:PutObject\", \"Resource\": \"arn:aws:s3:::iam-policy-testbucket/*\" } ]} ¿Cómo puede el administrador corregir la política para resolver el error y aplicarla correctamente?",
+      "text": "Un administrador quiere aplicar una política basada en recursos y denominada `iam-policy-testbucket` al S3 Bucket para restringir el acceso y permitir que las cuentas solo escriban objetos en el bucket. Cuando el administrador intenta aplicar la siguiente política al bucket `iam-policy-testbucket`, el S3 Bucket presenta un error.\n\n```json\n{\n  \"Version\": \"2012-10-17\",\n  \"Id\": \"Policy1646946718956\",\n  \"Statement\": [\n    {\n      \"Sid\": \"Stmt1646946717210\",\n      \"Effect\": \"Allow\",\n      \"Action\": \"s3:PutObject\",\n      \"Resource\": \"arn:aws:s3:::iam-policy-testbucket/*\"\n    }\n  ]\n}\n```\n\n¿Cómo puede el administrador corregir la política para resolver el error y aplicarla correctamente?",
       "options": [
         {
           "id": "a",

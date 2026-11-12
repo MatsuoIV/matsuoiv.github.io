@@ -1,5 +1,6 @@
 import type { ExamData, Option, UserAnswers } from '../types/exam'
 import { FeedbackButton } from './FeedbackButton'
+import { QuestionText } from './QuestionText'
 
 interface ExamSummaryProps {
   examData: ExamData
@@ -49,7 +50,7 @@ export function ExamSummary({
           return (
             <li key={question.id} className={`summary-item${correct ? ' summary-item--correct' : ' summary-item--wrong'}`}>
               <p className="summary-item-number">Question {index + 1}</p>
-              <p className="summary-item-text">{question.text}</p>
+              <QuestionText text={question.text} className="summary-item-text" />
               {question.image && (
                 <img
                   src={question.image}

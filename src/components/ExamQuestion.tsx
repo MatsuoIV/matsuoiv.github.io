@@ -1,4 +1,6 @@
 import type { Question, UserAnswers } from '../types/exam'
+import { QuestionText } from './QuestionText'
+import { multipleAnswerHint } from '../utils/questionText'
 
 interface ExamQuestionProps {
   question: Question
@@ -27,13 +29,14 @@ export function ExamQuestion({
 }: ExamQuestionProps) {
   const isMultiple = question.correctAnswers.length > 1
   const selected = userAnswers[question.id] ?? []
+  const hintId = `${question.id}-answer-hint`
 
   return (
     <div className="question-card">
       <p className="question-counter">
         Question {questionNumber} of {totalQuestions}
       </p>
-      <h2 className="question-text">{question.text}</h2>
+      <QuestionText text={question.text} className="question-text--heading" />
       {question.image && (
         <img
           src={question.image}
@@ -42,7 +45,9 @@ export function ExamQuestion({
         />
       )}
       {isMultiple && (
-        <p className="question-hint">Select all correct options.</p>
+        <p className="question-hint" id={hintId}>
+          {multipleAnswerHint(question.correctAnswers.length)}
+        </p>
       )}
 
       <ul className="options-list">
@@ -64,6 +69,7 @@ export function ExamQuestion({
                   value={option.id}
                   checked={checked}
                   onChange={() => onToggleAnswer(question.id, option.id)}
+                  aria-describedby={isMultiple ? hintId : undefined}
                 />
                 <span className="option-content">
                   {option.text && <span>{option.text}</span>}

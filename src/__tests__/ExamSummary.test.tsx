@@ -151,4 +151,28 @@ describe('ExamSummary', () => {
     await userEvent.click(screen.getByText('Restart exam'))
     expect(onRestart).toHaveBeenCalledOnce()
   })
+
+  it('renders code blocks and inline code in the summary', () => {
+    const examWithCode: ExamData = {
+      title: 'Test',
+      questions: [{
+        id: 'q1',
+        text: 'Use `runs-on: [gpu]`.\n\n```yaml\nsteps:\n  - run: echo hi\n```',
+        options: [{ id: 'a', text: 'Answer A' }],
+        correctAnswers: ['a'],
+      }],
+    }
+    render(
+      <ExamSummary
+        examData={examWithCode}
+        userAnswers={{ q1: ['a'] }}
+        score={{ correct: 1, total: 1, percentage: 100 }}
+        isAnswerCorrect={() => true}
+        onRestart={vi.fn()}
+      />
+    )
+    expect(screen.getByText('runs-on: [gpu]')).toHaveClass('inline-code')
+    expect(screen.getByText('yaml')).toHaveClass('code-block-language')
+    expect(screen.getByText('- run: echo hi').textContent).toBe('  - run: echo hi')
+  })
 })
