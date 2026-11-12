@@ -4,6 +4,8 @@ export interface Option {
   text: string | null
   /** Optional image path (relative to public/). Shown below text if both present. */
   image?: string
+  /** Why this option is correct or incorrect. Shown in the result summary. */
+  rationale?: string
 }
 
 export interface Question {

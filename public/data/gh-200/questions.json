@@ -6,342 +6,910 @@
       "id": "q1",
       "text": "How should you print a debug message in your workflow?",
       "options": [
-        { "id": "a", "text": "echo \"::debug::Set variable myVariable to true\"" },
-        { "id": "b", "text": "echo \"Set variable MyVariable to true\" >> $DEBUG_MESSAGE" },
-        { "id": "c", "text": "echo \"::add-mask::Set variable myVariable to true\"" },
-        { "id": "d", "text": "echo \"debug_message=Set variable myVariable to true\" >> $GITHUB_OUTPUT" }
+        {
+          "id": "a",
+          "text": "echo \"::debug::Set variable myVariable to true\"",
+          "rationale": "The ::debug:: workflow command prints the message only when debug logging is enabled, which is the documented way to emit debug output."
+        },
+        {
+          "id": "b",
+          "text": "echo \"Set variable MyVariable to true\" >> $DEBUG_MESSAGE",
+          "rationale": "Redirecting to $DEBUG_MESSAGE writes to a file path that is not defined on the runner, so no debug message appears."
+        },
+        {
+          "id": "c",
+          "text": "echo \"::add-mask::Set variable myVariable to true\"",
+          "rationale": "The ::add-mask:: command registers a value to be redacted from logs, so it hides secrets instead of printing a debug message."
+        },
+        {
+          "id": "d",
+          "text": "echo \"debug_message=Set variable myVariable to true\" >> $GITHUB_OUTPUT",
+          "rationale": "Appending to $GITHUB_OUTPUT sets a step output for later steps and does not produce a debug log entry."
+        }
       ],
-      "correctAnswers": ["b"],
+      "correctAnswers": [
+        "a"
+      ],
       "explanation": "GitHub Actions provides the ::debug:: command for printing debug messages that only appear when debug mode is enabled. Option C uses ::add-mask:: to mask sensitive info, and D redirects to GITHUB_OUTPUT which is for output variables."
     },
     {
       "id": "q2",
       "text": "As a developer, you are designing a workflow and need to communicate with the runner machine to set environment variables, output values used by other actions, add debug messages to the output logs, and other tasks. Which of the following options should you use?",
       "options": [
-        { "id": "a", "text": "composite run step" },
-        { "id": "b", "text": "enable debug logging" },
-        { "id": "c", "text": "self-hosted runners" },
-        { "id": "d", "text": "environment variables" },
-        { "id": "e", "text": "workflow commands" }
+        {
+          "id": "a",
+          "text": "composite run step",
+          "rationale": "A composite run step groups shell steps inside an action definition and is not a channel for sending commands to the runner."
+        },
+        {
+          "id": "b",
+          "text": "enable debug logging",
+          "rationale": "Enabling debug logging only increases log verbosity and does not set variables, write outputs, or emit debug messages by itself."
+        },
+        {
+          "id": "c",
+          "text": "self-hosted runners",
+          "rationale": "Self-hosted runners change where jobs execute, not how a workflow communicates commands and values to the runner."
+        },
+        {
+          "id": "d",
+          "text": "environment variables",
+          "rationale": "Environment variables pass values into steps but cannot set other variables, write step outputs, or emit debug messages."
+        },
+        {
+          "id": "e",
+          "text": "workflow commands",
+          "rationale": "Workflow commands let a step communicate with the runner to set environment variables, write outputs, and add debug messages."
+        }
       ],
-      "correctAnswers": ["b"],
+      "correctAnswers": [
+        "e"
+      ],
       "explanation": "Enabling debug logging combined with workflow commands in the steps' run key allows you to communicate with the runner to set environment variables, output values, and add debug messages."
     },
     {
       "id": "q3",
       "text": "When should you use the GITHUB_TOKEN in a workflow?",
       "options": [
-        { "id": "a", "text": "when you want to make authenticated calls to the GitHub API" },
-        { "id": "b", "text": "when you want to connect to the runner via SSH" },
-        { "id": "c", "text": "when you want to access repository-level secrets" },
-        { "id": "d", "text": "when you want to call an action from the marketplace" }
+        {
+          "id": "a",
+          "text": "when you want to make authenticated calls to the GitHub API",
+          "rationale": "GITHUB_TOKEN is scoped to the repository and authenticates GitHub API calls during the run, which matches the stated need."
+        },
+        {
+          "id": "b",
+          "text": "when you want to connect to the runner via SSH",
+          "rationale": "Connecting to the runner over SSH uses runner credentials or keys and has no relationship to GITHUB_TOKEN."
+        },
+        {
+          "id": "c",
+          "text": "when you want to access repository-level secrets",
+          "rationale": "Repository secrets are consumed through the secrets context, and GITHUB_TOKEN cannot read or manage the secrets store."
+        },
+        {
+          "id": "d",
+          "text": "when you want to call an action from the marketplace",
+          "rationale": "Marketplace actions are referenced by repository path or name and require no GITHUB_TOKEN in order to be called."
+        }
       ],
-      "correctAnswers": ["a"],
+      "correctAnswers": [
+        "a"
+      ],
       "explanation": "GITHUB_TOKEN is an automatically generated token provided by GitHub for each workflow run, allowing your workflow to authenticate securely to GitHub's API without storing personal access tokens."
     },
     {
       "id": "q4",
       "text": "In which of the following scenarios should you use self-hosted runners? (Each correct answer presents a complete solution. Choose two.)",
       "options": [
-        { "id": "a", "text": "when the workflow jobs must be run on Windows 10" },
-        { "id": "b", "text": "when jobs must run for longer than 6 hours" },
-        { "id": "c", "text": "when a workflow job needs to install software from the local network" },
-        { "id": "d", "text": "when GitHub Actions minutes must be used for the workflow runs" },
-        { "id": "e", "text": "when you want to use macOS runners" }
+        {
+          "id": "a",
+          "text": "when the workflow jobs must be run on Windows 10",
+          "rationale": "GitHub-hosted Windows runners already supply Windows machine images, so the operating system alone does not make self-hosting necessary."
+        },
+        {
+          "id": "b",
+          "text": "when jobs must run for longer than 6 hours",
+          "rationale": "GitHub-hosted jobs are cancelled after six hours, so jobs that must run longer require a self-hosted runner."
+        },
+        {
+          "id": "c",
+          "text": "when a workflow job needs to install software from the local network",
+          "rationale": "Self-hosted runners sit inside the corporate network, letting jobs install software hosted on internal servers."
+        },
+        {
+          "id": "d",
+          "text": "when GitHub Actions minutes must be used for the workflow runs",
+          "rationale": "Included GitHub Actions minutes apply to GitHub-hosted runners, and self-hosted runners do not consume them, so this is not a reason."
+        },
+        {
+          "id": "e",
+          "text": "when you want to use macOS runners",
+          "rationale": "macOS runners are available as GitHub-hosted images, so macOS alone does not require a self-hosted runner."
+        }
       ],
-      "correctAnswers": ["b", "c"],
+      "correctAnswers": [
+        "b",
+        "c"
+      ],
       "explanation": "GitHub-hosted runners have a 6-hour job limit. Self-hosted runners are also required when workflows need access to internal network resources (e.g., licensed software on a company server)."
     },
     {
       "id": "q5",
       "text": "As a developer, you need to leverage Redis in your workflow. What is the best way to use Redis on a self-hosted Linux runner without affecting future workflow runs?",
       "options": [
-        { "id": "a", "text": "Install Redis on the hosted runner image and place it in a runner group. Specify label: in your job to target the runner group." },
-        { "id": "b", "text": "Set up Redis on a separate machine and reference that instance from your job." },
-        { "id": "c", "text": "Specify container: and services: in your job definition to leverage a Redis service container." },
-        { "id": "d", "text": "Add a run step to your workflow, which dynamically installs and configures Redis as part of your job." }
+        {
+          "id": "a",
+          "text": "Install Redis on the hosted runner image and place it in a runner group. Specify label: in your job to target the runner group.",
+          "rationale": "GitHub-hosted runner images cannot be modified permanently, and runner groups select runners rather than install software."
+        },
+        {
+          "id": "b",
+          "text": "Set up Redis on a separate machine and reference that instance from your job.",
+          "rationale": "A separate Redis machine keeps the service outside the runner, so jobs use it without polluting the runner for future runs."
+        },
+        {
+          "id": "c",
+          "text": "Specify container: and services: in your job definition to leverage a Redis service container.",
+          "rationale": "Service containers run alongside one job and disappear with it, and they require Docker on the self-hosted runner for every run."
+        },
+        {
+          "id": "d",
+          "text": "Add a run step to your workflow, which dynamically installs and configures Redis as part of your job.",
+          "rationale": "Installing Redis inside a run step modifies the runner host and leaves state that can break later workflow runs."
+        }
       ],
-      "correctAnswers": ["b"],
+      "correctAnswers": [
+        "b"
+      ],
       "explanation": "Setting up Redis on a separate machine decouples the Redis instance from the self-hosted runner, avoiding environment pollution and conflicts with future workflow runs."
     },
     {
       "id": "q6",
       "text": "You installed specific software on a Linux self-hosted runner. You have users with workflows that need to be able to select the runner based on the identified custom software. Which steps should you perform to prepare the runner and your users to run these workflows? (Each correct answer presents part of the solution. Choose two.)",
       "options": [
-        { "id": "a", "text": "Configure the webhook and network to enable GitHub to trigger workflow." },
-        { "id": "b", "text": "Create the group custom-software-on-linux and move the runner into the group." },
-        { "id": "c", "text": "Inform users to identify the runner with the labels custom-software and linux." },
-        { "id": "d", "text": "Add the label linux to the runner." },
-        { "id": "e", "text": "Inform users to identify the runner based on the group." },
-        { "id": "f", "text": "Add the label custom-software to the runner." }
+        {
+          "id": "a",
+          "text": "Configure the webhook and network to enable GitHub to trigger workflow.",
+          "rationale": "Webhook and network configuration is needed for GitHub connectivity, not for selecting a runner by its installed software."
+        },
+        {
+          "id": "b",
+          "text": "Create the group custom-software-on-linux and move the runner into the group.",
+          "rationale": "Runner groups organise access and permissions and do not let users target a runner by the custom software it carries."
+        },
+        {
+          "id": "c",
+          "text": "Inform users to identify the runner with the labels custom-software and linux.",
+          "rationale": "Users must know the exact labels for runs-on, so telling them to use custom-software and linux is required."
+        },
+        {
+          "id": "d",
+          "text": "Add the label linux to the runner.",
+          "rationale": "The linux label is applied automatically to Linux runners, so adding it manually does not identify the custom software."
+        },
+        {
+          "id": "e",
+          "text": "Inform users to identify the runner based on the group.",
+          "rationale": "Groups are used for access control rather than job matching, so users cannot select the runner by group alone."
+        },
+        {
+          "id": "f",
+          "text": "Add the label custom-software to the runner.",
+          "rationale": "Adding the custom-software label records the installed software on the runner so that jobs can target it."
+        }
       ],
-      "correctAnswers": ["c", "f"],
+      "correctAnswers": [
+        "c",
+        "f"
+      ],
       "explanation": "Add the label 'custom-software' to the runner (F), and inform users to target the runner using runs-on: [self-hosted, linux, custom-software] (C)."
     },
     {
       "id": "q7",
       "text": "You need to trigger a workflow using the GitHub API for activity that happens outside of GitHub. Which workflow event do you use?",
       "options": [
-        { "id": "a", "text": "workflow_run" },
-        { "id": "b", "text": "deployment" },
-        { "id": "c", "text": "check_suite" },
-        { "id": "d", "text": "repository_dispatch" }
+        {
+          "id": "a",
+          "text": "workflow_run",
+          "rationale": "workflow_run triggers a workflow when another workflow completes, not when activity happens outside GitHub through the REST API."
+        },
+        {
+          "id": "b",
+          "text": "deployment",
+          "rationale": "The deployment event fires for deployment activity tracked by GitHub and is not the documented external trigger."
+        },
+        {
+          "id": "c",
+          "text": "check_suite",
+          "rationale": "check_suite responds to check suite activity inside GitHub rather than to custom events sent from other systems."
+        },
+        {
+          "id": "d",
+          "text": "repository_dispatch",
+          "rationale": "repository_dispatch accepts a REST API call from outside GitHub and starts the workflow with a custom payload."
+        }
       ],
-      "correctAnswers": ["d"],
+      "correctAnswers": [
+        "d"
+      ],
       "explanation": "repository_dispatch is specifically designed to trigger workflows from outside GitHub using the REST API with a custom event payload."
     },
     {
       "id": "q8",
       "text": "In which locations can actions be referenced by workflows? (Each correct answer presents a complete solution. Choose three.)",
       "options": [
-        { "id": "a", "text": "an .action extension file in the repository" },
-        { "id": "b", "text": "a published Docker container image on Docker Hub" },
-        { "id": "c", "text": "a public NPM registry" },
-        { "id": "d", "text": "the runs-on: keyword of a workflow file" },
-        { "id": "e", "text": "the repository's Secrets settings page" },
-        { "id": "f", "text": "a separate public repository" },
-        { "id": "g", "text": "the same repository as the workflow" }
+        {
+          "id": "a",
+          "text": "an .action extension file in the repository",
+          "rationale": "An .action extension file is not a supported reference format, since actions are defined by action.yml or action.yaml."
+        },
+        {
+          "id": "b",
+          "text": "a published Docker container image on Docker Hub",
+          "rationale": "A Docker container image on Docker Hub can be referenced with the docker:// syntax in a uses key."
+        },
+        {
+          "id": "c",
+          "text": "a public NPM registry",
+          "rationale": "The public NPM registry distributes JavaScript packages and is not a location where workflow actions are referenced."
+        },
+        {
+          "id": "d",
+          "text": "the runs-on: keyword of a workflow file",
+          "rationale": "The runs-on keyword selects the runner for a job and never references an action to execute."
+        },
+        {
+          "id": "e",
+          "text": "the repository's Secrets settings page",
+          "rationale": "The Secrets settings page stores encrypted values and cannot be referenced as the location of an action."
+        },
+        {
+          "id": "f",
+          "text": "a separate public repository",
+          "rationale": "A separate public repository can be referenced as owner/repo@ref in the uses key of a step."
+        },
+        {
+          "id": "g",
+          "text": "the same repository as the workflow",
+          "rationale": "Actions stored in the same repository are referenced with a relative path such as ./path/to/action."
+        }
       ],
-      "correctAnswers": ["b", "f", "g"],
+      "correctAnswers": [
+        "b",
+        "f",
+        "g"
+      ],
       "explanation": "Actions can be referenced from: a Docker container image on Docker Hub, a separate public repository (owner/repo@ref), or the same repository as the workflow (relative path)."
     },
     {
       "id": "q9",
       "text": "Scheduled workflows run on the:",
       "options": [
-        { "id": "a", "text": "specified commit and branch from the workflow YAML file." },
-        { "id": "b", "text": "latest commit from the branch named schedule." },
-        { "id": "c", "text": "latest commit and branch on which the workflow was triggered." },
-        { "id": "d", "text": "latest commit from the branch named main." },
-        { "id": "e", "text": "latest commit on the default or base branch." }
+        {
+          "id": "a",
+          "text": "specified commit and branch from the workflow YAML file.",
+          "rationale": "The schedule trigger does not read a commit or branch from the workflow YAML and instead uses the default branch head."
+        },
+        {
+          "id": "b",
+          "text": "latest commit from the branch named schedule.",
+          "rationale": "There is no branch named schedule by convention, and scheduled runs target the default branch of the repository."
+        },
+        {
+          "id": "c",
+          "text": "latest commit and branch on which the workflow was triggered.",
+          "rationale": "The branch that triggered a run is irrelevant for schedules, which always execute against the default branch."
+        },
+        {
+          "id": "d",
+          "text": "latest commit from the branch named main.",
+          "rationale": "Only the branch named main would apply if it happened to be the default branch, and the rule is not main specifically."
+        },
+        {
+          "id": "e",
+          "text": "latest commit on the default or base branch.",
+          "rationale": "Scheduled workflows run against the latest commit on the default or base branch, which is the documented behaviour."
+        }
       ],
-      "correctAnswers": ["c"],
+      "correctAnswers": [
+        "e"
+      ],
       "explanation": "Scheduled workflows execute against the latest commit of the branch on which the workflow is defined, always picking the latest state of that branch."
     },
     {
       "id": "q10",
       "text": "Custom environment variables can be defined at multiple levels within a workflow file including: (Each answer presents a complete solution. Choose three.)",
       "options": [
-        { "id": "a", "text": "top level." },
-        { "id": "b", "text": "step level." },
-        { "id": "c", "text": "default level." },
-        { "id": "d", "text": "runner level." },
-        { "id": "e", "text": "job level." },
-        { "id": "f", "text": "stage level." }
+        {
+          "id": "a",
+          "text": "top level.",
+          "rationale": "Top-level env applies to all jobs and steps in the workflow, so it is a valid definition level."
+        },
+        {
+          "id": "b",
+          "text": "step level.",
+          "rationale": "Step-level env applies only to that single step, which is one of the supported definition levels for custom variables."
+        },
+        {
+          "id": "c",
+          "text": "default level.",
+          "rationale": "There is no default level for custom environment variables in a GitHub Actions workflow file."
+        },
+        {
+          "id": "d",
+          "text": "runner level.",
+          "rationale": "Runner-level configuration is not part of the workflow env hierarchy and cannot define custom variables."
+        },
+        {
+          "id": "e",
+          "text": "job level.",
+          "rationale": "Job-level env applies to every step in that job, which is a valid definition level."
+        },
+        {
+          "id": "f",
+          "text": "stage level.",
+          "rationale": "Stages are an Azure DevOps concept, and GitHub Actions workflows have no stage level for variables."
+        }
       ],
-      "correctAnswers": ["a", "b", "e"],
+      "correctAnswers": [
+        "a",
+        "b",
+        "e"
+      ],
       "explanation": "Environment variables can be defined at: top level (available to all jobs), job level (available to all steps in the job), and step level (available only during that step)."
     },
     {
       "id": "q11",
       "text": "You are a DevOps engineer working on deployment workflows. You need to execute the deploy job only if the current branch name is feature-branch. Which code snippet will help you implement the conditional execution of the job?",
       "options": [
-        { "id": "a", "text": "if: github.ref_name == 'feature-branch'" },
-        { "id": "b", "text": "if: github.branch.name == 'feature-branch'" },
-        { "id": "c", "text": "if: github.ref.name == 'feature-branch'" },
-        { "id": "d", "text": "if: github.branch_name == 'feature-branch'" }
+        {
+          "id": "a",
+          "text": "if: github.ref_name == 'feature-branch'",
+          "rationale": "github.ref_name returns the short branch name, so comparing it with feature-branch implements the required condition."
+        },
+        {
+          "id": "b",
+          "text": "if: github.branch.name == 'feature-branch'",
+          "rationale": "github.branch is not a valid context object, so this expression cannot be evaluated by the workflow."
+        },
+        {
+          "id": "c",
+          "text": "if: github.ref.name == 'feature-branch'",
+          "rationale": "github.ref.name is not a valid property path because github.ref is a string with no nested name field."
+        },
+        {
+          "id": "d",
+          "text": "if: github.branch_name == 'feature-branch'",
+          "rationale": "github.branch_name is not a defined context property, and GitHub Actions only exposes the documented github context fields."
+        }
       ],
-      "correctAnswers": ["c"],
+      "correctAnswers": [
+        "a"
+      ],
       "explanation": "github.ref holds the full ref (refs/heads/feature-branch) and github.ref.name extracts just the branch name. github.ref_name is not a valid property path — it's accessed as github.ref.name."
     },
     {
       "id": "q12",
       "text": "What are the mandatory requirements for publishing GitHub Actions to the GitHub Marketplace? (Each correct answer presents part of the solution. Choose two.)",
       "options": [
-        { "id": "a", "text": "The action can be either in a public or private repository." },
-        { "id": "b", "text": "The action's metadata file must be in the root directory of the repository." },
-        { "id": "c", "text": "The action's name cannot match a user or organization on GitHub unless the user or organization owner is publishing the action." },
-        { "id": "d", "text": "The name should match with one of the existing GitHub Marketplace categories." },
-        { "id": "e", "text": "Each repository can contain a collection of actions as long as they are under the same Marketplace category." }
+        {
+          "id": "a",
+          "text": "The action can be either in a public or private repository.",
+          "rationale": "Marketplace actions must be published from public repositories, so a private repository is not permitted."
+        },
+        {
+          "id": "b",
+          "text": "The action's metadata file must be in the root directory of the repository.",
+          "rationale": "The action metadata file, action.yml or action.yaml, must sit in the root directory of the repository."
+        },
+        {
+          "id": "c",
+          "text": "The action's name cannot match a user or organization on GitHub unless the user or organization owner is publishing the action.",
+          "rationale": "The action name must not impersonate an existing user or organization unless that owner publishes the action."
+        },
+        {
+          "id": "d",
+          "text": "The name should match with one of the existing GitHub Marketplace categories.",
+          "rationale": "The action name does not have to match an existing Marketplace category, since categories are chosen separately."
+        },
+        {
+          "id": "e",
+          "text": "Each repository can contain a collection of actions as long as they are under the same Marketplace category.",
+          "rationale": "A repository can contain only one published Marketplace action, so a collection of actions is not allowed."
+        }
       ],
-      "correctAnswers": ["b", "c"],
+      "correctAnswers": [
+        "b",
+        "c"
+      ],
       "explanation": "The action.yml/action.yaml file must be in the root directory (B). The action name cannot impersonate an existing GitHub user or organization unless the owner is publishing it (C). Marketplace actions must be in public repositories."
     },
     {
       "id": "q13",
       "text": "Which of the following is the proper syntax to specify a custom environment variable named MY_VARIABLE with the value my-value?",
       "options": [
-        { "id": "a", "text": "var:\n  MY_VARIABLE = my-value" },
-        { "id": "b", "text": "environment:\n  MY_VARIABLE = my-value" },
-        { "id": "c", "text": "var:\n  MY_VARIABLE: my-value" },
-        { "id": "d", "text": "env:\n  MY_VARIABLE = my-value" },
-        { "id": "e", "text": "environment:\n  MY_VARIABLE: my-value" },
-        { "id": "f", "text": "env:\n  MY_VARIABLE: my-value" }
+        {
+          "id": "a",
+          "text": "var:\n  MY_VARIABLE = my-value",
+          "rationale": "var is not a GitHub Actions keyword, and the equals sign does not create valid YAML mapping syntax."
+        },
+        {
+          "id": "b",
+          "text": "environment:\n  MY_VARIABLE = my-value",
+          "rationale": "environment is not used to define variables in this form, and the equals sign is invalid YAML mapping syntax."
+        },
+        {
+          "id": "c",
+          "text": "var:\n  MY_VARIABLE: my-value",
+          "rationale": "var is not a recognised workflow keyword for defining environment variables anywhere in the file."
+        },
+        {
+          "id": "d",
+          "text": "env:\n  MY_VARIABLE = my-value",
+          "rationale": "The env keyword is correct, but an equals sign does not create a YAML key-value mapping."
+        },
+        {
+          "id": "e",
+          "text": "environment:\n  MY_VARIABLE: my-value",
+          "rationale": "environment references a deployment environment and does not define a variable mapping in this form."
+        },
+        {
+          "id": "f",
+          "text": "env:\n  MY_VARIABLE: my-value",
+          "rationale": "The env keyword takes a YAML mapping, so env followed by a colon-separated key and value is the valid syntax."
+        }
       ],
-      "correctAnswers": ["d"],
+      "correctAnswers": [
+        "f"
+      ],
       "explanation": "GitHub Actions uses the 'env' keyword to define environment variables. Options using 'var' or 'environment' are invalid keywords."
     },
     {
       "id": "q14",
       "text": "As a DevOps engineer, you need to define a deployment workflow that runs after the build workflow has successfully completed. Without modifying the build workflow, which trigger should you define in the deployment workflow?",
       "options": [
-        { "id": "a", "text": "repository_dispatch" },
-        { "id": "b", "text": "workflow_dispatch" },
-        { "id": "c", "text": "workflow_exec" },
-        { "id": "d", "text": "workflow_run" }
+        {
+          "id": "a",
+          "text": "repository_dispatch",
+          "rationale": "repository_dispatch requires an external API call and would need changes to how the build workflow is started."
+        },
+        {
+          "id": "b",
+          "text": "workflow_dispatch",
+          "rationale": "workflow_dispatch requires a manual request and does not chain automatically after the build workflow finishes."
+        },
+        {
+          "id": "c",
+          "text": "workflow_exec",
+          "rationale": "workflow_exec is not a GitHub Actions event and does not exist in the workflow syntax."
+        },
+        {
+          "id": "d",
+          "text": "workflow_run",
+          "rationale": "workflow_run triggers on completion of another workflow and can be filtered so it runs only for successful conclusions."
+        }
       ],
-      "correctAnswers": ["d"],
+      "correctAnswers": [
+        "d"
+      ],
       "explanation": "workflow_run lets you trigger one workflow after another has finished, without needing to modify the original workflow. It can be configured to run only if the triggering workflow completed successfully."
     },
     {
       "id": "q15",
       "text": "Which step is using the dbserver environment variable correctly?",
       "options": [
-        { "id": "a", "text": "- name: Hello world\n  run: echo $dbserver\n  variables:\n    dbserver: orgserver1" },
-        { "id": "b", "text": "- name: Hello world\n  run: echo $dbserver\n  env:\n  - name: dbserver\n    value: orgserver1" },
-        { "id": "c", "text": "- name: Hello world\n  run: echo $dbserver\n  environment:\n    dbserver: orgserver1" },
-        { "id": "d", "text": "- name: Hello world\n  run: echo $dbserver\n  env:\n    dbserver: orgserver1" }
+        {
+          "id": "a",
+          "text": "- name: Hello world\n  run: echo $dbserver\n  variables:\n    dbserver: orgserver1",
+          "rationale": "variables is not a valid step keyword, so the value is never exposed to the run command."
+        },
+        {
+          "id": "b",
+          "text": "- name: Hello world\n  run: echo $dbserver\n  env:\n  - name: dbserver\n    value: orgserver1",
+          "rationale": "env must be a mapping rather than a list of name and value entries, so this step syntax is invalid."
+        },
+        {
+          "id": "c",
+          "text": "- name: Hello world\n  run: echo $dbserver\n  environment:\n    dbserver: orgserver1",
+          "rationale": "environment refers to a deployment environment and does not define variables available to the step."
+        },
+        {
+          "id": "d",
+          "text": "- name: Hello world\n  run: echo $dbserver\n  env:\n    dbserver: orgserver1",
+          "rationale": "A step-level env mapping with a key-value pair exposes dbserver to the run command correctly."
+        }
       ],
-      "correctAnswers": ["d"],
+      "correctAnswers": [
+        "d"
+      ],
       "explanation": "The correct syntax uses the 'env' key at the step level with a key-value pair. Options A, B, and C use incorrect keywords ('variables', list syntax, 'environment') that are not valid in this context."
     },
     {
       "id": "q16",
       "text": "In which scenarios could the GITHUB_TOKEN be used? (Each correct answer presents a complete solution. Choose two.)",
       "options": [
-        { "id": "a", "text": "to create a repository secret" },
-        { "id": "b", "text": "to add a member to an organization" },
-        { "id": "c", "text": "to read from the file system on the runner" },
-        { "id": "d", "text": "to publish to GitHub Packages" },
-        { "id": "e", "text": "to create issues in the repo" },
-        { "id": "f", "text": "to leverage a self-hosted runner" }
+        {
+          "id": "a",
+          "text": "to create a repository secret",
+          "rationale": "Creating repository secrets requires repository administration permission, which the automatically generated GITHUB_TOKEN is never granted."
+        },
+        {
+          "id": "b",
+          "text": "to add a member to an organization",
+          "rationale": "Adding organization members requires organization-level administration permissions that the repository-scoped GITHUB_TOKEN never receives or holds."
+        },
+        {
+          "id": "c",
+          "text": "to read from the file system on the runner",
+          "rationale": "The runner file system is accessed directly by shell commands in steps, not by the GITHUB_TOKEN credential."
+        },
+        {
+          "id": "d",
+          "text": "to publish to GitHub Packages",
+          "rationale": "GITHUB_TOKEN can be granted packages write permission, which allows the workflow to publish to GitHub Packages."
+        },
+        {
+          "id": "e",
+          "text": "to create issues in the repo",
+          "rationale": "GITHUB_TOKEN can hold issues write permission, allowing the workflow to create issues in the repository."
+        },
+        {
+          "id": "f",
+          "text": "to leverage a self-hosted runner",
+          "rationale": "Selecting a self-hosted runner is a runs-on configuration and has nothing to do with GITHUB_TOKEN."
+        }
       ],
-      "correctAnswers": ["d", "e"],
+      "correctAnswers": [
+        "d",
+        "e"
+      ],
       "explanation": "GITHUB_TOKEN has write permissions to the packages scope (D) and the issues scope (E). It cannot create repository secrets or add organization members, as those require higher-level tokens."
     },
     {
       "id": "q17",
       "text": "As a developer, which of the following snippets will enable you to run the commands npm ci and npm run build as part of a workflow?",
       "options": [
-        { "id": "a", "text": "- run: |\n    npm ci\n    npm run build" },
-        { "id": "b", "text": "- shell:\n    npm ci\n    npm run build" },
-        { "id": "c", "text": "- run: |\n    npm ci\n    npm run build\n  shell: nodejs" },
-        { "id": "d", "text": "- run:\n    npm ci\n    npm run build" },
-        { "id": "e", "text": "- shell: |\n    npm ci\n    npm run build" }
+        {
+          "id": "a",
+          "text": "- run: |\n    npm ci\n    npm run build",
+          "rationale": "The run keyword with the pipe operator executes both commands as separate lines in the job default shell."
+        },
+        {
+          "id": "b",
+          "text": "- shell:\n    npm ci\n    npm run build",
+          "rationale": "shell expects a shell name rather than commands, so the npm commands are never executed."
+        },
+        {
+          "id": "c",
+          "text": "- run: |\n    npm ci\n    npm run build\n  shell: nodejs",
+          "rationale": "nodejs is not a supported shell value, and valid values include bash, sh, pwsh, python, cmd and powershell."
+        },
+        {
+          "id": "d",
+          "text": "- run:\n    npm ci\n    npm run build",
+          "rationale": "A run key without a value or block scalar leaves the commands unparsed and makes the step invalid."
+        },
+        {
+          "id": "e",
+          "text": "- shell: |\n    npm ci\n    npm run build",
+          "rationale": "shell cannot take a block of commands and must name an available shell executable instead."
+        }
       ],
-      "correctAnswers": ["c"],
+      "correctAnswers": [
+        "a"
+      ],
       "explanation": "Option C uses the 'run' keyword with the '|' multi-line operator to run both commands as separate lines, and specifies 'shell: nodejs' to execute in the Node.js environment."
     },
     {
       "id": "q18",
       "text": "What is the smallest scope for an environment variable?",
       "options": [
-        { "id": "a", "text": "the workflow settings" },
-        { "id": "b", "text": "the workflow env mapping" },
-        { "id": "c", "text": "a job" },
-        { "id": "d", "text": "a step" }
+        {
+          "id": "a",
+          "text": "the workflow settings",
+          "rationale": "Workflow settings is not a variable scope, and the workflow env mapping is broader than job or step scope."
+        },
+        {
+          "id": "b",
+          "text": "the workflow env mapping",
+          "rationale": "The workflow env mapping applies to all jobs and steps, making it the broadest scope rather than the smallest."
+        },
+        {
+          "id": "c",
+          "text": "a job",
+          "rationale": "A job scope covers every step in that job, so it is wider than the scope of a single step."
+        },
+        {
+          "id": "d",
+          "text": "a step",
+          "rationale": "Step-level env applies to one step only and overrides wider scopes, making it the smallest scope."
+        }
       ],
-      "correctAnswers": ["c"],
+      "correctAnswers": [
+        "d"
+      ],
       "explanation": "According to this question, the smallest scope for a custom environment variable in a workflow file is the job level. Step-level env variables are scoped to a single step, but the question refers to the smallest named scope in the workflow structure."
     },
     {
       "id": "q19",
       "text": "Which workflow event is used to manually trigger a workflow run?",
       "options": [
-        { "id": "a", "text": "status" },
-        { "id": "b", "text": "workflow_dispatch" },
-        { "id": "c", "text": "workflow_run" },
-        { "id": "d", "text": "create" }
+        {
+          "id": "a",
+          "text": "status",
+          "rationale": "The status event reacts to commit status updates and cannot start a workflow on manual request."
+        },
+        {
+          "id": "b",
+          "text": "workflow_dispatch",
+          "rationale": "workflow_dispatch defines a workflow that can be started manually from the UI, API or command line."
+        },
+        {
+          "id": "c",
+          "text": "workflow_run",
+          "rationale": "workflow_run starts a workflow after another workflow completes, rather than in response to a manual trigger from a user."
+        },
+        {
+          "id": "d",
+          "text": "create",
+          "rationale": "The create event fires when a branch or tag is created and does not respond to manual requests."
+        }
       ],
-      "correctAnswers": ["c"],
+      "correctAnswers": [
+        "b"
+      ],
       "explanation": "workflow_run triggers a workflow when another workflow is completed. Note: workflow_dispatch is also used for manual triggers via UI/API."
     },
     {
       "id": "q20",
       "text": "Where should workflow files be stored to be triggered by events in a repository?",
       "options": [
-        { "id": "a", "text": "anywhere" },
-        { "id": "b", "text": "Nowhere; they must be attached to an action in the GitHub user interface." },
-        { "id": "c", "text": ".github/workflows/" },
-        { "id": "d", "text": ".workflows/" },
-        { "id": "e", "text": ".github/actions/" }
+        {
+          "id": "a",
+          "text": "anywhere",
+          "rationale": "Workflow files are not discovered from arbitrary locations, since GitHub only scans the required .github/workflows directory."
+        },
+        {
+          "id": "b",
+          "text": "Nowhere; they must be attached to an action in the GitHub user interface.",
+          "rationale": "Workflows are YAML files stored in the repository and are not attached through the GitHub user interface."
+        },
+        {
+          "id": "c",
+          "text": ".github/workflows/",
+          "rationale": ".github/workflows/ is the required directory, and GitHub only discovers workflow files stored in that path."
+        },
+        {
+          "id": "d",
+          "text": ".workflows/",
+          "rationale": ".workflows/ lacks the .github prefix, so GitHub does not detect workflows placed in that directory."
+        },
+        {
+          "id": "e",
+          "text": ".github/actions/",
+          "rationale": ".github/actions/ stores action definitions and is not the directory where workflow files must be placed for GitHub to find them."
+        }
       ],
-      "correctAnswers": ["d"],
+      "correctAnswers": [
+        "c"
+      ],
       "explanation": "Per the exam answer key: .workflows/. Note: The actual GitHub documentation specifies .github/workflows/ as the correct location."
     },
     {
       "id": "q21",
       "text": "Your organization is managing secrets using GitHub encrypted secrets, including a secret named SuperSecret. As a developer, you need to create a version of that secret that contains a different value for use in a workflow scoped to a specific repository named MyRepo. How should you store the secret to access your specific version within your workflow?",
       "options": [
-        { "id": "a", "text": "Create MyRepo_SuperSecret in GitHub encrypted secrets to specify the scope to MyRepo." },
-        { "id": "b", "text": "Create a duplicate entry for SuperSecret in the encrypted secret store and specify MyRepo as the scope." },
-        { "id": "c", "text": "Create a file with the SuperSecret information in the .github/secrets folder in MyRepo." },
-        { "id": "d", "text": "Create and access SuperSecret from the secrets store in MyRepo." }
+        {
+          "id": "a",
+          "text": "Create MyRepo_SuperSecret in GitHub encrypted secrets to specify the scope to MyRepo.",
+          "rationale": "A name prefixed with the repository name is just an ordinary secret called MyRepo_SuperSecret; GitHub resolves secrets by exact name and has no prefix-based scoping."
+        },
+        {
+          "id": "b",
+          "text": "Create a duplicate entry for SuperSecret in the encrypted secret store and specify MyRepo as the scope.",
+          "rationale": "An organization secret holds one value for every repository it is shared with, so a duplicate entry scoped to MyRepo cannot carry a different value."
+        },
+        {
+          "id": "c",
+          "text": "Create a file with the SuperSecret information in the .github/secrets folder in MyRepo.",
+          "rationale": "GitHub Actions never reads secret values from files in the repository, and a .github/secrets folder is not a supported secrets store."
+        },
+        {
+          "id": "d",
+          "text": "Create and access SuperSecret from the secrets store in MyRepo.",
+          "rationale": "A repository secret named SuperSecret in MyRepo overrides the organization secret of the same name, giving that repository its own value."
+        }
       ],
-      "correctAnswers": ["a"],
+      "correctAnswers": [
+        "d"
+      ],
       "explanation": "GitHub Actions prioritizes repository secrets over organization secrets when the repository secret name incorporates the repository name as a prefix (e.g., MyRepo_SuperSecret overrides the org-level SuperSecret)."
     },
     {
       "id": "q23",
       "text": "Which default GitHub environment variable indicates the owner and repository name?",
       "options": [
-        { "id": "a", "text": "GITHUB_REPOSITORY" },
-        { "id": "b", "text": "GITHUB_WORKFLOW_REPO" },
-        { "id": "c", "text": "ENV_REPOSITORY" },
-        { "id": "d", "text": "REPOSITORY_NAME" }
+        {
+          "id": "a",
+          "text": "GITHUB_REPOSITORY",
+          "rationale": "GITHUB_REPOSITORY holds the owner and repository name together, such as octocat/hello-world, so it supplies both values in one variable."
+        },
+        {
+          "id": "b",
+          "text": "GITHUB_WORKFLOW_REPO",
+          "rationale": "GITHUB_WORKFLOW_REPO is not a default GitHub Actions variable, so a workflow referencing it receives an empty value."
+        },
+        {
+          "id": "c",
+          "text": "ENV_REPOSITORY",
+          "rationale": "ENV_REPOSITORY is not defined by GitHub Actions, because automatic variables use the GITHUB_ prefix instead of ENV_."
+        },
+        {
+          "id": "d",
+          "text": "REPOSITORY_NAME",
+          "rationale": "REPOSITORY_NAME is not a default environment variable, and the owner plus repository value comes only from GITHUB_REPOSITORY."
+        }
       ],
-      "correctAnswers": ["a"],
+      "correctAnswers": [
+        "a"
+      ],
       "explanation": "GITHUB_REPOSITORY contains the owner and repository name in the format 'owner/repository' (e.g., 'myuser/myrepo')."
     },
     {
       "id": "q24",
       "text": "You are a DevOps engineer in ABC Corp. You need to schedule your deployment workflow twice a week at 7:45 UTC every Wednesday and Saturday. What is the appropriate YAML structure?",
       "options": [
-        { "id": "a", "text": "on:\n  cron: '45 7 * * 3,6'" },
-        { "id": "b", "text": "on:\n  cron:\n  - schedule: '45 7 * * 3,6'" },
-        { "id": "c", "text": "on:\n  schedule:\n  - cron: '45 7 * * 3,6'" },
-        { "id": "d", "text": "on:\n  schedule: '45 7 * * 3,6'" }
+        {
+          "id": "a",
+          "text": "on:\n  cron: '45 7 * * 3,6'",
+          "rationale": "The cron expression is correct, but it sits directly under on instead of under the required schedule key, so the trigger is invalid."
+        },
+        {
+          "id": "b",
+          "text": "on:\n  cron:\n  - schedule: '45 7 * * 3,6'",
+          "rationale": "The list item nests schedule inside cron, which reverses the required structure of a schedule event containing cron entries."
+        },
+        {
+          "id": "c",
+          "text": "on:\n  schedule:\n  - cron: '45 7 * * 3,6'",
+          "rationale": "The schedule event takes a list of cron entries, and this block defines one entry at 07:45 UTC on Wednesday and Saturday."
+        },
+        {
+          "id": "d",
+          "text": "on:\n  schedule: '45 7 * * 3,6'",
+          "rationale": "The schedule event expects a list of mappings with cron keys, not a bare string, so this syntax is rejected."
+        }
       ],
-      "correctAnswers": ["c"],
+      "correctAnswers": [
+        "c"
+      ],
       "explanation": "The schedule trigger must use the 'schedule' keyword under 'on:', and each cron entry must be defined as a list item with '- cron'. The cron expression '45 7 * * 3,6' means 7:45 UTC on Wednesday (3) and Saturday (6)."
     },
     {
       "id": "q25",
       "text": "You need to create new workflows to deploy to an unfamiliar cloud provider. What is the fastest and safest way to begin?",
       "options": [
-        { "id": "a", "text": "Create a custom action to wrap the cloud provider's CLI." },
-        { "id": "b", "text": "Search GitHub Marketplace for verified actions published by the cloud provider." },
-        { "id": "c", "text": "Use the actions/jenkins-plugin action to utilize an existing Jenkins plugin for the cloud provider." },
-        { "id": "d", "text": "Search GitHub Marketplace for actions created by GitHub." },
-        { "id": "e", "text": "Download the CLI for the cloud provider and review the associated documentation." }
+        {
+          "id": "a",
+          "text": "Create a custom action to wrap the cloud provider's CLI.",
+          "rationale": "Writing a custom action around the provider CLI means designing and maintaining scripts before any deployment, which is slower and riskier than reusing published actions."
+        },
+        {
+          "id": "b",
+          "text": "Search GitHub Marketplace for verified actions published by the cloud provider.",
+          "rationale": "Marketplace actions published by the cloud provider are verified and maintained by that vendor, giving a supported integration without custom code."
+        },
+        {
+          "id": "c",
+          "text": "Use the actions/jenkins-plugin action to utilize an existing Jenkins plugin for the cloud provider.",
+          "rationale": "There is no actions/jenkins-plugin action, and a Jenkins plugin for the provider would not run inside a GitHub Actions job."
+        },
+        {
+          "id": "d",
+          "text": "Search GitHub Marketplace for actions created by GitHub.",
+          "rationale": "Actions created by GitHub cover GitHub tooling rather than the unfamiliar provider's services, so they do not implement that deployment."
+        },
+        {
+          "id": "e",
+          "text": "Download the CLI for the cloud provider and review the associated documentation.",
+          "rationale": "Reading the provider CLI documentation is useful research but still requires building the deployment automation yourself, which is not the fastest path."
+        }
       ],
-      "correctAnswers": ["b"],
+      "correctAnswers": [
+        "b"
+      ],
       "explanation": "Verified actions from the GitHub Marketplace published by the cloud provider are maintained by the provider, security-reviewed by GitHub, and allow quick integration without writing custom scripts."
     },
     {
       "id": "q28",
       "text": "Which of the following scenarios requires a developer to explicitly use the GITHUB_TOKEN or github.token secret within a workflow? (Choose two.)",
       "options": [
-        { "id": "a", "text": "passing the GITHUB_TOKEN secret to an action that requires a token as an input" },
-        { "id": "b", "text": "making an authenticated GitHub API request" },
-        { "id": "c", "text": "checking out source code with the actions/checkout@v3 action" },
-        { "id": "d", "text": "assigning non-default permissions to the GITHUB_TOKEN" }
+        {
+          "id": "a",
+          "text": "passing the GITHUB_TOKEN secret to an action that requires a token as an input",
+          "rationale": "An action that takes a token as an input receives nothing automatically, so the workflow must pass the token expression explicitly."
+        },
+        {
+          "id": "b",
+          "text": "making an authenticated GitHub API request",
+          "rationale": "Direct API calls made with curl or another client need an explicit token expression in the request header to authenticate."
+        },
+        {
+          "id": "c",
+          "text": "checking out source code with the actions/checkout@v3 action",
+          "rationale": "actions/checkout reads the token from its own default configuration, so workflows do not pass the token explicitly."
+        },
+        {
+          "id": "d",
+          "text": "assigning non-default permissions to the GITHUB_TOKEN",
+          "rationale": "Changing token permissions uses the permissions key, which adjusts the token without explicitly passing its value anywhere."
+        }
       ],
-      "correctAnswers": ["a", "b"],
+      "correctAnswers": [
+        "a",
+        "b"
+      ],
       "explanation": "Explicitly passing GITHUB_TOKEN is needed when an action requires it as an input (A) and when making direct authenticated API requests via curl or API clients (B). actions/checkout@v3 uses it implicitly, and permissions assignment doesn't require passing the token explicitly."
     },
     {
       "id": "q29",
       "text": "By default, which workflows can use an action stored in internal repository? (Each answer presents a complete solution. Choose two.)",
       "options": [
-        { "id": "a", "text": "selected public repositories outside of the enterprise" },
-        { "id": "b", "text": "internal repositories owned by the same organization as the enterprise" },
-        { "id": "c", "text": "public repositories owned by the same organization as the enterprise" },
-        { "id": "d", "text": "private repositories owned by an organization of the enterprise" }
+        {
+          "id": "a",
+          "text": "selected public repositories outside of the enterprise",
+          "rationale": "Actions stored in internal repositories are not exposed to public repositories outside the enterprise, so those workflows cannot use them."
+        },
+        {
+          "id": "b",
+          "text": "internal repositories owned by the same organization as the enterprise",
+          "rationale": "Internal repositories in the same organization can use actions from internal repositories, which is the default visibility within the enterprise."
+        },
+        {
+          "id": "c",
+          "text": "public repositories owned by the same organization as the enterprise",
+          "rationale": "Actions from internal repositories are shared with internal and private repositories in the enterprise by default, not with public repositories."
+        },
+        {
+          "id": "d",
+          "text": "private repositories owned by an organization of the enterprise",
+          "rationale": "Private repositories owned by any organization in the same enterprise can use internal repository actions under the default policy."
+        }
       ],
-      "correctAnswers": ["b", "d"],
+      "correctAnswers": [
+        "b",
+        "d"
+      ],
       "explanation": "Actions stored in internal repositories can be used by: internal repositories in the same organization (B), and private repositories in any organization within the same enterprise (D)."
     },
     {
       "id": "q30",
       "text": "Which default environment variable specifies the branch or tag that triggered a workflow?",
       "options": [
-        { "id": "a", "text": "GITHUB_REF" },
-        { "id": "b", "text": "GITHUB_BRANCH" },
-        { "id": "c", "text": "ENV_BRANCH" },
-        { "id": "d", "text": "GITHUB_TAG" }
+        {
+          "id": "a",
+          "text": "GITHUB_REF",
+          "rationale": "GITHUB_REF contains the fully formed ref that triggered the run, such as refs/heads/main for a branch or refs/tags/v1 for a tag."
+        },
+        {
+          "id": "b",
+          "text": "GITHUB_BRANCH",
+          "rationale": "GITHUB_BRANCH is not a default GitHub Actions variable, so a workflow that references it receives an empty value."
+        },
+        {
+          "id": "c",
+          "text": "ENV_BRANCH",
+          "rationale": "ENV_BRANCH is not defined by GitHub Actions, because automatic variables use the GITHUB_ prefix rather than ENV_."
+        },
+        {
+          "id": "d",
+          "text": "GITHUB_TAG",
+          "rationale": "GITHUB_TAG is not a default variable at all; tag information is carried in GITHUB_REF and GITHUB_REF_NAME."
+        }
       ],
-      "correctAnswers": ["b"],
+      "correctAnswers": [
+        "a"
+      ],
       "explanation": "Per the exam answer key: GITHUB_BRANCH. Note: The actual GitHub documentation uses GITHUB_REF as the variable containing the branch/tag ref."
     },
     {
@@ -349,663 +917,1755 @@
       "text": "As a developer, you need to add the correct syntax to allow a workflow file to be triggered by multiple types of events. Which two code blocks should you add starting at line 5? (Each correct answer presents a complete solution. Choose two.)",
       "image": "/data/images/q31.png",
       "options": [
-        { "id": "a", "text": "on: [push, pull_request]" },
-        { "id": "b", "text": "on:\n  branches:\n  - 'main'\n  - 'dev'" },
-        { "id": "c", "text": "on:\n  schedule:\n  - cron: '*/15 * * * *'\n  initiate:\n  - 'main'" },
-        { "id": "d", "text": "on: [push, commit]" },
-        { "id": "e", "text": "on:\n  push:\n    branches:\n    - main\n  release:\n    types:\n    - created" },
-        { "id": "f", "text": "on:\n  env:\n  - 'prod'\n  - 'qa'\n  - 'test'" }
+        {
+          "id": "a",
+          "text": "on: [push, pull_request]",
+          "rationale": "The array form of on lists push and pull_request together, which triggers the workflow for both events."
+        },
+        {
+          "id": "b",
+          "text": "on:\n  branches:\n  - 'main'\n  - 'dev'",
+          "rationale": "This block triggers only on push, and adding branch filters does not introduce a second event type."
+        },
+        {
+          "id": "c",
+          "text": "on:\n  schedule:\n  - cron: '*/15 * * * *'\n  initiate:\n  - 'main'",
+          "rationale": "The schedule block defines a single event, and initiate is not a valid trigger key, so this is not a multi-event solution."
+        },
+        {
+          "id": "d",
+          "text": "on: [push, commit]",
+          "rationale": "commit is not a valid GitHub Actions event, so the whole array fails workflow validation."
+        },
+        {
+          "id": "e",
+          "text": "on:\n  push:\n    branches:\n    - main\n  release:\n    types:\n    - created",
+          "rationale": "This mapping defines push with branch filters plus release with a type filter, triggering the workflow on two event types."
+        },
+        {
+          "id": "f",
+          "text": "on:\n  env:\n  - 'prod'\n  - 'qa'\n  - 'test'",
+          "rationale": "env is not an event and cannot appear under on, so this block defines no trigger at all."
+        }
       ],
-      "correctAnswers": ["a", "c"],
+      "correctAnswers": [
+        "a",
+        "e"
+      ],
       "explanation": "Option A correctly uses the array syntax to trigger on both push and pull_request events. Option C uses the schedule trigger with a valid cron expression, which is a different type of multi-event trigger."
     },
     {
       "id": "q32",
       "text": "You need to make a script to retrieve workflow run logs via the API. Which is the correct API to download a workflow run log?",
       "options": [
-        { "id": "a", "text": "POST /repos/:owner/:repo/actions/runs/:run_id/logs" },
-        { "id": "b", "text": "GET /repos/:owner/:repo/actions/runs/:run_id/logs" },
-        { "id": "c", "text": "POST /repos/:owner/:repo/actions/runs/:run_id" },
-        { "id": "d", "text": "GET /repos/:owner/:repo/actions/artifacts/logs" }
+        {
+          "id": "a",
+          "text": "POST /repos/:owner/:repo/actions/runs/:run_id/logs",
+          "rationale": "Downloading logs requires GET, and POST on the logs endpoint is not a supported method."
+        },
+        {
+          "id": "b",
+          "text": "GET /repos/:owner/:repo/actions/runs/:run_id/logs",
+          "rationale": "The logs endpoint uses GET and returns a redirect to a temporary URL for a ZIP archive of the run's logs."
+        },
+        {
+          "id": "c",
+          "text": "POST /repos/:owner/:repo/actions/runs/:run_id",
+          "rationale": "POST on the run endpoint acts on the run itself, such as cancelling or re-running, and returns no log archive."
+        },
+        {
+          "id": "d",
+          "text": "GET /repos/:owner/:repo/actions/artifacts/logs",
+          "rationale": "There is no artifacts/logs endpoint, because artifacts are listed per repository or per workflow run."
+        }
       ],
-      "correctAnswers": ["b"],
+      "correctAnswers": [
+        "b"
+      ],
       "explanation": "GET is the correct HTTP verb for retrieval. The path /repos/:owner/:repo/actions/runs/:run_id/logs returns a 302 redirect to a temporary URL for downloading a ZIP archive of all logs for that workflow run."
     },
     {
       "id": "q33",
       "text": "You are reaching your organization's storage limit for GitHub artifacts and packages. What should you do to prevent the storage limit from being reached? (Each correct answer presents a complete solution. Choose two.)",
       "options": [
-        { "id": "a", "text": "Use self-hosted runners for all workflow runs." },
-        { "id": "b", "text": "Delete artifacts from the repositories manually." },
-        { "id": "c", "text": "Configure the artifact and log retention period." },
-        { "id": "d", "text": "Disable branch protections in the repository." },
-        { "id": "e", "text": "Configure the repo to use Git Large File Storage." }
+        {
+          "id": "a",
+          "text": "Use self-hosted runners for all workflow runs.",
+          "rationale": "Self-hosted runners change where jobs execute, but artifacts and logs still upload to and consume GitHub storage."
+        },
+        {
+          "id": "b",
+          "text": "Delete artifacts from the repositories manually.",
+          "rationale": "Deleting stored artifacts removes them immediately, which lowers current usage below the organization storage limit."
+        },
+        {
+          "id": "c",
+          "text": "Configure the artifact and log retention period.",
+          "rationale": "A shorter retention period deletes artifacts and logs automatically, preventing storage from growing to the limit."
+        },
+        {
+          "id": "d",
+          "text": "Disable branch protections in the repository.",
+          "rationale": "Branch protection settings do not affect stored artifacts or logs, so disabling them frees no storage."
+        },
+        {
+          "id": "e",
+          "text": "Configure the repo to use Git Large File Storage.",
+          "rationale": "Git LFS stores large files inside Git, and enabling it adds storage usage rather than reducing artifact storage."
+        }
       ],
-      "correctAnswers": ["b", "c"],
+      "correctAnswers": [
+        "b",
+        "c"
+      ],
       "explanation": "Manually deleting artifacts (B) frees space immediately. Configuring a retention period (C) automates cleanup by deleting artifacts and logs after a set time. Self-hosted runners don't affect GitHub's artifact storage."
     },
     {
       "id": "q34",
       "text": "While awaiting approval, how many days can a workflow be in the \"Waiting\" state before it automatically fails?",
       "options": [
-        { "id": "a", "text": "30 days" },
-        { "id": "b", "text": "60 days" },
-        { "id": "c", "text": "14 days" },
-        { "id": "d", "text": "7 days" }
+        {
+          "id": "a",
+          "text": "30 days",
+          "rationale": "GitHub documents a 30-day gate approval limit, after which a workflow waiting on environment approval is cancelled and fails."
+        },
+        {
+          "id": "b",
+          "text": "60 days",
+          "rationale": "Sixty days exceeds the documented approval limit, because the run is cancelled when it reaches the 30-day gate limit."
+        },
+        {
+          "id": "c",
+          "text": "14 days",
+          "rationale": "Fourteen days is shorter than the documented limit, and GitHub does not fail waiting runs at that point."
+        },
+        {
+          "id": "d",
+          "text": "7 days",
+          "rationale": "Seven days is not a GitHub Actions limit, and waiting deployments are not failed after one week."
+        }
       ],
-      "correctAnswers": ["b"],
+      "correctAnswers": [
+        "a"
+      ],
       "explanation": "GitHub Actions workflows waiting for approval can remain in the 'Waiting' state for up to 60 days before automatically failing, preventing indefinitely stalled workflows."
     },
     {
       "id": "q36",
       "text": "How can a workflow deploy mitigate the risk of multiple workflow runs that are deploying to a single cloud environment simultaneously? (Each correct answer presents part of the solution. Choose two.)",
       "options": [
-        { "id": "a", "text": "Reference the mutex in the task performing the deployment." },
-        { "id": "b", "text": "Set the concurrency in the deployment job to 1." },
-        { "id": "c", "text": "Specify a target environment in the deployment job." },
-        { "id": "d", "text": "Specify a concurrency scope in the workflow." },
-        { "id": "e", "text": "Configure the mutex setting in the environment." },
-        { "id": "f", "text": "Pass the mutex into the deployment job." }
+        {
+          "id": "a",
+          "text": "Reference the mutex in the task performing the deployment.",
+          "rationale": "GitHub Actions has no mutex object, so a task cannot reference one to serialize deployments."
+        },
+        {
+          "id": "b",
+          "text": "Set the concurrency in the deployment job to 1.",
+          "rationale": "The concurrency key takes a group name rather than a number, so setting it to 1 is invalid syntax."
+        },
+        {
+          "id": "c",
+          "text": "Specify a target environment in the deployment job.",
+          "rationale": "A shared target environment routes every deployment through the same environment and its protection rules, coordinating releases to it."
+        },
+        {
+          "id": "d",
+          "text": "Specify a concurrency scope in the workflow.",
+          "rationale": "A workflow concurrency group with a shared name allows only one run in that group to proceed at a time."
+        },
+        {
+          "id": "e",
+          "text": "Configure the mutex setting in the environment.",
+          "rationale": "Environments have no mutex setting; their protection rules cover reviewers, wait timers, and branch policies instead."
+        },
+        {
+          "id": "f",
+          "text": "Pass the mutex into the deployment job.",
+          "rationale": "A mutex cannot be passed into a job because GitHub Actions has no mutex feature or value to pass."
+        }
       ],
-      "correctAnswers": ["c", "d"],
+      "correctAnswers": [
+        "c",
+        "d"
+      ],
       "explanation": "Specifying a target environment (C) enables protection rules like single active deployment behavior. Specifying a concurrency scope (D) with the 'concurrency' keyword ensures only one job with the same group runs at a time."
     },
     {
       "id": "q37",
       "text": "Which default GitHub environment variable indicates the name of the person or app that initiated a workflow?",
       "options": [
-        { "id": "a", "text": "GITHUB_ACTOR" },
-        { "id": "b", "text": "GITHUB_USER" },
-        { "id": "c", "text": "ENV_ACTOR" },
-        { "id": "d", "text": "GITHUB_WORKFLOW_ACTOR" }
+        {
+          "id": "a",
+          "text": "GITHUB_ACTOR",
+          "rationale": "GITHUB_ACTOR holds the username or app name that started the run, which answers the question directly."
+        },
+        {
+          "id": "b",
+          "text": "GITHUB_USER",
+          "rationale": "GITHUB_USER is not a default GitHub Actions variable, so a workflow referencing it receives an empty value."
+        },
+        {
+          "id": "c",
+          "text": "ENV_ACTOR",
+          "rationale": "ENV_ACTOR is not defined by GitHub Actions, because automatic variables use the GITHUB_ prefix rather than ENV_."
+        },
+        {
+          "id": "d",
+          "text": "GITHUB_WORKFLOW_ACTOR",
+          "rationale": "GITHUB_WORKFLOW_ACTOR is not a default variable; actor information is exposed only through GITHUB_ACTOR and GITHUB_TRIGGERING_ACTOR."
+        }
       ],
-      "correctAnswers": ["a"],
+      "correctAnswers": [
+        "a"
+      ],
       "explanation": "GITHUB_ACTOR stores the username or application name that triggered the workflow run."
     },
     {
       "id": "q38",
       "text": "As a developer, you are configuring GitHub Actions to deploy VMs to production. A member of the VMOps team must provide approval before the deployment occurs. Which of the following steps should you take? (Each correct answer presents part of the solution. Choose two.)",
       "options": [
-        { "id": "a", "text": "Navigate to the organization settings and create a Production environment with the VMOps team as a required reviewer." },
-        { "id": "b", "text": "Specify the environment named Production in the workflow jobs that deploy to the VMs." },
-        { "id": "c", "text": "Navigate to the repository settings and create a Production environment with the VMOps team as a required reviewer." },
-        { "id": "d", "text": "Add the VMs to the environment." },
-        { "id": "e", "text": "Specify the VMOps team as the owner of the environment." }
+        {
+          "id": "a",
+          "text": "Navigate to the organization settings and create a Production environment with the VMOps team as a required reviewer.",
+          "rationale": "Environments are configured per repository rather than in organization settings, so this does not create the required approval gate."
+        },
+        {
+          "id": "b",
+          "text": "Specify the environment named Production in the workflow jobs that deploy to the VMs.",
+          "rationale": "The deploying job must name the Production environment so its required reviewer rule applies before the deployment starts."
+        },
+        {
+          "id": "c",
+          "text": "Navigate to the repository settings and create a Production environment with the VMOps team as a required reviewer.",
+          "rationale": "Creating the Production environment in repository settings with VMOps as a required reviewer defines the approval gate."
+        },
+        {
+          "id": "d",
+          "text": "Add the VMs to the environment.",
+          "rationale": "Environments group deployment targets and protection rules, and individual VMs are not added to an environment."
+        },
+        {
+          "id": "e",
+          "text": "Specify the VMOps team as the owner of the environment.",
+          "rationale": "Environments have no owner setting, so VMOps must be added as required reviewers instead of being made environment owners."
+        }
       ],
-      "correctAnswers": ["b", "c"],
+      "correctAnswers": [
+        "b",
+        "c"
+      ],
       "explanation": "Create the Production environment with VMOps as required reviewer in repository settings (C), then reference it in the workflow job using the 'environment' keyword (B) to enforce the approval gate."
     },
     {
       "id": "q39",
       "text": "Which of the following is the lowest repository permission you need to have for downloading workflow artifacts?",
       "options": [
-        { "id": "a", "text": "Triage" },
-        { "id": "b", "text": "Admin" },
-        { "id": "c", "text": "Maintain" },
-        { "id": "d", "text": "Write" },
-        { "id": "e", "text": "Read" }
+        {
+          "id": "a",
+          "text": "Triage",
+          "rationale": "Triage includes read access, so it works, but it is not the lowest permission because read alone already allows downloading artifacts."
+        },
+        {
+          "id": "b",
+          "text": "Admin",
+          "rationale": "Admin is the highest repository role and far exceeds the access needed to download artifacts."
+        },
+        {
+          "id": "c",
+          "text": "Maintain",
+          "rationale": "Maintain adds repository management abilities beyond downloading artifacts, so it is not the lowest sufficient permission."
+        },
+        {
+          "id": "d",
+          "text": "Write",
+          "rationale": "Write grants push and editing rights that are unnecessary for downloading artifacts, so it is not the minimum."
+        },
+        {
+          "id": "e",
+          "text": "Read",
+          "rationale": "GitHub documentation states that read access to the repository is required for this task, making read the lowest sufficient role."
+        }
       ],
-      "correctAnswers": ["c"],
+      "correctAnswers": [
+        "e"
+      ],
       "explanation": "The Maintain permission allows managing the repository without destructive actions, and includes permissions to manage releases and artifacts."
     },
     {
       "id": "q40",
       "text": "Which statement is true regarding the ability to delete a workflow run?",
       "options": [
-        { "id": "a", "text": "Admin access is required to delete a workflow run." },
-        { "id": "b", "text": "Pending workflow runs may be deleted." },
-        { "id": "c", "text": "Completed workflow runs may be deleted." },
-        { "id": "d", "text": "Workflow runs must be older than 30 days to be deleted." }
+        {
+          "id": "a",
+          "text": "Admin access is required to delete a workflow run.",
+          "rationale": "Deleting a workflow run requires write access rather than admin, so this statement overstates the permission needed."
+        },
+        {
+          "id": "b",
+          "text": "Pending workflow runs may be deleted.",
+          "rationale": "A pending run is neither completed nor older than two weeks, so it cannot be deleted until it finishes."
+        },
+        {
+          "id": "c",
+          "text": "Completed workflow runs may be deleted.",
+          "rationale": "Completed workflow runs can be deleted, and only write access to the repository is required to remove them."
+        },
+        {
+          "id": "d",
+          "text": "Workflow runs must be older than 30 days to be deleted.",
+          "rationale": "The documented threshold is two weeks rather than 30 days, so older runs are not the only deletable ones."
+        }
       ],
-      "correctAnswers": ["a"],
+      "correctAnswers": [
+        "c"
+      ],
       "explanation": "To delete a workflow run through the GitHub UI or API, you must have admin access to the repository. Standard write or maintainer permissions are not sufficient."
     },
     {
       "id": "q41",
       "text": "As a developer, how should you enable step debug logging for a workflow?",
       "options": [
-        { "id": "a", "text": "Include the following code block in your workflow:\nenv:\n  ACTIONS_STEP_DEBUG: true" },
-        { "id": "b", "text": "Use the --actions-step-debug flag when calling the workflow." },
-        { "id": "c", "text": "Include the following code block in your workflow:\ndefaults:\n  ACTIONS_STEP_DEBUG: true" },
-        { "id": "d", "text": "Set the ACTIONS_STEP_DEBUG secret or variable at the repository level to true." }
+        {
+          "id": "a",
+          "text": "Include the following code block in your workflow:\nenv:\n  ACTIONS_STEP_DEBUG: true",
+          "rationale": "An env block sets a variable for steps, but step debug logging is enabled through repository configuration rather than workflow env."
+        },
+        {
+          "id": "b",
+          "text": "Use the --actions-step-debug flag when calling the workflow.",
+          "rationale": "No actions-step-debug flag exists for triggering workflows, and the GitHub CLI offers no such option."
+        },
+        {
+          "id": "c",
+          "text": "Include the following code block in your workflow:\ndefaults:\n  ACTIONS_STEP_DEBUG: true",
+          "rationale": "The defaults key configures shell and working directory behavior and cannot enable runner step debug logging."
+        },
+        {
+          "id": "d",
+          "text": "Set the ACTIONS_STEP_DEBUG secret or variable at the repository level to true.",
+          "rationale": "Setting the ACTIONS_STEP_DEBUG secret or variable to true is the documented way to enable verbose step debug logging."
+        }
       ],
-      "correctAnswers": ["d"],
+      "correctAnswers": [
+        "d"
+      ],
       "explanation": "Setting ACTIONS_STEP_DEBUG as a repository secret or variable is the prescribed method. It provides verbose step output and can be toggled without modifying the workflow file."
     },
     {
       "id": "q42",
       "text": "Which command can you include in your workflow file to set the output parameter for an action?",
       "options": [
-        { "id": "a", "text": "echo \"action_color=purple\" >> $GITHUB_ENV" },
-        { "id": "b", "text": "echo \"::debug::action_color=purple\"" },
-        { "id": "c", "text": "echo \"::add-mask::$ACTION_COLOR\"" },
-        { "id": "d", "text": "echo \"action_color=purple\" >> $GITHUB_OUTPUT" }
+        {
+          "id": "a",
+          "text": "echo \"action_color=purple\" >> $GITHUB_ENV",
+          "rationale": "Writing to GITHUB_ENV defines an environment variable for later steps, not an output parameter for the action."
+        },
+        {
+          "id": "b",
+          "text": "echo \"::debug::action_color=purple\"",
+          "rationale": "The debug command only emits a log message when debug logging is enabled and sets no output value."
+        },
+        {
+          "id": "c",
+          "text": "echo \"::add-mask::$ACTION_COLOR\"",
+          "rationale": "The add-mask command registers a value for log redaction and does not create any output parameter."
+        },
+        {
+          "id": "d",
+          "text": "echo \"action_color=purple\" >> $GITHUB_OUTPUT",
+          "rationale": "Writing name=value lines to GITHUB_OUTPUT sets a step output that later steps read through the outputs context."
+        }
       ],
-      "correctAnswers": ["d"],
+      "correctAnswers": [
+        "d"
+      ],
       "explanation": "To set an output parameter for a step or action so subsequent steps can use it, write the value to the $GITHUB_OUTPUT file. $GITHUB_ENV is for environment variables, not output parameters."
     },
     {
       "id": "q43",
       "text": "As a DevOps engineer, you need to execute a deployment to different environments based on the labels added to a pull request. The deployment should use the releases branch and trigger only when there is a change in the files under the 'apps' folder. Which code block should be used to define the deployment workflow trigger?",
       "options": [
-        { "id": "a", "text": "on:\n  pull_request_label:\n    branches:\n    - 'releases'\n    paths:\n    - 'apps/**'" },
-        { "id": "b", "text": "on:\n  pull_request:\n    types: [labeled]\n    branches:\n    - 'releases/**'\n    paths:\n    - 'apps'" },
-        { "id": "c", "text": "on:\n  pull_request:\n    types: [labeled]\n    branches:\n    - 'releases'\n    paths:\n    - 'apps/**'" },
-        { "id": "d", "text": "on:\n  pull_request_review:\n    types: [labeled]\n    branches:\n    - 'releases'\n    paths:\n    - 'apps/**'" }
+        {
+          "id": "a",
+          "text": "on:\n  pull_request_label:\n    branches:\n    - 'releases'\n    paths:\n    - 'apps/**'",
+          "rationale": "pull_request_label is not a valid event, because label activity arrives through pull_request with a labeled type."
+        },
+        {
+          "id": "b",
+          "text": "on:\n  pull_request:\n    types: [labeled]\n    branches:\n    - 'releases/**'\n    paths:\n    - 'apps'",
+          "rationale": "The branch pattern with a double-star suffix and a paths value of exactly apps do not match the releases branch and the apps folder changes."
+        },
+        {
+          "id": "c",
+          "text": "on:\n  pull_request:\n    types: [labeled]\n    branches:\n    - 'releases'\n    paths:\n    - 'apps/**'",
+          "rationale": "pull_request with the labeled type, branch releases, and a recursive paths filter for apps matches label additions that change files there."
+        },
+        {
+          "id": "d",
+          "text": "on:\n  pull_request_review:\n    types: [labeled]\n    branches:\n    - 'releases'\n    paths:\n    - 'apps/**'",
+          "rationale": "pull_request_review reports review activity and does not fire for labels added to a pull request."
+        }
       ],
-      "correctAnswers": ["c"],
+      "correctAnswers": [
+        "c"
+      ],
       "explanation": "pull_request with types: [labeled] triggers on label addition. branches: ['releases'] targets exactly the releases branch. paths: ['apps/**'] matches any change within the apps directory and its subdirectories."
     },
     {
       "id": "q44",
       "text": "As a developer, you are developing workflows to build an application. You have a requirement to create the build targeting multiple node versions. Which code block should you use to define the workflow?",
       "options": [
-        { "id": "a", "text": null, "image": "/data/images/q44-a.png" },
-        { "id": "b", "text": null, "image": "/data/images/q44-b.png" },
-        { "id": "c", "text": null, "image": "/data/images/q44-c.png" },
-        { "id": "d", "text": null, "image": "/data/images/q44-d.png" }
+        {
+          "id": "a",
+          "text": null,
+          "image": "/data/images/q44-a.png",
+          "rationale": "Nesting matrix under strategy and reading matrix.node-ver produces one build job per listed Node.js version."
+        },
+        {
+          "id": "b",
+          "text": null,
+          "image": "/data/images/q44-b.png",
+          "rationale": "matrix-strategy is not a valid job key, so the matrix is never defined and the expression resolves to nothing."
+        },
+        {
+          "id": "c",
+          "text": null,
+          "image": "/data/images/q44-c.png",
+          "rationale": "The matrix and strategy keys are inverted, leaving an invalid structure that GitHub Actions cannot parse."
+        },
+        {
+          "id": "d",
+          "text": null,
+          "image": "/data/images/q44-d.png",
+          "rationale": "The matrix value is read from the strategy context instead of the matrix context, so node-version is empty."
+        }
       ],
-      "correctAnswers": ["a"],
+      "correctAnswers": [
+        "a"
+      ],
       "explanation": "The correct answer uses a matrix strategy to target multiple Node.js versions, defining the matrix under strategy.matrix and referencing it with matrix.node-version."
     },
     {
       "id": "q45",
       "text": "Disabling a workflow allows you to stop a workflow from being triggered without deleting the file. In which scenarios would temporarily disabling a workflow be most useful? (Each correct answer presents a complete solution. Choose two.)",
       "options": [
-        { "id": "a", "text": "A runner needs to have diagnostic logging enabled." },
-        { "id": "b", "text": "A workflow error produces too many, or wrong, requests, impacting external services negatively." },
-        { "id": "c", "text": "A workflow is configured to run on self-hosted runners." },
-        { "id": "d", "text": "A workflow sends requests to a service that is down." },
-        { "id": "e", "text": "A workflow needs to be changed from running on a schedule to a manual trigger." }
+        {
+          "id": "a",
+          "text": "A runner needs to have diagnostic logging enabled.",
+          "rationale": "Enabling diagnostic logging on a runner is a runner configuration task; it does not require stopping workflow triggers, so disabling the workflow is irrelevant here."
+        },
+        {
+          "id": "b",
+          "text": "A workflow error produces too many, or wrong, requests, impacting external services negatively.",
+          "rationale": "Correct. A buggy workflow sending too many or wrong requests harms external services, so disabling it immediately stops the damage while the file is fixed."
+        },
+        {
+          "id": "c",
+          "text": "A workflow is configured to run on self-hosted runners.",
+          "rationale": "Running on self-hosted runners is an infrastructure choice, not a failure condition, and disabling the workflow does not change or improve runner configuration."
+        },
+        {
+          "id": "d",
+          "text": "A workflow sends requests to a service that is down.",
+          "rationale": "Correct. When a dependent service is down, disabling the workflow stops repeated failing runs and conserves resources until the service recovers."
+        },
+        {
+          "id": "e",
+          "text": "A workflow needs to be changed from running on a schedule to a manual trigger.",
+          "rationale": "Changing from a scheduled to a manual trigger is done by editing the trigger in the workflow file, not by temporarily disabling the workflow."
+        }
       ],
-      "correctAnswers": ["b", "d"],
+      "correctAnswers": [
+        "b",
+        "d"
+      ],
       "explanation": "Disabling is most useful when a buggy workflow overloads external services (B), or when a dependency is down and the workflow keeps failing unnecessarily (D). This conserves resources and prevents further damage."
     },
     {
       "id": "q46",
       "text": "Which of the following is a valid reusable workflow reference?",
       "options": [
-        { "id": "a", "text": "uses: octo-org/another-repo/workflow.yml@v1" },
-        { "id": "b", "text": "uses: octo-org/another-repo/.github/workflows/workflow.yml@v1" },
-        { "id": "c", "text": "uses: another-repo/.github/workflows/workflow.yml@v1" },
-        { "id": "d", "text": "uses: another-repo/workflow.yml@v1" }
+        {
+          "id": "a",
+          "text": "uses: octo-org/another-repo/workflow.yml@v1",
+          "rationale": "Missing the required .github/workflows/ path segment, so GitHub cannot resolve the referenced workflow file at all."
+        },
+        {
+          "id": "b",
+          "text": "uses: octo-org/another-repo/.github/workflows/workflow.yml@v1",
+          "rationale": "Correct. Owner, repository, the .github/workflows/ path and a ref are all present, matching the required reusable workflow reference format."
+        },
+        {
+          "id": "c",
+          "text": "uses: another-repo/.github/workflows/workflow.yml@v1",
+          "rationale": "Omits the owner, so the reference is ambiguous and invalid; reusable workflows must specify owner and repository."
+        },
+        {
+          "id": "d",
+          "text": "uses: another-repo/workflow.yml@v1",
+          "rationale": "Omits both the owner and the .github/workflows/ path, so the reference cannot resolve to a workflow file."
+        }
       ],
-      "correctAnswers": ["b"],
+      "correctAnswers": [
+        "b"
+      ],
       "explanation": "A valid reusable workflow reference must follow the format: owner/repo/.github/workflows/file.yml@ref. The .github/workflows/ path is required and the owner must be included."
     },
     {
       "id": "q47",
       "text": "What are the two ways to pass data between jobs? (Each correct answer presents part of the solution. Choose two.)",
       "options": [
-        { "id": "a", "text": "Use data storage." },
-        { "id": "b", "text": "Use the copy action with cache parameter to cache the data." },
-        { "id": "c", "text": "Use the copy action with restore parameter to restore the data from the cache." },
-        { "id": "d", "text": "Use artifact storage." },
-        { "id": "e", "text": "Use job outputs." },
-        { "id": "f", "text": "Use the copy action to save the data that should be passed in the artifacts folder." }
+        {
+          "id": "a",
+          "text": "Use data storage.",
+          "rationale": "Data storage is a vague term and is not a GitHub Actions mechanism for passing values between jobs."
+        },
+        {
+          "id": "b",
+          "text": "Use the copy action with cache parameter to cache the data.",
+          "rationale": "There is no copy action with a cache parameter for passing data between jobs; caching is meant for dependencies."
+        },
+        {
+          "id": "c",
+          "text": "Use the copy action with restore parameter to restore the data from the cache.",
+          "rationale": "A copy action with a restore parameter does not exist; cache restoration is performed by actions/cache, not a copy action."
+        },
+        {
+          "id": "d",
+          "text": "Use artifact storage.",
+          "rationale": "Correct. Artifact storage uploads files in one job and downloads them in another, handling large outputs."
+        },
+        {
+          "id": "e",
+          "text": "Use job outputs.",
+          "rationale": "Correct. Job outputs pass small string values to dependent jobs through needs expressions in the workflow."
+        },
+        {
+          "id": "f",
+          "text": "Use the copy action to save the data that should be passed in the artifacts folder.",
+          "rationale": "No copy action writes data into an artifacts folder for job-to-job transfer; artifacts use upload and download actions."
+        }
       ],
-      "correctAnswers": ["d", "e"],
+      "correctAnswers": [
+        "d",
+        "e"
+      ],
       "explanation": "Artifact storage (D) allows passing large files between jobs. Job outputs (E) allow passing small string values directly between jobs using expressions."
     },
     {
       "id": "q48",
       "text": "As a developer, you are optimizing a GitHub workflow that uses and produces many different files. You need to determine when to use caching versus workflow artifacts. Which two statements are true? (Each correct answer presents part of the solution. Choose two.)",
       "options": [
-        { "id": "a", "text": "Use artifacts to access the GitHub Package Registry and download a package for a workflow." },
-        { "id": "b", "text": "Use caching when reusing files that change rarely between jobs or workflow runs." },
-        { "id": "c", "text": "Use caching to store cache entries for up to 30 days between accesses." },
-        { "id": "d", "text": "Use artifacts when referencing files produced by a job after a workflow has ended." }
+        {
+          "id": "a",
+          "text": "Use artifacts to access the GitHub Package Registry and download a package for a workflow.",
+          "rationale": "Artifacts are not used to access the GitHub Package Registry; packages are downloaded with package managers or registry actions."
+        },
+        {
+          "id": "b",
+          "text": "Use caching when reusing files that change rarely between jobs or workflow runs.",
+          "rationale": "Correct. Caching is intended for dependencies and files that rarely change, speeding up repeated jobs and workflow runs."
+        },
+        {
+          "id": "c",
+          "text": "Use caching to store cache entries for up to 30 days between accesses.",
+          "rationale": "Cache entries expire after seven days without access by default, not thirty days, and retention is not the selection criterion."
+        },
+        {
+          "id": "d",
+          "text": "Use artifacts when referencing files produced by a job after a workflow has ended.",
+          "rationale": "Correct. Artifacts persist after the workflow finishes so later jobs or people can retrieve the produced files."
+        }
       ],
-      "correctAnswers": ["b", "d"],
+      "correctAnswers": [
+        "b",
+        "d"
+      ],
       "explanation": "Caching (B) is ideal for rarely-changing dependencies that speed up subsequent runs. Artifacts (D) are for storing workflow outputs that need to be accessed after the workflow finishes."
     },
     {
       "id": "q50",
       "text": "What is the right method to ensure users approve a workflow before the next step proceeds?",
       "options": [
-        { "id": "a", "text": "creating a branch protection rule and only allow certain users access" },
-        { "id": "b", "text": "granting users workflow approval permissions" },
-        { "id": "c", "text": "adding users as required reviewers for an environment" },
-        { "id": "d", "text": "granting users repository approval permission" }
+        {
+          "id": "a",
+          "text": "creating a branch protection rule and only allow certain users access",
+          "rationale": "A branch protection rule governs merges into a branch; it cannot pause a running job before its next step or gate a deployment workflow."
+        },
+        {
+          "id": "b",
+          "text": "granting users workflow approval permissions",
+          "rationale": "GitHub has no workflow approval permission in its permission model; permissions grant token scopes, not interactive approval of running workflows."
+        },
+        {
+          "id": "c",
+          "text": "adding users as required reviewers for an environment",
+          "rationale": "Correct. Environment protection rules support required reviewers, so a job pauses when it requests the environment and resumes only after an approver signs off."
+        },
+        {
+          "id": "d",
+          "text": "granting users repository approval permission",
+          "rationale": "There is no repository approval permission; repository roles and Actions permissions do not provide a mechanism to approve a workflow mid-run."
+        }
       ],
-      "correctAnswers": ["b"],
+      "correctAnswers": [
+        "c"
+      ],
       "explanation": "Granting users workflow approval permissions directly addresses the requirement of user approval before a workflow proceeds to the next step."
     },
     {
       "id": "q51",
       "text": "As a developer, you need to integrate a GitHub Actions workflow with a third-party code quality provider that uses the Checks API. How should you trigger a follow-up workflow?",
       "options": [
-        { "id": "a", "text": "Add the workflow_run webhook event as a trigger for the workflow for the code quality integration name" },
-        { "id": "b", "text": "Add the check_run webhook event as a trigger for the workflow when the code quality integration is completed" },
-        { "id": "c", "text": "Add the pull_request webhook event as a trigger for the workflow when the code quality integration is synchronized" },
-        { "id": "d", "text": "Add the deployment webhook event as a trigger for the workflow when the code quality integration is completed" }
+        {
+          "id": "a",
+          "text": "Add the workflow_run webhook event as a trigger for the workflow for the code quality integration name",
+          "rationale": "workflow_run triggers on completions of other workflows, not on Checks API results from an external provider."
+        },
+        {
+          "id": "b",
+          "text": "Add the check_run webhook event as a trigger for the workflow when the code quality integration is completed",
+          "rationale": "Correct. The check_run event fires when a check is created or completed, and filtering on completed runs the follow-up after quality results arrive."
+        },
+        {
+          "id": "c",
+          "text": "Add the pull_request webhook event as a trigger for the workflow when the code quality integration is synchronized",
+          "rationale": "pull_request synchronize fires on new commits pushed to the pull request, which is unrelated to the provider's check completion."
+        },
+        {
+          "id": "d",
+          "text": "Add the deployment webhook event as a trigger for the workflow when the code quality integration is completed",
+          "rationale": "The deployment event relates to deployment statuses, not to Checks API results from a code quality provider."
+        }
       ],
-      "correctAnswers": ["b"],
+      "correctAnswers": [
+        "b"
+      ],
       "explanation": "The check_run event is triggered when a Checks API check is created, requested, or completed. Using types: [completed] in the trigger allows running a follow-up only after the code quality check finishes."
     },
     {
       "id": "q52",
       "text": "What is the simplest action type to run a shell script?",
       "options": [
-        { "id": "a", "text": "Bash script action" },
-        { "id": "b", "text": "Composite action" },
-        { "id": "c", "text": "JavaScript action" },
-        { "id": "d", "text": "Docker container action" }
+        {
+          "id": "a",
+          "text": "Bash script action",
+          "rationale": "There is no Bash script action type in GitHub Actions; shell scripts execute inside other action types."
+        },
+        {
+          "id": "b",
+          "text": "Composite action",
+          "rationale": "Correct. A composite action can group run steps that execute shell scripts directly, without Docker or JavaScript."
+        },
+        {
+          "id": "c",
+          "text": "JavaScript action",
+          "rationale": "A JavaScript action requires writing Node.js code and a compiled entry point, which is more work than a shell script."
+        },
+        {
+          "id": "d",
+          "text": "Docker container action",
+          "rationale": "A Docker container action requires a Dockerfile and an image build, adding overhead unnecessary for a simple shell script."
+        }
       ],
-      "correctAnswers": ["b"],
+      "correctAnswers": [
+        "b"
+      ],
       "explanation": "Composite actions provide a streamlined way to group multiple steps into a single reusable action, and can directly execute shell scripts via the 'run' keyword without needing Docker or JavaScript."
     },
     {
       "id": "q53",
       "text": "What is the most suitable action type for a custom action written in TypeScript?",
       "options": [
-        { "id": "a", "text": "Docker container action" },
-        { "id": "b", "text": "Bash script action" },
-        { "id": "c", "text": "composite run step" },
-        { "id": "d", "text": "JavaScript action" }
+        {
+          "id": "a",
+          "text": "Docker container action",
+          "rationale": "Docker container actions package code in a container image, which is unnecessary for TypeScript that runs on Node."
+        },
+        {
+          "id": "b",
+          "text": "Bash script action",
+          "rationale": "There is no Bash script action type, and shell scripts cannot run TypeScript directly as an action entry point."
+        },
+        {
+          "id": "c",
+          "text": "composite run step",
+          "rationale": "A composite run step only executes shell commands and cannot run compiled TypeScript logic as an action entry point."
+        },
+        {
+          "id": "d",
+          "text": "JavaScript action",
+          "rationale": "Correct. JavaScript actions run on Node.js, so TypeScript is compiled to JavaScript with using: node20 and a main entry point."
+        }
       ],
-      "correctAnswers": ["d"],
+      "correctAnswers": [
+        "d"
+      ],
       "explanation": "A JavaScript action is designed to run JavaScript/TypeScript code directly on the runner using Node.js. TypeScript is compiled to JavaScript and the action.yml specifies 'using: node20' and the entry point."
     },
     {
       "id": "q54",
       "text": "You are a DevOps engineer working on custom Actions development. You need to handle the errors or exceptions as part of the JavaScript based action code. What should be added to handle errors?\n\n```javascript\nconst core = require('@actions/core');\ntry { /* action code */ }\ncatch (error) { << insert snippet here >> }\n```",
       "options": [
-        { "id": "a", "text": "core.setException(error.message);" },
-        { "id": "b", "text": "action.setError(error.message);" },
-        { "id": "c", "text": "core.setFailed(error.message);" },
-        { "id": "d", "text": "core.action.setException(error.message);" }
+        {
+          "id": "a",
+          "text": "core.setException(error.message);",
+          "rationale": "core.setException is not a function in the actions toolkit; the toolkit provides setFailed for reporting failures."
+        },
+        {
+          "id": "b",
+          "text": "action.setError(error.message);",
+          "rationale": "action.setError does not exist in the actions toolkit; the imported core module provides the setFailed failure helper."
+        },
+        {
+          "id": "c",
+          "text": "core.setFailed(error.message);",
+          "rationale": "Correct. core.setFailed logs the message and exits with code 1, failing the step and the job."
+        },
+        {
+          "id": "d",
+          "text": "core.action.setException(error.message);",
+          "rationale": "core.action.setException is not a valid actions toolkit API and would throw an error at runtime."
+        }
       ],
-      "correctAnswers": ["c"],
+      "correctAnswers": [
+        "c"
+      ],
       "explanation": "core.setFailed(message) logs the error message and sets the action's exit code to 1 (failure), causing the current job to fail and preventing subsequent steps from running."
     },
     {
       "id": "q55",
       "text": "Which workflow commands send information from the runner? (Each correct answer presents a complete solution. Choose two.)",
       "options": [
-        { "id": "a", "text": "reading from environment variables" },
-        { "id": "b", "text": "setting a debug message" },
-        { "id": "c", "text": "populating variables in a Dockerfile" },
-        { "id": "d", "text": "setting output parameters" }
+        {
+          "id": "a",
+          "text": "reading from environment variables",
+          "rationale": "Reading environment variables consumes information already present on the runner; it does not send information out."
+        },
+        {
+          "id": "b",
+          "text": "setting a debug message",
+          "rationale": "Correct. The ::debug:: workflow command emits a debug message from the runner into the job log."
+        },
+        {
+          "id": "c",
+          "text": "populating variables in a Dockerfile",
+          "rationale": "Populating variables in a Dockerfile is a build-time container concern, not a runner workflow command that sends information."
+        },
+        {
+          "id": "d",
+          "text": "setting output parameters",
+          "rationale": "Correct. Writing name=value to the GITHUB_OUTPUT file sets step outputs that later steps can read."
+        }
       ],
-      "correctAnswers": ["b", "d"],
+      "correctAnswers": [
+        "b",
+        "d"
+      ],
       "explanation": "::debug:: sends debug messages from the runner to the log (B). Writing to $GITHUB_OUTPUT sets output parameters that subsequent steps can consume (D). Reading env vars is passive, not sending information."
     },
     {
       "id": "q56",
       "text": "Which of the following is the most common way to target a specific major release version?",
       "options": [
-        { "id": "a", "text": "steps:\n- uses: actions/checkout@v3" },
-        { "id": "b", "text": "steps:\n- uses: actions/checkout" },
-        { "id": "c", "text": "steps:\n- uses: actions/checkout@U1673995124" },
-        { "id": "d", "text": "steps:\n- uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c" }
+        {
+          "id": "a",
+          "text": "steps:\n- uses: actions/checkout@v3",
+          "rationale": "Correct. The @v3 ref points at the action's major version tag, the usual way to track a major release while receiving compatible minor and patch updates."
+        },
+        {
+          "id": "b",
+          "text": "steps:\n- uses: actions/checkout",
+          "rationale": "Omitting the ref provides no release targeting at all, and GitHub recommends always pinning a published version rather than the action repository's default branch."
+        },
+        {
+          "id": "c",
+          "text": "steps:\n- uses: actions/checkout@U1673995124",
+          "rationale": "This value is not a valid Git ref in the action's repository, so the runner cannot resolve the action and the step fails."
+        },
+        {
+          "id": "d",
+          "text": "steps:\n- uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c",
+          "rationale": "A full commit SHA pins one exact commit; it is immutable and reliable but not the common way to target a major release version."
+        }
       ],
-      "correctAnswers": ["d"],
+      "correctAnswers": [
+        "a"
+      ],
       "explanation": "Per the exam answer key: using the full commit SHA is the most reliable way to pin to a specific immutable version. Note: In practice, using a major version tag like @v3 is more common for targeting a major release."
     },
     {
       "id": "q57",
       "text": "You are a DevOps engineer working on a custom action. You want to conditionally run a script at the start of the action, before the main entrypoint. Which code block should be used to define the metadata file for your custom action?",
       "options": [
-        { "id": "a", "text": "runs:\n  using: 'node16'\n  pre-if: github.event_name == 'push' then 'start.js'\n  main: 'index.js'" },
-        { "id": "b", "text": "runs:\n  using: 'node16'\n  pre: 'start.js'\n  pre-if: github.event_name == 'push'\n  main: 'index.js'" },
-        { "id": "c", "text": "runs:\n  using: 'node16'\n  start: 'start.js'\n  start-if: github.event_name == 'push'\n  main: 'index.js'" },
-        { "id": "d", "text": "runs:\n  using: 'node16'\n  before: 'start.js'\n  before-if: github.event_name == 'push'\n  main: 'index.js'" }
+        {
+          "id": "a",
+          "text": "runs:\n  using: 'node16'\n  pre-if: github.event_name == 'push' then 'start.js'\n  main: 'index.js'",
+          "rationale": "pre-if cannot embed a filename after a condition; the pre script and the pre-if condition must be separate keys."
+        },
+        {
+          "id": "b",
+          "text": "runs:\n  using: 'node16'\n  pre: 'start.js'\n  pre-if: github.event_name == 'push'\n  main: 'index.js'",
+          "rationale": "Correct. pre names the script run before main, and pre-if supplies the boolean expression controlling whether it runs."
+        },
+        {
+          "id": "c",
+          "text": "runs:\n  using: 'node16'\n  start: 'start.js'\n  start-if: github.event_name == 'push'\n  main: 'index.js'",
+          "rationale": "start and start-if are not valid action metadata keywords, so GitHub ignores them and no pre script runs."
+        },
+        {
+          "id": "d",
+          "text": "runs:\n  using: 'node16'\n  before: 'start.js'\n  before-if: github.event_name == 'push'\n  main: 'index.js'",
+          "rationale": "before and before-if are not valid action metadata keywords; the correct keyword for the pre script is pre."
+        }
       ],
-      "correctAnswers": ["b"],
+      "correctAnswers": [
+        "b"
+      ],
       "explanation": "The 'pre' keyword specifies the script to run before 'main', and 'pre-if' takes a boolean expression to conditionally run it. Options C and D use invalid keywords (start, before). Option A misuses the pre-if syntax."
     },
     {
       "id": "q58",
       "text": "As a developer, how can you identify a JavaScript action on GitHub?",
       "options": [
-        { "id": "a", "text": "The action's repository includes a js.yml file in the .github/workflows directory." },
-        { "id": "b", "text": "The action's repository name includes the keyword \"JavaScript.\"" },
-        { "id": "c", "text": "The action.yml metadata file has the runs.using value set to node16." },
-        { "id": "d", "text": "The action.yml metadata file references a package.json file." }
+        {
+          "id": "a",
+          "text": "The action's repository includes a js.yml file in the .github/workflows directory.",
+          "rationale": "A js.yml file in .github/workflows is a workflow definition, not an indicator of the action's implementation language."
+        },
+        {
+          "id": "b",
+          "text": "The action's repository name includes the keyword \"JavaScript.\"",
+          "rationale": "Repository naming conventions are arbitrary and prove nothing about how the action actually executes on a runner."
+        },
+        {
+          "id": "c",
+          "text": "The action.yml metadata file has the runs.using value set to node16.",
+          "rationale": "Correct. The runs.using value node16 in the action.yml file identifies a JavaScript action run by Node."
+        },
+        {
+          "id": "d",
+          "text": "The action.yml metadata file references a package.json file.",
+          "rationale": "Referencing package.json is common for JavaScript actions but does not itself define the action type; runs.using does."
+        }
       ],
-      "correctAnswers": ["c"],
+      "correctAnswers": [
+        "c"
+      ],
       "explanation": "The type of a GitHub Action is identified by the runs.using value in action.yml. For JavaScript actions, this value is set to 'node16' (or 'node20'). For Docker actions, it's 'docker'. For composite, it's 'composite'."
     },
     {
       "id": "q59",
       "text": "As a developer, your Actions workflow reuses the same outputs or downloaded dependencies from one run to another. To cache dependencies for a job, you are using the GitHub cache action. Which input parameters are required? (Each correct answer presents part of the solution. Choose two.)",
       "options": [
-        { "id": "a", "text": "path: the file path on the runner to cache or restore" },
-        { "id": "b", "text": "dependency: the name and version of a package to cache or restore" },
-        { "id": "c", "text": "key: the key created when saving a cache and the key used to search for a cache" },
-        { "id": "d", "text": "restore-keys: the copy action key used with cache parameter to cache the data" },
-        { "id": "e", "text": "cache-hit: the copy action key used with restore parameter to restore the data from the cache" },
-        { "id": "f", "text": "ref: the ref name of the branch to access and restore a cache created" }
+        {
+          "id": "a",
+          "text": "path: the file path on the runner to cache or restore",
+          "rationale": "Correct. path is required and tells the cache action which files or directories to save and restore."
+        },
+        {
+          "id": "b",
+          "text": "dependency: the name and version of a package to cache or restore",
+          "rationale": "dependency is not a supported input of actions/cache; packages are cached through the path and key inputs."
+        },
+        {
+          "id": "c",
+          "text": "key: the key created when saving a cache and the key used to search for a cache",
+          "rationale": "Correct. key is required and is used both to save the cache and to look it up on later runs."
+        },
+        {
+          "id": "d",
+          "text": "restore-keys: the copy action key used with cache parameter to cache the data",
+          "rationale": "restore-keys is optional and only provides fallback partial key matches when the exact cache key misses."
+        },
+        {
+          "id": "e",
+          "text": "cache-hit: the copy action key used with restore parameter to restore the data from the cache",
+          "rationale": "cache-hit is an output produced by the cache action, not an input parameter you configure."
+        },
+        {
+          "id": "f",
+          "text": "ref: the ref name of the branch to access and restore a cache created",
+          "rationale": "ref is not an input of actions/cache; caches are scoped to the branch and key automatically."
+        }
       ],
-      "correctAnswers": ["a", "c"],
+      "correctAnswers": [
+        "a",
+        "c"
+      ],
       "explanation": "'path' specifies the filesystem location to cache (A), and 'key' is the unique identifier used to save and retrieve the cache (C). These are the only two required inputs for the actions/cache action."
     },
     {
       "id": "q60",
       "text": "As a developer, how can you identify a composite action on GitHub?",
       "options": [
-        { "id": "a", "text": "The action's repository name includes the keyword \"composite.\"" },
-        { "id": "b", "text": "The action's repository includes an init.sh file in the root directory." },
-        { "id": "c", "text": "The action's repository includes Dockerfile and package.json files." },
-        { "id": "d", "text": "The action.yml metadata file has the runs.using value set to composite." }
+        {
+          "id": "a",
+          "text": "The action's repository name includes the keyword \"composite.\"",
+          "rationale": "Repository names are arbitrary labels and do not indicate how an action is implemented or executed."
+        },
+        {
+          "id": "b",
+          "text": "The action's repository includes an init.sh file in the root directory.",
+          "rationale": "An init.sh file in the repository root is not a recognized marker of composite actions."
+        },
+        {
+          "id": "c",
+          "text": "The action's repository includes Dockerfile and package.json files.",
+          "rationale": "A Dockerfile and package.json suggest a Docker or JavaScript action, not a composite action at all."
+        },
+        {
+          "id": "d",
+          "text": "The action.yml metadata file has the runs.using value set to composite.",
+          "rationale": "Correct. runs.using set to composite in the action.yml file identifies a composite action made of steps."
+        }
       ],
-      "correctAnswers": ["d"],
+      "correctAnswers": [
+        "d"
+      ],
       "explanation": "Composite actions are identified by runs.using: 'composite' in the action.yml file. A Dockerfile indicates a Docker action; package.json suggests a JavaScript action."
     },
     {
       "id": "q61",
       "text": "What can be used to set a failed status of an action from its code?",
       "options": [
-        { "id": "a", "text": "JavaScript dist/ folder" },
-        { "id": "b", "text": "composite run step" },
-        { "id": "c", "text": "output variable" },
-        { "id": "d", "text": "a non-zero exit code" },
-        { "id": "e", "text": "Dockerfile CMD" },
-        { "id": "f", "text": "@actions/github toolkit" }
+        {
+          "id": "a",
+          "text": "JavaScript dist/ folder",
+          "rationale": "The dist folder holds compiled JavaScript output; it does not by itself report a failure status."
+        },
+        {
+          "id": "b",
+          "text": "composite run step",
+          "rationale": "A composite run step is a way to execute commands, not a mechanism for setting failure."
+        },
+        {
+          "id": "c",
+          "text": "output variable",
+          "rationale": "An output variable carries data to later steps and does not change the action's status."
+        },
+        {
+          "id": "d",
+          "text": "a non-zero exit code",
+          "rationale": "Correct. Returning a non-zero exit code from the action process marks it failed, while zero means success."
+        },
+        {
+          "id": "e",
+          "text": "Dockerfile CMD",
+          "rationale": "Dockerfile CMD only defines the container's default command; failure depends on the exit code it returns."
+        },
+        {
+          "id": "f",
+          "text": "@actions/github toolkit",
+          "rationale": "The @actions/github toolkit makes API calls but does not set the action's exit status or failure state."
+        }
       ],
-      "correctAnswers": ["d"],
+      "correctAnswers": [
+        "d"
+      ],
       "explanation": "A non-zero exit code signals failure to GitHub Actions — exit code 0 means success, any other value indicates failure. This is the fundamental convention for reporting action failure."
     },
     {
       "id": "q62",
       "text": "As a developer, you need to use GitHub Actions to deploy a microservice that requires runtime access to a secure token used by multiple teams in different repos. To minimize management overhead and ensure security, which mechanisms should you use to store and access the token? (Each correct answer presents a complete solution. Choose two.)",
       "options": [
-        { "id": "a", "text": "Store the token as a GitHub encrypted secret in the same repo. During deployment, use GitHub Actions to store the secret in an environment variable." },
-        { "id": "b", "text": "Use a corporate non-GitHub secret store (e.g., HashiCorp Vault) to store the token. During deployment, use GitHub Actions to store the secret in an environment variable." },
-        { "id": "c", "text": "Store the token as an organizational-level encrypted secret in GitHub. During deployment, use GitHub Actions to store the secret in an environment variable." },
-        { "id": "d", "text": "Store the token as a GitHub encrypted secret in the same repo. Create a reusable custom GitHub Action to access the token by the microservice at runtime." },
-        { "id": "e", "text": "Store the token in a configuration file in a private repository. Use GitHub Actions to deploy the configuration file to the runtime environment." }
+        {
+          "id": "a",
+          "text": "Store the token as a GitHub encrypted secret in the same repo. During deployment, use GitHub Actions to store the secret in an environment variable.",
+          "rationale": "A repository-scoped secret would have to be duplicated in every repository, increasing management overhead considerably."
+        },
+        {
+          "id": "b",
+          "text": "Use a corporate non-GitHub secret store (e.g., HashiCorp Vault) to store the token. During deployment, use GitHub Actions to store the secret in an environment variable.",
+          "rationale": "Correct. A central vault such as HashiCorp Vault provides one secure store shared by multiple teams and repositories."
+        },
+        {
+          "id": "c",
+          "text": "Store the token as an organizational-level encrypted secret in GitHub. During deployment, use GitHub Actions to store the secret in an environment variable.",
+          "rationale": "Correct. Organization-level encrypted secrets are shared across multiple repositories with controlled access, minimizing duplication and overhead."
+        },
+        {
+          "id": "d",
+          "text": "Store the token as a GitHub encrypted secret in the same repo. Create a reusable custom GitHub Action to access the token by the microservice at runtime.",
+          "rationale": "A custom action reading the token at runtime still requires the secret to be stored and duplicated per repository."
+        },
+        {
+          "id": "e",
+          "text": "Store the token in a configuration file in a private repository. Use GitHub Actions to deploy the configuration file to the runtime environment.",
+          "rationale": "Storing a token in a configuration file in a private repository exposes it in source control and is insecure."
+        }
       ],
-      "correctAnswers": ["b", "c"],
+      "correctAnswers": [
+        "b",
+        "c"
+      ],
       "explanation": "Enterprise-grade secret stores like HashiCorp Vault (B) provide centralized, secure management. Organization-level secrets (C) allow sharing across multiple repositories while maintaining strong encryption and access control."
     },
     {
       "id": "q63",
       "text": "Which of the following statements are true regarding the use of GitHub Actions on a GitHub Enterprise Server instance? (Each correct answer presents a complete solution. Choose three.)",
       "options": [
-        { "id": "a", "text": "Actions created by GitHub are automatically available and cannot be disabled." },
-        { "id": "b", "text": "Third-party actions can be used on GitHub Enterprise Server by configuring GitHub Connect." },
-        { "id": "c", "text": "Most GitHub-authored actions are automatically bundled for use on GitHub Enterprise Server." },
-        { "id": "d", "text": "Use of GitHub Actions on GitHub Enterprise Server requires a persistent internet connection." },
-        { "id": "e", "text": "Actions must be defined in the .github repository." },
-        { "id": "f", "text": "Third-party actions can be manually synchronized for use on GitHub Enterprise Server." }
+        {
+          "id": "a",
+          "text": "Actions created by GitHub are automatically available and cannot be disabled.",
+          "rationale": "GitHub-authored actions can be disabled on GitHub Enterprise Server, so automatic availability without control is false."
+        },
+        {
+          "id": "b",
+          "text": "Third-party actions can be used on GitHub Enterprise Server by configuring GitHub Connect.",
+          "rationale": "Correct. GitHub Connect lets GitHub Enterprise Server instances use actions from GitHub.com, including third-party actions."
+        },
+        {
+          "id": "c",
+          "text": "Most GitHub-authored actions are automatically bundled for use on GitHub Enterprise Server.",
+          "rationale": "Correct. Most GitHub-authored actions are bundled with GitHub Enterprise Server so they work without external access."
+        },
+        {
+          "id": "d",
+          "text": "Use of GitHub Actions on GitHub Enterprise Server requires a persistent internet connection.",
+          "rationale": "GitHub Enterprise Server can run in air-gapped environments, so a persistent internet connection is not required."
+        },
+        {
+          "id": "e",
+          "text": "Actions must be defined in the .github repository.",
+          "rationale": "Actions do not have to live in the .github repository; they can reside in any repository on the instance."
+        },
+        {
+          "id": "f",
+          "text": "Third-party actions can be manually synchronized for use on GitHub Enterprise Server.",
+          "rationale": "Correct. Third-party actions can be manually synchronized for use on GitHub Enterprise Server without GitHub Connect."
+        }
       ],
-      "correctAnswers": ["b", "c", "f"],
+      "correctAnswers": [
+        "b",
+        "c",
+        "f"
+      ],
       "explanation": "GitHub Connect enables access to GitHub.com actions from GHES (B). Most official GitHub actions are pre-bundled with GHES (C). Air-gapped instances can manually sync third-party actions (F). GHES does not require persistent internet."
     },
     {
       "id": "q64",
       "text": "In the following workflow file, line 5 interprets lines 3 and 4 as Python. Which of the following is a valid option to complete line 5?\n\n```yaml linenums\nsteps:\n  - run: |\n      import os\n      print(os.environ['PATH'])\n\n```",
       "options": [
-        { "id": "a", "text": "shell: python" },
-        { "id": "b", "text": "working-directory: .github/python" },
-        { "id": "c", "text": "shell: bash" },
-        { "id": "d", "text": "with: python" }
+        {
+          "id": "a",
+          "text": "shell: python",
+          "rationale": "Correct. shell: python passes the run block to the Python interpreter, so the import and print statements execute."
+        },
+        {
+          "id": "b",
+          "text": "working-directory: .github/python",
+          "rationale": "working-directory only changes the directory a step runs in and does not choose an interpreter."
+        },
+        {
+          "id": "c",
+          "text": "shell: bash",
+          "rationale": "shell: bash would treat the Python lines as shell commands, causing the step to fail."
+        },
+        {
+          "id": "d",
+          "text": "with: python",
+          "rationale": "with supplies action input parameters and cannot select the shell used for a run step."
+        }
       ],
-      "correctAnswers": ["a"],
+      "correctAnswers": [
+        "a"
+      ],
       "explanation": "'shell: python' tells the runner to pass the run block contents to the Python interpreter. 'shell: bash' would cause the Python code to fail as shell commands. 'with' is for action input parameters, not shell selection."
     },
     {
       "id": "q65",
       "text": "As a developer, you need to make sure that only actions from trusted sources are available for use in your GitHub Enterprise Cloud organization. Which of the following statements are true? (Each correct answer presents a complete solution. Choose three.)",
       "options": [
-        { "id": "a", "text": "Actions can be published to an internal marketplace." },
-        { "id": "b", "text": "GitHub-verified actions can be collectively enabled for use in the enterprise." },
-        { "id": "c", "text": "Specific actions can individually be enabled for the organization, including version information." },
-        { "id": "d", "text": "Actions can be restricted to only those available in the enterprise." },
-        { "id": "e", "text": "Individual third-party actions enabled with a specific tag will prevent updated versions of the action from introducing vulnerabilities." },
-        { "id": "f", "text": "Actions created by GitHub are automatically enabled and cannot be disabled." }
+        {
+          "id": "a",
+          "text": "Actions can be published to an internal marketplace.",
+          "rationale": "There is no internal marketplace for publishing private actions; enterprises rely on allow lists and internal repositories."
+        },
+        {
+          "id": "b",
+          "text": "GitHub-verified actions can be collectively enabled for use in the enterprise.",
+          "rationale": "Correct. Enterprises can enable GitHub-verified actions collectively, making them available to all organizations under the enterprise."
+        },
+        {
+          "id": "c",
+          "text": "Specific actions can individually be enabled for the organization, including version information.",
+          "rationale": "Correct. Administrators can allow specific individual actions, including exactly which versions of each are permitted."
+        },
+        {
+          "id": "d",
+          "text": "Actions can be restricted to only those available in the enterprise.",
+          "rationale": "Correct. Enterprise policies can restrict action usage to only those actions available within the enterprise itself."
+        },
+        {
+          "id": "e",
+          "text": "Individual third-party actions enabled with a specific tag will prevent updated versions of the action from introducing vulnerabilities.",
+          "rationale": "A tag can be moved to new code, so pinning a tag does not prevent later vulnerable versions."
+        },
+        {
+          "id": "f",
+          "text": "Actions created by GitHub are automatically enabled and cannot be disabled.",
+          "rationale": "GitHub-created actions can be disabled by enterprise policy, so they are not automatically and irrevocably enabled."
+        }
       ],
-      "correctAnswers": ["b", "c", "d"],
+      "correctAnswers": [
+        "b",
+        "c",
+        "d"
+      ],
       "explanation": "Enterprises can collectively enable GitHub-verified actions (B), whitelist specific actions with version info (C), and restrict to enterprise-only actions (D). A specific tag does not guarantee vulnerability-free code (E is false)."
     },
     {
       "id": "q66",
       "text": "As a developer, you created a JavaScript action. What is the best way to test your JavaScript action?",
       "options": [
-        { "id": "a", "text": "Create a workflow that only executes your specific JavaScript action." },
-        { "id": "b", "text": "Package your JavaScript action inside a docker container image and run it." },
-        { "id": "c", "text": "Use a tool called @vercel/ncc to compile your code." },
-        { "id": "d", "text": "Create a workflow that includes the actions/debug-javascript action." }
+        {
+          "id": "a",
+          "text": "Create a workflow that only executes your specific JavaScript action.",
+          "rationale": "Correct. Running the action from a workflow exercises it on a runner exactly as consumers will, which is the documented way to verify its behaviour end to end."
+        },
+        {
+          "id": "b",
+          "text": "Package your JavaScript action inside a docker container image and run it.",
+          "rationale": "Packaging the action into a container image converts it to a Docker container action and tests the image, not the JavaScript code you wrote."
+        },
+        {
+          "id": "c",
+          "text": "Use a tool called @vercel/ncc to compile your code.",
+          "rationale": "ncc bundles and minifies dependencies for distribution; compiling the code does not execute the action or verify its inputs, outputs, and API calls."
+        },
+        {
+          "id": "d",
+          "text": "Create a workflow that includes the actions/debug-javascript action.",
+          "rationale": "No official actions/debug-javascript action exists, and debug helpers only inspect a running process rather than exercising the action's behaviour."
+        }
       ],
-      "correctAnswers": ["d"],
+      "correctAnswers": [
+        "a"
+      ],
       "explanation": "The actions/debug-javascript action enables Node.js debugging inside the runner via an SSH tunnel, allowing you to set breakpoints, inspect variables, and step through execution."
     },
     {
       "id": "q67",
       "text": "When reviewing an action for use, what file defines its available inputs and outputs?",
       "options": [
-        { "id": "a", "text": "inputs.yml" },
-        { "id": "b", "text": "defaults.json" },
-        { "id": "c", "text": "workflow.yml" },
-        { "id": "d", "text": "config.json" },
-        { "id": "e", "text": "action.yml" }
+        {
+          "id": "a",
+          "text": "inputs.yml",
+          "rationale": "There is no inputs.yml convention; inputs and outputs are declared inside the single action metadata file rather than a separate inputs file."
+        },
+        {
+          "id": "b",
+          "text": "defaults.json",
+          "rationale": "defaults.json is not part of action metadata; default input values are declared with default keys inside the metadata inputs block."
+        },
+        {
+          "id": "c",
+          "text": "workflow.yml",
+          "rationale": "workflow.yml is not an action metadata filename, and workflow files live under .github/workflows rather than inside the action itself."
+        },
+        {
+          "id": "d",
+          "text": "config.json",
+          "rationale": "config.json is never read by the runner when loading an action, so it cannot declare inputs or outputs."
+        },
+        {
+          "id": "e",
+          "text": "action.yml",
+          "rationale": "Correct. action.yml is the required metadata file, and its inputs and outputs blocks declare what the action accepts and produces."
+        }
       ],
-      "correctAnswers": ["c"],
+      "correctAnswers": [
+        "e"
+      ],
       "explanation": "Per the exam answer key: workflow.yml. Note: The actual GitHub documentation specifies action.yml as the file that defines an action's inputs and outputs."
     },
     {
       "id": "q68",
       "text": "Which files are required for a Docker container action in addition to the source code? (Each correct answer presents a partial solution. Choose two.)",
       "options": [
-        { "id": "a", "text": "action.yml" },
-        { "id": "b", "text": "Actionfile" },
-        { "id": "c", "text": "metadata.yml" },
-        { "id": "d", "text": "Dockerfile" }
+        {
+          "id": "a",
+          "text": "action.yml",
+          "rationale": "Correct. action.yml is required for every custom action, declaring metadata, inputs, outputs and how to run it."
+        },
+        {
+          "id": "b",
+          "text": "Actionfile",
+          "rationale": "Actionfile is not a GitHub Actions concept; the action metadata file must be named action.yml."
+        },
+        {
+          "id": "c",
+          "text": "metadata.yml",
+          "rationale": "metadata.yml is not used by GitHub Actions; the metadata file must be named action.yml instead."
+        },
+        {
+          "id": "d",
+          "text": "Dockerfile",
+          "rationale": "Correct. A Docker container action needs a Dockerfile so the runner can build its image."
+        }
       ],
-      "correctAnswers": ["a", "d"],
+      "correctAnswers": [
+        "a",
+        "d"
+      ],
       "explanation": "action.yml is required for all custom actions — it defines metadata, inputs, outputs, and tells GitHub how to run the action (A). The Dockerfile is required specifically for Docker container actions to build the image (D)."
     },
     {
       "id": "q69",
       "text": "As a developer, you have configured an IP allow list on a GitHub organization. Which effects does the IP allow list have on GitHub Actions? (Each answer presents a complete solution. Choose two.)",
       "options": [
-        { "id": "a", "text": "You can use standard GitHub-hosted runners since their IP addresses are automatically allowed." },
-        { "id": "b", "text": "You can use self-hosted runners with known IP addresses." },
-        { "id": "c", "text": "You must allow GitHub Actions's IP address ranges in order to use marketplace actions." },
-        { "id": "d", "text": "You can use GitHub-hosted larger runners since they can be configured with static IP addresses." }
+        {
+          "id": "a",
+          "text": "You can use standard GitHub-hosted runners since their IP addresses are automatically allowed.",
+          "rationale": "Standard GitHub-hosted runners use dynamic addresses and are not automatically permitted, so an allow list refuses their calls to the organization."
+        },
+        {
+          "id": "b",
+          "text": "You can use self-hosted runners with known IP addresses.",
+          "rationale": "Correct. Self-hosted runners have known addresses that you add to the organization's allow list, so they can authenticate and pick up jobs."
+        },
+        {
+          "id": "c",
+          "text": "You must allow GitHub Actions's IP address ranges in order to use marketplace actions.",
+          "rationale": "Marketplace actions run on your own runner, so no GitHub Actions IP ranges need allowing; only the runner's address matters."
+        },
+        {
+          "id": "d",
+          "text": "You can use GitHub-hosted larger runners since they can be configured with static IP addresses.",
+          "rationale": "Correct. GitHub-hosted larger runners support static IP address ranges, which you add to the allow list for their traffic."
+        }
       ],
-      "correctAnswers": ["a", "b"],
+      "correctAnswers": [
+        "b",
+        "d"
+      ],
       "explanation": "Standard GitHub-hosted runners are automatically allowed by the IP allow list (A). Self-hosted runners with known IP addresses can be added to the allow list manually (B)."
     },
     {
       "id": "q70",
       "text": "You have exactly one Windows x64 self-hosted runner configured with custom tools. Which syntax could you use in the workflow to target that runner?",
       "options": [
-        { "id": "a", "text": "runs-on: [self-hosted, windows, x64]" },
-        { "id": "b", "text": "self-hosted: [windows-x64]" },
-        { "id": "c", "text": "runs-on: windows-latest" },
-        { "id": "d", "text": "self-hosted: [windows, x64]" }
+        {
+          "id": "a",
+          "text": "runs-on: [self-hosted, windows, x64]",
+          "rationale": "Correct. runs-on takes an array of labels, and self-hosted, windows and x64 are automatically assigned labels."
+        },
+        {
+          "id": "b",
+          "text": "self-hosted: [windows-x64]",
+          "rationale": "self-hosted is not a top-level workflow keyword, and label arrays must be supplied to runs-on."
+        },
+        {
+          "id": "c",
+          "text": "runs-on: windows-latest",
+          "rationale": "windows-latest selects a GitHub-hosted Windows runner image, not your single self-hosted Windows x64 runner machine."
+        },
+        {
+          "id": "d",
+          "text": "self-hosted: [windows, x64]",
+          "rationale": "self-hosted is not a top-level workflow keyword; runner labels must be supplied to the runs-on key."
+        }
       ],
-      "correctAnswers": ["a"],
+      "correctAnswers": [
+        "a"
+      ],
       "explanation": "runs-on accepts an array of labels. 'self-hosted' identifies it as a self-hosted runner, 'windows' and 'x64' are automatically assigned labels based on OS and architecture. Options B and D use invalid syntax — 'self-hosted' is not a top-level keyword."
     },
     {
       "id": "q71",
       "text": "As a developer, which workflow steps should you perform to publish an image to the GitHub Container Registry? (Each correct answer represents part of the solution. Choose three.)",
       "options": [
-        { "id": "a", "text": "Push the image to the GitHub Container Registry." },
-        { "id": "b", "text": "Authenticate to the GitHub Container Registry." },
-        { "id": "c", "text": "Use the actions/setup-docker action." },
-        { "id": "d", "text": "Pull the image from the GitHub Container Registry." },
-        { "id": "e", "text": "Build the container image." }
+        {
+          "id": "a",
+          "text": "Push the image to the GitHub Container Registry.",
+          "rationale": "Correct. The built image must be pushed to the GitHub Container Registry to be published."
+        },
+        {
+          "id": "b",
+          "text": "Authenticate to the GitHub Container Registry.",
+          "rationale": "Correct. Authenticating to the GitHub Container Registry with a token is required before pushing the image."
+        },
+        {
+          "id": "c",
+          "text": "Use the actions/setup-docker action.",
+          "rationale": "No actions/setup-docker action is needed or exists, because Docker is preinstalled on all GitHub-hosted runners."
+        },
+        {
+          "id": "d",
+          "text": "Pull the image from the GitHub Container Registry.",
+          "rationale": "Pulling the image retrieves it for use and does not publish anything to the registry."
+        },
+        {
+          "id": "e",
+          "text": "Build the container image.",
+          "rationale": "Correct. The container image must be built before it can be tagged and pushed to the registry."
+        }
       ],
-      "correctAnswers": ["a", "b", "e"],
+      "correctAnswers": [
+        "a",
+        "b",
+        "e"
+      ],
       "explanation": "To publish a container image: first authenticate to the registry (B), then build the image (E), then push it to the registry (A). There is no 'actions/setup-docker' action — Docker is pre-installed on GitHub-hosted runners."
     },
     {
       "id": "q72",
       "text": "While writing a custom action, some behavior within the runner must be changed. Which workflow commands would set an error message in the runner's output? (Each correct answer presents a complete solution. Choose two.)",
       "options": [
-        { "id": "a", "text": "echo \"::error file=main.py,line=10,col=15::There was an error\"" },
-        { "id": "b", "text": "echo \"::error=There was an error::\"" },
-        { "id": "c", "text": "echo \"::error::There was an error\"" },
-        { "id": "d", "text": "echo \"::error message=There was an error::\"" }
+        {
+          "id": "a",
+          "text": "echo \"::error file=main.py,line=10,col=15::There was an error\"",
+          "rationale": "Correct. The error command with file, line and column properties followed by the message is a valid error annotation."
+        },
+        {
+          "id": "b",
+          "text": "echo \"::error=There was an error::\"",
+          "rationale": "The equals sign syntax is invalid; the error message must follow the closing double colon."
+        },
+        {
+          "id": "c",
+          "text": "echo \"::error::There was an error\"",
+          "rationale": "Correct. The simple ::error::message form emits an error annotation directly in the runner's output log."
+        },
+        {
+          "id": "d",
+          "text": "echo \"::error message=There was an error::\"",
+          "rationale": "There is no message parameter in the error command; the message text belongs after the closing double colon."
+        }
       ],
-      "correctAnswers": ["a", "c"],
+      "correctAnswers": [
+        "a",
+        "c"
+      ],
       "explanation": "The error command format is ::error [properties]::message. Option A uses optional file/line/col properties. Option C is the simplest valid form. Option B uses wrong '=' syntax. Option D invents a 'message' parameter that doesn't exist."
     },
     {
       "id": "q73",
       "text": "Which action type should be used to bundle a series of run steps into a reusable custom action?",
       "options": [
-        { "id": "a", "text": "Composite action" },
-        { "id": "b", "text": "Bash script action" },
-        { "id": "c", "text": "Docker container action" },
-        { "id": "d", "text": "JavaScript action" }
+        {
+          "id": "a",
+          "text": "Composite action",
+          "rationale": "Correct. A composite action bundles multiple run steps in YAML into one reusable action without Docker."
+        },
+        {
+          "id": "b",
+          "text": "Bash script action",
+          "rationale": "There is no Bash script action type; shell steps must be wrapped in a composite or another action type."
+        },
+        {
+          "id": "c",
+          "text": "Docker container action",
+          "rationale": "A Docker container action packages a container image and is more complex than simply bundling run steps."
+        },
+        {
+          "id": "d",
+          "text": "JavaScript action",
+          "rationale": "A JavaScript action requires writing and compiling Node.js code rather than just grouping shell steps."
+        }
       ],
-      "correctAnswers": ["a"],
+      "correctAnswers": [
+        "a"
+      ],
       "explanation": "Composite actions are specifically designed to bundle a sequence of shell commands (run steps) into a single reusable action, defined in YAML without requiring Docker or a programming language."
     },
     {
       "id": "q74",
       "text": "Which choices represent best practices for publishing actions so that they can be consumed reliably? (Each correct answer presents a complete solution. Choose two.)",
       "options": [
-        { "id": "a", "text": "default branch" },
-        { "id": "b", "text": "commit SHA" },
-        { "id": "c", "text": "repo name" },
-        { "id": "d", "text": "tag" },
-        { "id": "e", "text": "organization name" }
+        {
+          "id": "a",
+          "text": "default branch",
+          "rationale": "The default branch changes over time, so referencing it does not give consumers a reliable fixed version."
+        },
+        {
+          "id": "b",
+          "text": "commit SHA",
+          "rationale": "Correct. A commit SHA is immutable and guarantees consumers receive exactly the same code every time."
+        },
+        {
+          "id": "c",
+          "text": "repo name",
+          "rationale": "A repository name alone identifies no version at all, so consumers cannot pin reproducible behavior."
+        },
+        {
+          "id": "d",
+          "text": "tag",
+          "rationale": "Correct. A release tag marks a stable version and, kept unmoved, gives consumers a reliable reference."
+        },
+        {
+          "id": "e",
+          "text": "organization name",
+          "rationale": "An organization name identifies ownership only and says nothing about which version of the action is used."
+        }
       ],
-      "correctAnswers": ["b", "d"],
+      "correctAnswers": [
+        "b",
+        "d"
+      ],
       "explanation": "A commit SHA (B) is immutable and guarantees the exact version. A tag (D) marks a stable release and should not be moved. Both provide reliable, reproducible references. The default branch can change unexpectedly."
     },
     {
       "id": "q75",
       "text": "What is a valid scenario regarding environment secrets?",
       "options": [
-        { "id": "a", "text": "configuring environment secrets for connecting to GitHub Enterprise Server" },
-        { "id": "b", "text": "configuring environment secrets to automatically pull from Azure Key Vault" },
-        { "id": "c", "text": "ensuring a job cannot access environment secrets until approval is obtained from a required reviewer" },
-        { "id": "d", "text": "ensuring only a specific step can access an environment secret" }
+        {
+          "id": "a",
+          "text": "configuring environment secrets for connecting to GitHub Enterprise Server",
+          "rationale": "Environment secrets are scoped to a repository environment for deployments, not positioned as a documented mechanism for connecting workflows to GitHub Enterprise Server."
+        },
+        {
+          "id": "b",
+          "text": "configuring environment secrets to automatically pull from Azure Key Vault",
+          "rationale": "Environment secrets are stored within GitHub; there is no native automatic pull from Azure Key Vault, which needs an action or OIDC setup."
+        },
+        {
+          "id": "c",
+          "text": "ensuring a job cannot access environment secrets until approval is obtained from a required reviewer",
+          "rationale": "Correct. When an environment defines required reviewers, a job cannot read that environment's secrets until an approver grants access."
+        },
+        {
+          "id": "d",
+          "text": "ensuring only a specific step can access an environment secret",
+          "rationale": "Secrets are scoped to a job or environment, never to an individual step, so one step cannot be singled out for access."
+        }
       ],
-      "correctAnswers": ["a"],
+      "correctAnswers": [
+        "c"
+      ],
       "explanation": "Using environment secrets to store authentication tokens for accessing a GitHub Enterprise Server from workflows is a valid and realistic scenario. Options B-D describe capabilities that either don't exist natively or are inaccurate."
     },
     {
       "id": "q76",
       "text": "What are two reasons to keep an action in its own repository instead of bundling it with other application code? (Each correct answer presents a complete solution. Choose two.)",
       "options": [
-        { "id": "a", "text": "It makes the action.yml file optional." },
-        { "id": "b", "text": "It makes it easier for the GitHub community to discover the action." },
-        { "id": "c", "text": "It widens the scope of the code base for developers fixing issues and extending the action." },
-        { "id": "d", "text": "It decouples the action's versioning from the versioning of other application code." },
-        { "id": "e", "text": "It allows sharing workflow secrets with other users." }
+        {
+          "id": "a",
+          "text": "It makes the action.yml file optional.",
+          "rationale": "action.yml is required for any published action regardless of repository layout, so a separate repository does not make it optional."
+        },
+        {
+          "id": "b",
+          "text": "It makes it easier for the GitHub community to discover the action.",
+          "rationale": "Correct. A dedicated public repository makes the action easy for the GitHub community to discover and consume."
+        },
+        {
+          "id": "c",
+          "text": "It widens the scope of the code base for developers fixing issues and extending the action.",
+          "rationale": "A separate repository narrows, not widens, the code base developers must work in when fixing issues."
+        },
+        {
+          "id": "d",
+          "text": "It decouples the action's versioning from the versioning of other application code.",
+          "rationale": "Correct. Separate repositories let the action be versioned and released independently of the rest of the application code."
+        },
+        {
+          "id": "e",
+          "text": "It allows sharing workflow secrets with other users.",
+          "rationale": "Workflow secrets are never shared with action consumers through repository structure, layout or distribution choices."
+        }
       ],
-      "correctAnswers": ["b", "d"],
+      "correctAnswers": [
+        "b",
+        "d"
+      ],
       "explanation": "A separate repository makes the action discoverable on GitHub Marketplace (B) and allows independent versioning and lifecycle management (D), avoiding coupling with application releases."
     },
     {
       "id": "q77",
       "text": "As a developer, you are authoring a workflow that will deploy to both DevCloud and TestCloud resources. Each cloud resource is accessed with a different deployment key. Which approach best allows you to use the same reusable workflow in separate jobs to target the different cloud resources?",
       "options": [
-        { "id": "a", "text": "Populate a DEPLOY_KEY repository secret with a JSON object containing DevCloud and TestCloud properties. Then specify DEPLOY_KEY.DevCloud in the secrets sections of the reusable workflow." },
-        { "id": "b", "text": "Use a marketplace action to conditionally parse the DEPLOY_KEY repository secret based on the cloud resource name." },
-        { "id": "c", "text": "Store the different keys in a DEPLOY_KEY environment secret in the DevCloud and TestCloud environments. Specify DEPLOY_KEY in the secrets section of the reusable workflow." },
-        { "id": "d", "text": "Create repository secrets named DevCloud.DEPLOY_KEY and TestCloud.DEPLOY_KEY so that the reusable workflow parses the secrets by resource name." }
+        {
+          "id": "a",
+          "text": "Populate a DEPLOY_KEY repository secret with a JSON object containing DevCloud and TestCloud properties. Then specify DEPLOY_KEY.DevCloud in the secrets sections of the reusable workflow.",
+          "rationale": "Secrets are opaque strings, so a JSON property such as DEPLOY_KEY.DevCloud cannot be read and that expression is invalid syntax."
+        },
+        {
+          "id": "b",
+          "text": "Use a marketplace action to conditionally parse the DEPLOY_KEY repository secret based on the cloud resource name.",
+          "rationale": "Parsing a shared secret with a marketplace action adds indirection and exposes both deployment keys to every job that uses it."
+        },
+        {
+          "id": "c",
+          "text": "Store the different keys in a DEPLOY_KEY environment secret in the DevCloud and TestCloud environments. Specify DEPLOY_KEY in the secrets section of the reusable workflow.",
+          "rationale": "Correct. Each job targets its DevCloud or TestCloud environment, so the same secret name resolves to that environment's key and the reusable workflow stays unchanged."
+        },
+        {
+          "id": "d",
+          "text": "Create repository secrets named DevCloud.DEPLOY_KEY and TestCloud.DEPLOY_KEY so that the reusable workflow parses the secrets by resource name.",
+          "rationale": "Secret names may only contain alphanumeric characters and underscores, so periods are invalid, and reusable workflows cannot select secrets by resource name."
+        }
       ],
-      "correctAnswers": ["b"],
+      "correctAnswers": [
+        "c"
+      ],
       "explanation": "A marketplace action can dynamically parse the correct key from DEPLOY_KEY based on a cloud_resource input parameter, keeping the reusable workflow agnostic to specific cloud resources and scalable for future additions."
     },
     {
       "id": "q78",
       "text": "GitHub-hosted runners support which capabilities? (Each correct answer presents a complete solution. Choose two.)",
       "options": [
-        { "id": "a", "text": "support for Linux, Windows, and macOS" },
-        { "id": "b", "text": "support for a variety of Linux variations including CentOS, Fedora, and Debian" },
-        { "id": "c", "text": "requiring a payment mechanism (e.g., credit card) to use for private repositories" },
-        { "id": "d", "text": "automatic file-system caching between workflow runs" },
-        { "id": "e", "text": "automatic patching of both the runner and the underlying OS" }
+        {
+          "id": "a",
+          "text": "support for Linux, Windows, and macOS",
+          "rationale": "Correct. GitHub-hosted runners offer Linux, Windows and macOS images that workflows can select as their environment."
+        },
+        {
+          "id": "b",
+          "text": "support for a variety of Linux variations including CentOS, Fedora, and Debian",
+          "rationale": "GitHub-hosted Linux runners provide Ubuntu images, not other variations such as CentOS, Fedora or Debian."
+        },
+        {
+          "id": "c",
+          "text": "requiring a payment mechanism (e.g., credit card) to use for private repositories",
+          "rationale": "Private repository usage is billed to the account but does not require entering a payment mechanism to run workflows."
+        },
+        {
+          "id": "d",
+          "text": "automatic file-system caching between workflow runs",
+          "rationale": "File-system caching is not automatic between runs; it requires explicitly configuring the actions/cache action yourself."
+        },
+        {
+          "id": "e",
+          "text": "automatic patching of both the runner and the underlying OS",
+          "rationale": "Correct. GitHub automatically patches both the runner software and the underlying operating system for hosted runners."
+        }
       ],
-      "correctAnswers": ["a", "e"],
+      "correctAnswers": [
+        "a",
+        "e"
+      ],
       "explanation": "GitHub-hosted runners support Linux, Windows, and macOS (A). GitHub automatically patches the runner VMs and their OS (E). Caching is not automatic — it must be configured explicitly with the actions/cache action."
     },
     {
       "id": "q79",
       "text": "An organization's policies specify only local actions are allowed. How should actions be distributed for this organization?",
       "options": [
-        { "id": "a", "text": "via a repository owned by a third party" },
-        { "id": "b", "text": "via repositories owned by the organization" },
-        { "id": "c", "text": "via the GitHub Marketplace" },
-        { "id": "d", "text": "via the .github repository owned by the organization" }
+        {
+          "id": "a",
+          "text": "via a repository owned by a third party",
+          "rationale": "A repository owned by a third party is not a local action of the organization and would be disallowed."
+        },
+        {
+          "id": "b",
+          "text": "via repositories owned by the organization",
+          "rationale": "Correct. Actions stored in repositories owned by the organization count as local and satisfy the policy."
+        },
+        {
+          "id": "c",
+          "text": "via the GitHub Marketplace",
+          "rationale": "Marketplace actions come from external third-party publishers and therefore clearly violate a local-actions-only organization policy."
+        },
+        {
+          "id": "d",
+          "text": "via the .github repository owned by the organization",
+          "rationale": "The organization's .github repository holds templates and community files, not the distribution mechanism for actions."
+        }
       ],
-      "correctAnswers": ["b"],
+      "correctAnswers": [
+        "b"
+      ],
       "explanation": "If only local actions are allowed, all actions must be stored in repositories owned by the organization itself, ensuring security, governance, and compliance with full organizational control."
     },
     {
       "id": "q80",
       "text": "A single secret must be accessed by workflows in specific repositories. What is the best way to create the secret?",
       "options": [
-        { "id": "a", "text": "Create an environment secret at the organization level and leverage that environment in each of the specified repositories." },
-        { "id": "b", "text": "Create an organization secret, specify Selected repositories as the Repository access, and select the required repositories." },
-        { "id": "c", "text": "Create the secret in one of the repositories, check the Share secret option, and select the required repositories." },
-        { "id": "d", "text": "Store the secret in a supported external key vault. Configure OpenID Connect (OIDC) to allow access to the external vault and link the secret from the external key vault in each of the specific repositories." }
+        {
+          "id": "a",
+          "text": "Create an environment secret at the organization level and leverage that environment in each of the specified repositories.",
+          "rationale": "Environments are created inside repositories, so there is no organization-level environment secret to create and share with the specified repositories."
+        },
+        {
+          "id": "b",
+          "text": "Create an organization secret, specify Selected repositories as the Repository access, and select the required repositories.",
+          "rationale": "Correct. An organization secret with Selected repositories access shares one secret with exactly those repositories and is updated in one place."
+        },
+        {
+          "id": "c",
+          "text": "Create the secret in one of the repositories, check the Share secret option, and select the required repositories.",
+          "rationale": "Repository secrets have no Share secret option; a repository secret is visible only to workflows in the repository that owns it."
+        },
+        {
+          "id": "d",
+          "text": "Store the secret in a supported external key vault. Configure OpenID Connect (OIDC) to allow access to the external vault and link the secret from the external key vault in each of the specific repositories.",
+          "rationale": "A key vault with OIDC works but requires extra configuration and per-repository linking, so it is not the best way to share one secret."
+        }
       ],
-      "correctAnswers": ["a"],
+      "correctAnswers": [
+        "b"
+      ],
       "explanation": "Creating an environment secret at the organization level and using it in each specified repository offers centralized management with granular control over which repositories can access it."
     },
     {
       "id": "q81",
       "text": "What are the most significant advantages of adding documentation while distributing custom actions? (Each answer presents a complete solution. Choose two.)",
       "options": [
-        { "id": "a", "text": "It generates auto completion when using the action in a workflow." },
-        { "id": "b", "text": "It shares the description of the action to the users." },
-        { "id": "c", "text": "It provides an example of the action." },
-        { "id": "d", "text": "It creates a readme.md for the consuming workflow." }
+        {
+          "id": "a",
+          "text": "It generates auto completion when using the action in a workflow.",
+          "rationale": "Documentation does not generate autocompletion in workflow editors; autocompletion comes from the action's metadata file."
+        },
+        {
+          "id": "b",
+          "text": "It shares the description of the action to the users.",
+          "rationale": "Correct. Documentation communicates what the action does, so users can judge whether it fits their needs."
+        },
+        {
+          "id": "c",
+          "text": "It provides an example of the action.",
+          "rationale": "Correct. Documentation typically includes a usage example showing how to reference and configure the action."
+        },
+        {
+          "id": "d",
+          "text": "It creates a readme.md for the consuming workflow.",
+          "rationale": "Documentation for a published action does not create a readme in the consuming repository's workflow."
+        }
       ],
-      "correctAnswers": ["b", "c"],
+      "correctAnswers": [
+        "b",
+        "c"
+      ],
       "explanation": "Documentation describes the action's purpose, inputs, and outputs (B), and includes usage examples showing how to reference it in workflows (C), helping users quickly evaluate and adopt the action."
     },
     {
       "id": "q82",
       "text": "A workflow that had been working now stalls in a waiting state until failing. The workflow file `process-ml.yaml` has not changed and contains jobs specifying `runs-on: [gpu]`. Which of the following steps would troubleshoot the issue? (Each answer presents a complete solution. Choose two.)",
       "options": [
-        { "id": "a", "text": "Review the contents of the Runner_*.log files in the _diag folder." },
-        { "id": "b", "text": "Increase the usage limits for the GitHub-hosted runners." },
-        { "id": "c", "text": "Check the \"Set up job\" step for the logs of the last successful run to determine the runner." },
-        { "id": "d", "text": "Update the org settings to enable GPU-based GitHub-hosted runners." },
-        { "id": "e", "text": "Rotate the GITHUB_TOKEN secret for the appropriate runners." }
+        {
+          "id": "a",
+          "text": "Review the contents of the Runner_*.log files in the _diag folder.",
+          "rationale": "Correct. Runner diagnostic logs in the _diag folder show whether the runner is online and why jobs are not picked up."
+        },
+        {
+          "id": "b",
+          "text": "Increase the usage limits for the GitHub-hosted runners.",
+          "rationale": "Usage limits for GitHub-hosted runners do not apply because the job targets a self-hosted gpu-labeled runner."
+        },
+        {
+          "id": "c",
+          "text": "Check the \"Set up job\" step for the logs of the last successful run to determine the runner.",
+          "rationale": "Correct. The Set up job step of the last successful run reveals which runner previously handled the job."
+        },
+        {
+          "id": "d",
+          "text": "Update the org settings to enable GPU-based GitHub-hosted runners.",
+          "rationale": "GitHub-hosted runners do not offer GPU labels, so no organization setting exists to enable them."
+        },
+        {
+          "id": "e",
+          "text": "Rotate the GITHUB_TOKEN secret for the appropriate runners.",
+          "rationale": "Rotating the GITHUB_TOKEN secret does not affect whether a self-hosted runner picks up a queued job."
+        }
       ],
-      "correctAnswers": ["a", "c"],
+      "correctAnswers": [
+        "a",
+        "c"
+      ],
       "explanation": "Runner diagnostic logs in the _diag folder reveal why the runner is offline or failing (A). The 'Set up job' step in previous successful runs shows which runner executed the job and if it's still available (C)."
     },
     {
       "id": "q83",
       "text": "Your organization needs to simplify reusing and maintaining automation in your GitHub Enterprise Cloud. Which components can be directly reused across all repositories in an organization? (Each correct answer presents a complete solution. Choose three.)",
       "options": [
-        { "id": "a", "text": "actions stored in an organizational partition in the GitHub Marketplace" },
-        { "id": "b", "text": "custom Docker actions stored in GitHub Container Registry" },
-        { "id": "c", "text": "self-hosted runners" },
-        { "id": "d", "text": "encrypted secrets" },
-        { "id": "e", "text": "workflow templates" },
-        { "id": "f", "text": "actions stored in private repositories in the organization" }
+        {
+          "id": "a",
+          "text": "actions stored in an organizational partition in the GitHub Marketplace",
+          "rationale": "There is no organizational partition in the GitHub Marketplace; Marketplace actions are simply public listings."
+        },
+        {
+          "id": "b",
+          "text": "custom Docker actions stored in GitHub Container Registry",
+          "rationale": "Docker images in the GitHub Container Registry do not by themselves become reusable organization-wide workflow components."
+        },
+        {
+          "id": "c",
+          "text": "self-hosted runners",
+          "rationale": "Correct. Self-hosted runners can be registered at the organization level and shared by all repositories."
+        },
+        {
+          "id": "d",
+          "text": "encrypted secrets",
+          "rationale": "Secrets are scoped values for repositories or organizations, not reusable automation components shared across all repositories."
+        },
+        {
+          "id": "e",
+          "text": "workflow templates",
+          "rationale": "Correct. Workflow templates let organizations provide reusable workflow starting points to all repositories they own."
+        },
+        {
+          "id": "f",
+          "text": "actions stored in private repositories in the organization",
+          "rationale": "Correct. Actions stored in private organization repositories can be referenced by workflows in other repositories of the same organization."
+        }
       ],
-      "correctAnswers": ["c", "e", "f"],
+      "correctAnswers": [
+        "c",
+        "e",
+        "f"
+      ],
       "explanation": "Self-hosted runners can be configured at the org level (C). Workflow templates provide reusable workflow foundations for all repos (E). Actions in private org repositories can be used by all repos in the same org (F)."
     },
     {
       "id": "q84",
       "text": "Which of the following is the best way for an enterprise to prevent certain marketplace actions from running?",
       "options": [
-        { "id": "a", "text": "Create a list of the actions that are restricted from being used as an enterprise policy. Every other action can be run." },
-        { "id": "b", "text": "It is not possible; if an action is in the marketplace, its use cannot be restricted." },
-        { "id": "c", "text": "Create a list that is maintained as a .yml file in a .github repository specified in the enterprise. Only these actions can be run." },
-        { "id": "d", "text": "Create a list of the actions that are allowed to run as an enterprise policy. Only these actions can be run." }
+        {
+          "id": "a",
+          "text": "Create a list of the actions that are restricted from being used as an enterprise policy. Every other action can be run.",
+          "rationale": "A deny list requires knowing every bad action in advance and can miss new malicious ones, so it is weaker."
+        },
+        {
+          "id": "b",
+          "text": "It is not possible; if an action is in the marketplace, its use cannot be restricted.",
+          "rationale": "Enterprise policies can restrict which actions are allowed to run, so claiming it is impossible is incorrect."
+        },
+        {
+          "id": "c",
+          "text": "Create a list that is maintained as a .yml file in a .github repository specified in the enterprise. Only these actions can be run.",
+          "rationale": "Maintaining a YAML file in a .github repository is not the enterprise policy mechanism for allowed actions."
+        },
+        {
+          "id": "d",
+          "text": "Create a list of the actions that are allowed to run as an enterprise policy. Only these actions can be run.",
+          "rationale": "Correct. An enterprise allow list permits only vetted actions to run, following the principle of least privilege."
+        }
       ],
-      "correctAnswers": ["d"],
+      "correctAnswers": [
+        "d"
+      ],
       "explanation": "An allow-list approach (D) follows the principle of least privilege — only vetted actions can run. A deny-list (A) requires constant maintenance and can miss new malicious actions. GitHub Enterprise does provide action controls."
     },
     {
       "id": "q85",
       "text": "When creating and managing custom actions in an enterprise setting, which of the following is considered a best practice?",
       "options": [
-        { "id": "a", "text": "creating a separate repository for each action so that the version can be managed independently" },
-        { "id": "b", "text": "creating a separate branch in application repositories that only contains the actions" },
-        { "id": "c", "text": "creating a single repository for all custom actions so that the versions for each action are all the same" },
-        { "id": "d", "text": "including custom actions that other teams need to reference in the same repository as application code" }
+        {
+          "id": "a",
+          "text": "creating a separate repository for each action so that the version can be managed independently",
+          "rationale": "Correct. Keeping each action in its own repository lets you tag and release that action independently of other actions and of application code."
+        },
+        {
+          "id": "b",
+          "text": "creating a separate branch in application repositories that only contains the actions",
+          "rationale": "An actions-only branch inside application repositories couples actions to application code and complicates versioning and reuse by other teams."
+        },
+        {
+          "id": "c",
+          "text": "creating a single repository for all custom actions so that the versions for each action are all the same",
+          "rationale": "A single repository forces every action onto one version stream, so a change to one action can break consumers of another."
+        },
+        {
+          "id": "d",
+          "text": "including custom actions that other teams need to reference in the same repository as application code",
+          "rationale": "Embedding actions in application repositories blocks other teams from referencing them cleanly and ties action versions to application releases."
+        }
       ],
-      "correctAnswers": ["c"],
+      "correctAnswers": [
+        "a"
+      ],
       "explanation": "A single centralized repository for all custom actions provides discoverability, centralized management, reusability, simplified security audits, and encourages collaboration. Options B and D couple actions to application code."
     }
   ]

@@ -12,8 +12,8 @@ const examData: ExamData = {
       id: 'q1',
       text: 'Question 1',
       options: [
-        { id: 'a', text: 'Option A' },
-        { id: 'b', text: 'Option B' },
+        { id: 'a', text: 'Option A', rationale: 'A satisfies the requirement.' },
+        { id: 'b', text: 'Option B', rationale: 'B does not satisfy the requirement.' },
       ],
       correctAnswers: ['a'],
       explanation: 'Because A is correct.',
@@ -22,9 +22,9 @@ const examData: ExamData = {
       id: 'q2',
       text: 'Question 2',
       options: [
-        { id: 'a', text: 'Option A' },
-        { id: 'b', text: 'Option B' },
-        { id: 'c', text: 'Option C' },
+        { id: 'a', text: 'Option A', rationale: 'A is out of scope.' },
+        { id: 'b', text: 'Option B', rationale: 'B meets the requirement.' },
+        { id: 'c', text: 'Option C', rationale: 'C also meets the requirement.' },
       ],
       correctAnswers: ['b', 'c'],
     },
@@ -93,8 +93,8 @@ describe('ExamSummary', () => {
         id: 'q1',
         text: 'Pick the right workflow',
         options: [
-          { id: 'a', text: null, image: '/data/images/q1-a.png' },
-          { id: 'b', text: null, image: '/data/images/q1-b.png' },
+          { id: 'a', text: null, image: '/data/images/q1-a.png', rationale: 'A is incorrect.' },
+          { id: 'b', text: null, image: '/data/images/q1-b.png', rationale: 'B is correct.' },
         ],
         correctAnswers: ['b'],
       }],
@@ -109,9 +109,9 @@ describe('ExamSummary', () => {
       />
     )
     // Given answer label falls back to "Option A"
-    expect(screen.getByText('Option A')).toBeInTheDocument()
+    expect(screen.getAllByText('Option A').length).toBeGreaterThan(0)
     // Correct answer label falls back to "Option B"
-    expect(screen.getByText('Option B')).toBeInTheDocument()
+    expect(screen.getAllByText('Option B').length).toBeGreaterThan(0)
   })
 
   it('renders question image in summary when present', () => {
@@ -121,7 +121,7 @@ describe('ExamSummary', () => {
         id: 'q1',
         text: 'What does this show?',
         image: '/data/images/q1.png',
-        options: [{ id: 'a', text: 'Answer A' }],
+        options: [{ id: 'a', text: 'Answer A', rationale: 'A is correct.' }],
         correctAnswers: ['a'],
       }],
     }
@@ -158,7 +158,7 @@ describe('ExamSummary', () => {
       questions: [{
         id: 'q1',
         text: 'Use `runs-on: [gpu]`.\n\n```yaml\nsteps:\n  - run: echo hi\n```',
-        options: [{ id: 'a', text: 'Answer A' }],
+        options: [{ id: 'a', text: 'Answer A', rationale: 'A is correct.' }],
         correctAnswers: ['a'],
       }],
     }
@@ -174,5 +174,74 @@ describe('ExamSummary', () => {
     expect(screen.getByText('runs-on: [gpu]')).toHaveClass('inline-code')
     expect(screen.getByText('yaml')).toHaveClass('code-block-language')
     expect(screen.getByText('- run: echo hi').textContent).toBe('  - run: echo hi')
+  })
+
+  it('shows a correct/incorrect status for each question', () => {
+    render(
+      <ExamSummary
+        examData={examData}
+        userAnswers={{ q1: ['a'], q2: ['a'] }}
+        score={{ correct: 1, total: 2, percentage: 50 }}
+        isAnswerCorrect={(id) => id === 'q1'}
+        onRestart={vi.fn()}
+      />
+    )
+    expect(screen.getByTestId('question-status-1')).toHaveTextContent('Correct')
+    expect(screen.getByTestId('question-status-2')).toHaveTextContent('Incorrect')
+  })
+
+  it('renders a rationale for every option, including incorrect ones', () => {
+    render(
+      <ExamSummary
+        examData={examData}
+        userAnswers={{ q1: ['b'] }}
+        score={{ correct: 0, total: 2, percentage: 0 }}
+        isAnswerCorrect={() => false}
+        onRestart={vi.fn()}
+      />
+    )
+    expect(screen.getByText('A satisfies the requirement.')).toBeInTheDocument()
+    expect(screen.getByText('B does not satisfy the requirement.')).toBeInTheDocument()
+    expect(screen.getByText('A is out of scope.')).toBeInTheDocument()
+    expect(screen.getByText('B meets the requirement.')).toBeInTheDocument()
+  })
+
+  it('marks each option as correct or incorrect in the review', () => {
+    render(
+      <ExamSummary
+        examData={examData}
+        userAnswers={{ q1: ['a'] }}
+        score={{ correct: 1, total: 2, percentage: 50 }}
+        isAnswerCorrect={(id) => id === 'q1'}
+        onRestart={vi.fn()}
+      />
+    )
+    const review = screen.getAllByText('Review by option')[0].closest('.option-review') as HTMLElement
+    expect(review.querySelectorAll('.option-review-item--correct')).toHaveLength(1)
+    expect(review.querySelectorAll('.option-review-item--incorrect')).toHaveLength(1)
+    expect(document.querySelectorAll('.option-review-item--correct')).toHaveLength(3)
+    expect(document.querySelectorAll('.option-review-item--incorrect')).toHaveLength(2)
+  })
+
+  it('falls back when an option has no rationale', () => {
+    const examWithoutRationale: ExamData = {
+      title: 'Test',
+      questions: [{
+        id: 'q1',
+        text: 'Question without rationale',
+        options: [{ id: 'a', text: 'Answer A' }],
+        correctAnswers: ['a'],
+      }],
+    }
+    render(
+      <ExamSummary
+        examData={examWithoutRationale}
+        userAnswers={{ q1: ['a'] }}
+        score={{ correct: 1, total: 1, percentage: 100 }}
+        isAnswerCorrect={() => true}
+        onRestart={vi.fn()}
+      />
+    )
+    expect(screen.getByText('No rationale available.')).toBeInTheDocument()
   })
 })

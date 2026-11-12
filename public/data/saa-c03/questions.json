@@ -8,19 +8,23 @@
       "options": [
         {
           "id": "a",
-          "text": "AWS CloudTrail"
+          "text": "AWS CloudTrail",
+          "rationale": "AWS CloudTrail registra llamadas a la API y eventos de auditoría, pero no evalúa el cumplimiento de la configuración ni aplica acciones de corrección automáticas."
         },
         {
           "id": "b",
-          "text": "Paquetes de conformidad de AWS Config"
+          "text": "Paquetes de conformidad de AWS Config",
+          "rationale": "Los paquetes de conformidad de AWS Config agrupan reglas y acciones de corrección y se despliegan en toda la organización con el mínimo esfuerzo operativo."
         },
         {
           "id": "c",
-          "text": "Estándares de conformidad de AWS Security Hub"
+          "text": "Estándares de conformidad de AWS Security Hub",
+          "rationale": "Los estándares de conformidad de Security Hub agregan controles de seguridad, pero no incluyen acciones de corrección ni cubren la gobernanza de configuración solicitada."
         },
         {
           "id": "d",
-          "text": "AWS Trusted Advisor"
+          "text": "AWS Trusted Advisor",
+          "rationale": "AWS Trusted Advisor ofrece recomendaciones de mejores prácticas, pero no despliega evaluaciones ni correcciones estandarizadas en todas las cuentas de la organización."
         }
       ],
       "correctAnswers": [
@@ -34,19 +38,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Crear una función Lambda para cada zona de disponibilidad en la que se implementa la aplicación."
+          "text": "Crear una función Lambda para cada zona de disponibilidad en la que se implementa la aplicación.",
+          "rationale": "Crear una función Lambda por zona de disponibilidad no aporta alta disponibilidad, porque Lambda ya es un servicio regional administrado por AWS."
         },
         {
           "id": "b",
-          "text": "Habilitar la replicación entre regiones en el bucket de S3."
+          "text": "Habilitar la replicación entre regiones en el bucket de S3.",
+          "rationale": "La replicación entre regiones de S3 protege los datos, pero no elimina el punto único de fallo de la base de datos RDS."
         },
         {
           "id": "c",
-          "text": "Crear una transmisión de DynamoDB para la tabla de DynamoDB."
+          "text": "Crear una transmisión de DynamoDB para la tabla de DynamoDB.",
+          "rationale": "Una transmisión de DynamoDB solo captura cambios de esa tabla y no mejora la disponibilidad de RDS ni del resto del flujo."
         },
         {
           "id": "d",
-          "text": "Habilitar Multi-AZ en la base de datos de RDS for PostgreSQL."
+          "text": "Habilitar Multi-AZ en la base de datos de RDS for PostgreSQL.",
+          "rationale": "Multi-AZ replica RDS de forma síncrona en otra zona de disponibilidad y permite la conmutación por error automática, cubriendo el punto único de fallo."
         }
       ],
       "correctAnswers": [
@@ -60,19 +68,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Configurar una gateway privada virtual con enrutamiento de múltiples rutas de igual costo y varios canales."
+          "text": "Configurar una gateway privada virtual con enrutamiento de múltiples rutas de igual costo y varios canales.",
+          "rationale": "Una gateway privada virtual no admite ECMP; solo las conexiones VPN asociadas a una transit gateway permiten agregar varios túneles."
         },
         {
           "id": "b",
-          "text": "Aumentar el número de túneles en la configuración de VPN."
+          "text": "Aumentar el número de túneles en la configuración de VPN.",
+          "rationale": "Aumentar el número de túneles en la misma conexión no supera el límite de 1,25 Gbps ni aprovecha el enrutamiento multipath."
         },
         {
           "id": "c",
-          "text": "Utilizar una transit gateway con enrutamiento de múltiples rutas de igual costo y agregar túneles de VPN adicionales."
+          "text": "Utilizar una transit gateway con enrutamiento de múltiples rutas de igual costo y agregar túneles de VPN adicionales.",
+          "rationale": "ECMP en una transit gateway permite agregar varios túneles VPN y sumar ancho de banda más allá del límite de 1,25 Gbps por túnel."
         },
         {
           "id": "d",
-          "text": "Implementar varias gateways de clientes para la misma red."
+          "text": "Implementar varias gateways de clientes para la misma red.",
+          "rationale": "Implementar varias gateways de cliente para la misma red no agrega rendimiento por sí solo ni habilita el enrutamiento multipath."
         }
       ],
       "correctAnswers": [
@@ -86,19 +98,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Configurar una ACL de red en las subredes en las que se ejecutan los clústeres de Amazon EMR para acceso abierto a Amazon S3."
+          "text": "Configurar una ACL de red en las subredes en las que se ejecutan los clústeres de Amazon EMR para acceso abierto a Amazon S3.",
+          "rationale": "Una ACL de red abierta no evita que el tráfico a S3 salga por la gateway NAT ni reduce los cargos de procesamiento de datos."
         },
         {
           "id": "b",
-          "text": "Desconectar la gateway NAT de la subred en la que se ejecutan los clústeres de Amazon EMR."
+          "text": "Desconectar la gateway NAT de la subred en la que se ejecutan los clústeres de Amazon EMR.",
+          "rationale": "Desconectar la gateway NAT dejaría sin salida a Internet a las subredes privadas y rompería otras dependencias del clúster."
         },
         {
           "id": "c",
-          "text": "Sustituir la gateway NAT por una gateway de cliente."
+          "text": "Sustituir la gateway NAT por una gateway de cliente.",
+          "rationale": "Una gateway de cliente es un dispositivo de VPN y no proporciona acceso privado ni sin costo a Amazon S3."
         },
         {
           "id": "d",
-          "text": "Sustituir la gateway NAT por un punto de enlace de la VPC de S3."
+          "text": "Sustituir la gateway NAT por un punto de enlace de la VPC de S3.",
+          "rationale": "Un punto de enlace de VPC de tipo gateway para S3 enruta el tráfico de forma privada y no genera cargos por procesamiento de datos."
         }
       ],
       "correctAnswers": [
@@ -112,19 +128,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Cifrado del lado del servidor con claves proporcionadas por el cliente (SSE-C)"
+          "text": "Cifrado del lado del servidor con claves proporcionadas por el cliente (SSE-C)",
+          "rationale": "SSE-C requiere que el cliente gestione y rote sus propias claves, lo que contradice el requisito de evitar esa administración."
         },
         {
           "id": "b",
-          "text": "Cifrado del lado del servidor con claves administradas de AWS KMS (SSE-KMS)"
+          "text": "Cifrado del lado del servidor con claves administradas de AWS KMS (SSE-KMS)",
+          "rationale": "SSE-KMS cifra con claves administradas por KMS, que rota automáticamente y permite controlar el acceso mediante políticas de claves."
         },
         {
           "id": "c",
-          "text": "Cifrado del lado del servidor con claves de cifrado almacenadas en un bucket de S3"
+          "text": "Cifrado del lado del servidor con claves de cifrado almacenadas en un bucket de S3",
+          "rationale": "Almacenar claves en un bucket de S3 no es una opción válida de cifrado del lado del servidor y añade una gestión manual insegura."
         },
         {
           "id": "d",
-          "text": "Cifrado del lado del servidor con claves de cifrado almacenadas en el almacén de parámetros de AWS Systems Manager"
+          "text": "Cifrado del lado del servidor con claves de cifrado almacenadas en el almacén de parámetros de AWS Systems Manager",
+          "rationale": "Parameter Store no es un servicio de claves para el cifrado de S3 y obligaría a administrar la rotación de forma manual."
         }
       ],
       "correctAnswers": [
@@ -138,19 +158,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Amazon DynamoDB"
+          "text": "Amazon DynamoDB",
+          "rationale": "DynamoDB es NoSQL, sin servidor y escala automáticamente a millones de usuarios con latencia de milisegundos y mínimo soporte operativo."
         },
         {
           "id": "b",
-          "text": "Amazon Neptune"
+          "text": "Amazon Neptune",
+          "rationale": "Neptune es una base de datos de grafos, adecuada para relaciones complejas, no para datos simples y no estructurados a gran escala."
         },
         {
           "id": "c",
-          "text": "Las zonas de disponibilidad múltiples (Multi-AZ) de Amazon RDS"
+          "text": "Las zonas de disponibilidad múltiples (Multi-AZ) de Amazon RDS",
+          "rationale": "RDS Multi-AZ es relacional y requiere aprovisionamiento y administración, lo que no cumple el requisito de menor soporte operativo."
         },
         {
           "id": "d",
-          "text": "Amazon Aurora"
+          "text": "Amazon Aurora",
+          "rationale": "Aurora es relacional y, aunque escala, exige administrar instancias y un esquema, lo que encarece el soporte frente a DynamoDB."
         }
       ],
       "correctAnswers": [
@@ -164,19 +188,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Cambiar el elemento Action de s3:PutObject a s3:\\*."
+          "text": "Cambiar el elemento Action de s3:PutObject a s3:\\*.",
+          "rationale": "Ampliar la acción al comodín de todas las operaciones de S3 concede permisos excesivos y no corrige el error de validación de la política."
         },
         {
           "id": "b",
-          "text": "Cambiar el elemento Resource a NotResource."
+          "text": "Cambiar el elemento Resource a NotResource.",
+          "rationale": "Usar NotResource invierte la lógica del permiso sin resolver la falta del elemento Principal que exige una política de bucket."
         },
         {
           "id": "c",
-          "text": "Agregar un elemento Principal a la política para declarar qué cuentas tienen acceso."
+          "text": "Agregar un elemento Principal a la política para declarar qué cuentas tienen acceso.",
+          "rationale": "Las políticas basadas en recursos, como las de bucket, requieren un elemento Principal que indique a qué cuentas se concede el acceso."
         },
         {
           "id": "d",
-          "text": "Eliminar el elemento Resource, ya que no es necesario para las políticas basadas en recursos."
+          "text": "Eliminar el elemento Resource, ya que no es necesario para las políticas basadas en recursos.",
+          "rationale": "El elemento Resource es obligatorio para definir los objetos sobre los que se aplica el permiso s3:PutObject."
         }
       ],
       "correctAnswers": [
@@ -190,19 +218,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Utilizar Identidad de Amazon Cognito con MFA basada en SMS."
+          "text": "Utilizar Identidad de Amazon Cognito con MFA basada en SMS.",
+          "rationale": "Cognito ofrece registro e inicio de sesión gestionados con MFA por SMS, reduciendo el tiempo de creación y mantenimiento de la solución."
         },
         {
           "id": "b",
-          "text": "Federar IAM contra el Active Directory corporativo que solicita MFA."
+          "text": "Federar IAM contra el Active Directory corporativo que solicita MFA.",
+          "rationale": "Federar IAM con Active Directory exige mantener infraestructura de directorio y configuración de MFA, aumentando el esfuerzo operativo."
         },
         {
           "id": "c",
-          "text": "Utilizar Amazon API Gateway y solicitar cifrado del lado del servidor (SSE) para las fotografías."
+          "text": "Utilizar Amazon API Gateway y solicitar cifrado del lado del servidor (SSE) para las fotografías.",
+          "rationale": "API Gateway y el cifrado del lado del servidor protegen las fotografías, pero no proporcionan inicio de sesión ni MFA para los usuarios."
         },
         {
           "id": "d",
-          "text": "Editar las políticas de IAM para solicitar MFA a todos los usuarios."
+          "text": "Editar las políticas de IAM para solicitar MFA a todos los usuarios.",
+          "rationale": "Las políticas de IAM aplican a identidades de AWS, no a los usuarios finales de una aplicación móvil, y no implementan el registro."
         }
       ],
       "correctAnswers": [
@@ -216,19 +248,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Utilizar AWS CloudFormation para implementar una infraestructura de aplicaciones adicional en las regiones us-east-1 y us-west-1."
+          "text": "Utilizar AWS CloudFormation para implementar una infraestructura de aplicaciones adicional en las regiones us-east-1 y us-west-1.",
+          "rationale": "Desplegar infraestructura en dos regiones de Estados Unidos mejora la latencia, pero duplica los costos y la operación, resultando poco rentable."
         },
         {
           "id": "b",
-          "text": "Crear una distribución de Amazon CloudFront y utilizar las clases de precios de América del Norte (Estados Unidos, México, Canadá) y Europa e Israel."
+          "text": "Crear una distribución de Amazon CloudFront y utilizar las clases de precios de América del Norte (Estados Unidos, México, Canadá) y Europa e Israel.",
+          "rationale": "CloudFront no optimiza bien el tráfico UDP y las clases de precios no resuelven el enrutamiento de una aplicación que no es HTTP."
         },
         {
           "id": "c",
-          "text": "Configurar la aplicación para usar una política de enrutamiento basada en la latencia de Amazon Route 53."
+          "text": "Configurar la aplicación para usar una política de enrutamiento basada en la latencia de Amazon Route 53.",
+          "rationale": "El enrutamiento por latencia de Route 53 no mejora la ruta cuando la aplicación está en una sola región ni acelera el tráfico UDP."
         },
         {
           "id": "d",
-          "text": "Crear un acelerador estándar de AWS Global Accelerator con un grupo de puntos de enlace en eu-central-1."
+          "text": "Crear un acelerador estándar de AWS Global Accelerator con un grupo de puntos de enlace en eu-central-1.",
+          "rationale": "Global Accelerator acelera tráfico TCP y UDP hacia una única región usando la red global de AWS, con menor costo que replicar infraestructura."
         }
       ],
       "correctAnswers": [
@@ -242,19 +278,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Auto Scaling selecciona una instancia para terminar de manera aleatoria."
+          "text": "Auto Scaling selecciona una instancia para terminar de manera aleatoria.",
+          "rationale": "La terminación aleatoria no es la política predeterminada, que primero equilibra la cantidad de instancias entre las zonas de disponibilidad."
         },
         {
           "id": "b",
-          "text": "Auto Scaling termina la instancia con la siguiente hora de facturación más cercana de todas las instancias."
+          "text": "Auto Scaling termina la instancia con la siguiente hora de facturación más cercana de todas las instancias.",
+          "rationale": "La política predeterminada no considera la hora de facturación; ese criterio no existe entre sus reglas de selección de instancias."
         },
         {
           "id": "c",
-          "text": "Auto Scaling selecciona la zona de disponibilidad con cuatro instancias EC2 y, a continuación, continúa evaluando."
+          "text": "Auto Scaling selecciona la zona de disponibilidad con cuatro instancias EC2 y, a continuación, continúa evaluando.",
+          "rationale": "La política predeterminada primero elige la zona de disponibilidad con más instancias, en este caso AZ-a con cuatro, para equilibrar la distribución."
         },
         {
           "id": "d",
-          "text": "Auto Scaling termina la instancia con la configuración de lanzamiento más antigua de todas las instancias."
+          "text": "Auto Scaling termina la instancia con la configuración de lanzamiento más antigua de todas las instancias.",
+          "rationale": "La configuración de lanzamiento más antigua es un criterio posterior y no el primer paso de la política de terminación predeterminada."
         }
       ],
       "correctAnswers": [
@@ -268,19 +308,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Utilizar el Auto Scaling con la característica de suspensión-reanudación."
+          "text": "Utilizar el Auto Scaling con la característica de suspensión-reanudación.",
+          "rationale": "Suspender y reanudar procesos es una función de escalado, no una política que ajuste la capacidad según la demanda real."
         },
         {
           "id": "b",
-          "text": "Utilizar el Auto Scaling con una política de escalado de seguimiento de destino."
+          "text": "Utilizar el Auto Scaling con una política de escalado de seguimiento de destino.",
+          "rationale": "El escalado de seguimiento de destino ajusta la capacidad para mantener una métrica en el valor objetivo, optimizando costos sin afectar el rendimiento."
         },
         {
           "id": "c",
-          "text": "Utilizar el Auto Scaling con una política de escalado programada."
+          "text": "Utilizar el Auto Scaling con una política de escalado programada.",
+          "rationale": "El escalado programado depende de horarios previstos y no responde a la demanda variable real, lo que puede sobreaprovisionar la infraestructura."
         },
         {
           "id": "d",
-          "text": "Utilizar el Auto Scaling con instancias reservadas."
+          "text": "Utilizar el Auto Scaling con instancias reservadas.",
+          "rationale": "Las instancias reservadas reducen el precio por hora, pero no ajustan la capacidad y pueden generar costos por sobreaprovisionamiento."
         }
       ],
       "correctAnswers": [
@@ -294,19 +338,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Amazon Redshift Spectrum"
+          "text": "Amazon Redshift Spectrum",
+          "rationale": "Redshift Spectrum requiere un clúster de Redshift aprovisionado, lo que añade costo de infraestructura para consultas poco frecuentes."
         },
         {
           "id": "b",
-          "text": "Amazon Aurora"
+          "text": "Amazon Aurora",
+          "rationale": "Aurora es una base de datos relacional transaccional y no consulta directamente los datos del lago en S3 sin cargarlos."
         },
         {
           "id": "c",
-          "text": "Amazon Athena"
+          "text": "Amazon Athena",
+          "rationale": "Athena es sin servidor, consulta directamente los datos en S3 con SQL y solo cobra por las consultas que se ejecutan."
         },
         {
           "id": "d",
-          "text": "Amazon RDS for PostgreSQL"
+          "text": "Amazon RDS for PostgreSQL",
+          "rationale": "RDS for PostgreSQL requiere aprovisionar y administrar una instancia y cargar los datos, lo que eleva el costo de infraestructura."
         }
       ],
       "correctAnswers": [
@@ -320,19 +368,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Amazon Kinesis Data Firehose y Amazon S3"
+          "text": "Amazon Kinesis Data Firehose y Amazon S3",
+          "rationale": "Firehose entrega datos a S3, pero no ejecuta el cálculo de distancias ni procesa cada actualización con lógica personalizada."
         },
         {
           "id": "b",
-          "text": "Eventos de Amazon S3 y AWS Lambda"
+          "text": "Eventos de Amazon S3 y AWS Lambda",
+          "rationale": "Las notificaciones de eventos de S3 invocan Lambda por cada objeto cargado, y ambos servicios escalan automáticamente sin administrar servidores."
         },
         {
           "id": "c",
-          "text": "Amazon EC2 y Amazon Elastic Block Store (Amazon EBS)"
+          "text": "Amazon EC2 y Amazon Elastic Block Store (Amazon EBS)",
+          "rationale": "EC2 con EBS requiere aprovisionar y administrar instancias y volúmenes, sin escalado automático ni procesamiento por evento."
         },
         {
           "id": "d",
-          "text": "Amazon Elastic Container Service (Amazon ECS) y Amazon RDS"
+          "text": "Amazon Elastic Container Service (Amazon ECS) y Amazon RDS",
+          "rationale": "ECS y RDS implican administrar clústeres y una base de datos, con más esfuerzo operativo y sin escalado por evento nativo."
         }
       ],
       "correctAnswers": [
@@ -346,19 +398,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Crear un nuevo rol de IAM con permisos SQS. A continuación, actualizar la definición de tarea a fin de utilizar el rol para la configuración del rol de tarea."
+          "text": "Crear un nuevo rol de IAM con permisos SQS. A continuación, actualizar la definición de tarea a fin de utilizar el rol para la configuración del rol de tarea.",
+          "rationale": "Un rol de tarea de IAM otorga credenciales temporales solo al contenedor y evita almacenar claves, siendo el método más seguro."
         },
         {
           "id": "b",
-          "text": "Crear un nuevo usuario de IAM con permisos SQS. A continuación, actualizar la definición de la tarea para declarar la ID de clave de acceso y la clave de acceso secreta como variables del entorno."
+          "text": "Crear un nuevo usuario de IAM con permisos SQS. A continuación, actualizar la definición de la tarea para declarar la ID de clave de acceso y la clave de acceso secreta como variables del entorno.",
+          "rationale": "Crear un usuario de IAM con claves en variables de entorno expone credenciales de larga duración y no es una práctica segura."
         },
         {
           "id": "c",
-          "text": "Utilizar AWS Identity and Access Management (IAM) para conceder permisos SQS al rol utilizado por la configuración de lanzamiento para el grupo de Auto Scaling del clúster ECS."
+          "text": "Utilizar AWS Identity and Access Management (IAM) para conceder permisos SQS al rol utilizado por la configuración de lanzamiento para el grupo de Auto Scaling del clúster ECS.",
+          "rationale": "El rol de la configuración de lanzamiento aplica a las instancias EC2, no a las tareas, y expone los permisos a todo el host."
         },
         {
           "id": "d",
-          "text": "Actualizar el grupo de seguridad utilizado por el clúster de ECS para permitir el acceso a Amazon SQS."
+          "text": "Actualizar el grupo de seguridad utilizado por el clúster de ECS para permitir el acceso a Amazon SQS.",
+          "rationale": "Un grupo de seguridad controla el tráfico de red y no concede permisos de IAM para llamar a la API de Amazon SQS."
         }
       ],
       "correctAnswers": [
@@ -372,19 +428,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Tablas globales de Amazon DynamoDB"
+          "text": "Tablas globales de Amazon DynamoDB",
+          "rationale": "Las tablas globales de DynamoDB son NoSQL, no una base de datos relacional, y no cumplen el requisito del enunciado."
         },
         {
           "id": "b",
-          "text": "Amazon RDS para MySQL con una copia instantánea entre regiones"
+          "text": "Amazon RDS para MySQL con una copia instantánea entre regiones",
+          "rationale": "Las copias instantáneas entre regiones no son continuas y dan un RPO de minutos u horas, muy superior a 1 segundo."
         },
         {
           "id": "c",
-          "text": "Base de datos global de Amazon Aurora"
+          "text": "Base de datos global de Amazon Aurora",
+          "rationale": "Aurora Global Database replica de forma continua con latencia inferior a un segundo y permite conmutación por error en menos de un minuto."
         },
         {
           "id": "d",
-          "text": "Amazon RDS para MySQL con Multi-AZ activado"
+          "text": "Amazon RDS para MySQL con Multi-AZ activado",
+          "rationale": "Multi-AZ solo protege dentro de una región y no ofrece recuperación ante desastres multirregional ni el RPO requerido."
         }
       ],
       "correctAnswers": [
@@ -398,19 +458,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Gateway NAT"
+          "text": "Gateway NAT",
+          "rationale": "Una gateway NAT permite salida a Internet desde subredes privadas, pero el tráfico a los servicios de AWS sigue pasando por la red pública."
         },
         {
           "id": "b",
-          "text": "Gateway de internet"
+          "text": "Gateway de internet",
+          "rationale": "Una gateway de Internet expone el tráfico a la Internet pública y no mantiene privada la comunicación con los servicios de AWS."
         },
         {
           "id": "c",
-          "text": "AWS Direct Connect"
+          "text": "AWS Direct Connect",
+          "rationale": "Direct Connect ofrece un enlace privado hacia AWS, pero su aprovisionamiento es lento y costoso para acceder a servicios regionales."
         },
         {
           "id": "d",
-          "text": "Punto de enlace de VPC"
+          "text": "Punto de enlace de VPC",
+          "rationale": "Los puntos de enlace de VPC permiten acceder a servicios de AWS compatibles por una ruta privada sin salir a Internet, con mínimo esfuerzo."
         }
       ],
       "correctAnswers": [
@@ -424,19 +488,23 @@
       "options": [
         {
           "id": "a",
-          "text": "S3 Intelligent-Tiering"
+          "text": "S3 Intelligent-Tiering",
+          "rationale": "S3 Intelligent-Tiering mueve automáticamente los objetos entre niveles según su frecuencia de acceso, optimizando el costo cuando el patrón es desconocido."
         },
         {
           "id": "b",
-          "text": "S3 One Zone-Acceso poco frecuente (S3 One Zone-IA)"
+          "text": "S3 One Zone-Acceso poco frecuente (S3 One Zone-IA)",
+          "rationale": "One Zone-IA almacena en una sola zona y está pensada para datos poco frecuentes y reproducibles, no para registros de acceso incierto."
         },
         {
           "id": "c",
-          "text": "S3 Glacier Flexible Retrieval (antes S3 Glacier)"
+          "text": "S3 Glacier Flexible Retrieval (antes S3 Glacier)",
+          "rationale": "Glacier Flexible Retrieval es para archivos de largo plazo con recuperación en minutos u horas, no para registros de acceso variable."
         },
         {
           "id": "d",
-          "text": "S3 Standard - Acceso poco frecuente (S3 Standard-IA)"
+          "text": "S3 Standard - Acceso poco frecuente (S3 Standard-IA)",
+          "rationale": "Standard-IA cobra por recuperación y asume acceso poco frecuente, lo que puede encarecer los registros consultados con frecuencia."
         }
       ],
       "correctAnswers": [
@@ -450,19 +518,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Crear una ACL de red en la subred del servidor web y permitir la entrada HTTPS y la salida de MySQL. Colocar la base de datos y los servidores web en la misma subred."
+          "text": "Crear una ACL de red en la subred del servidor web y permitir la entrada HTTPS y la salida de MySQL. Colocar la base de datos y los servidores web en la misma subred.",
+          "rationale": "Las ACL de red no son stateful y colocar la base de datos en la misma subred que el servidor web expone el puerto de base de datos a la subred pública, incumpliendo el aislamiento exigido."
         },
         {
           "id": "b",
-          "text": "Abrir el puerto MySQL en el grupo de seguridad para servidores web y establecer la fuente como 0.0.0.0/0. Abrir el puerto HTTPS del grupo de seguridad de la base de datos y adjuntarlo a la instancia de MySQL. Establecer la fuente en el grupo de seguridad del servidor web."
+          "text": "Abrir el puerto MySQL en el grupo de seguridad para servidores web y establecer la fuente como 0.0.0.0/0. Abrir el puerto HTTPS del grupo de seguridad de la base de datos y adjuntarlo a la instancia de MySQL. Establecer la fuente en el grupo de seguridad del servidor web.",
+          "rationale": "Invierte los puertos: expone MySQL al mundo en el grupo de seguridad web y abre HTTPS en el de base de datos, además de adjuntar el grupo equivocado a la instancia MySQL."
         },
         {
           "id": "c",
-          "text": "Crear una ACL de red en la subred del servidor web, permitir la entrada HTTPS y especificar la fuente como 0.0.0.0/0. Crear una ACL de red en una subred de base de datos, permitir la entrada de puertos MySQL para servidores web y denegar todo el tráfico saliente."
+          "text": "Crear una ACL de red en la subred del servidor web, permitir la entrada HTTPS y especificar la fuente como 0.0.0.0/0. Crear una ACL de red en una subred de base de datos, permitir la entrada de puertos MySQL para servidores web y denegar todo el tráfico saliente.",
+          "rationale": "Denegar todo el tráfico saliente en la ACL de la subred de base de datos bloquea las respuestas de MySQL, y las ACL no permiten referenciar grupos de seguridad como origen."
         },
         {
           "id": "d",
-          "text": "Abrir un puerto HTTPS en el grupo de seguridad para servidores web y establecer la fuente como 0.0.0.0/0. Abrir el puerto MySQL en el grupo de seguridad de la base de datos y adjuntarlo a la instancia de MySQL. Establecer la fuente en el grupo de seguridad del servidor web."
+          "text": "Abrir un puerto HTTPS en el grupo de seguridad para servidores web y establecer la fuente como 0.0.0.0/0. Abrir el puerto MySQL en el grupo de seguridad de la base de datos y adjuntarlo a la instancia de MySQL. Establecer la fuente en el grupo de seguridad del servidor web.",
+          "rationale": "El grupo de seguridad del servidor web permite HTTPS desde 0.0.0.0/0 y el de la base de datos permite MySQL solo desde el grupo de seguridad web, aislando la base de datos en la subred privada."
         }
       ],
       "correctAnswers": [
@@ -476,19 +548,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Como una cadena segura en AWS Systems Manager Parameter Store"
+          "text": "Como una cadena segura en AWS Systems Manager Parameter Store",
+          "rationale": "Parameter Store almacena la clave como SecureString cifrada con KMS, con acceso restringido por IAM a la función Lambda y registro de auditoría en CloudTrail."
         },
         {
           "id": "b",
-          "text": "Como un objeto en Amazon S3"
+          "text": "Como un objeto en Amazon S3",
+          "rationale": "Guardar la clave como objeto en S3 exige política y cifrado adicionales, y el bucket puede ser leído por otras entidades sin el control granular y la auditoría nativos que se piden."
         },
         {
           "id": "c",
-          "text": "Dentro de un archivo de secretos almacenado en Amazon EFS"
+          "text": "Dentro de un archivo de secretos almacenado en Amazon EFS",
+          "rationale": "Amazon EFS es almacenamiento de archivos compartido sin cifrado ni auditoría específicos para secretos, y acceder a él desde Lambda añade complejidad y una superficie mayor."
         },
         {
           "id": "d",
-          "text": "Dentro de un archivo de un volumen de Amazon EBS adjunto a la función de Lambda"
+          "text": "Dentro de un archivo de un volumen de Amazon EBS adjunto a la función de Lambda",
+          "rationale": "Lambda no admite adjuntar volúmenes EBS, y un archivo plano carece de cifrado gestionado, rotación y auditoría de accesos."
         }
       ],
       "correctAnswers": [
@@ -502,19 +578,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Amazon S3"
+          "text": "Amazon S3",
+          "rationale": "Amazon S3 es almacenamiento de objetos, no un sistema de archivos montable en instancias EC2, así que no permite montar una carpeta compartida."
         },
         {
           "id": "b",
-          "text": "Amazon Elastic File System (Amazon EFS)"
+          "text": "Amazon Elastic File System (Amazon EFS)",
+          "rationale": "Amazon EFS es un sistema de archivos NFS compartido y elástico que permite a decenas de instancias EC2 leer y escribir simultáneamente la misma carpeta."
         },
         {
           "id": "c",
-          "text": "Volúmenes de Amazon Elastic Block Store (Amazon EBS)"
+          "text": "Volúmenes de Amazon Elastic Block Store (Amazon EBS)",
+          "rationale": "Los volúmenes EBS se adjuntan a una sola instancia a la vez y no ofrecen un sistema de archivos compartido entre 10 y 50 instancias."
         },
         {
           "id": "d",
-          "text": "Almacén de instancias Amazon EC2"
+          "text": "Almacén de instancias Amazon EC2",
+          "rationale": "El almacén de instancias es almacenamiento efímero local de cada instancia y se pierde al detenerla, por lo que no comparte datos ni persiste."
         }
       ],
       "correctAnswers": [
@@ -528,19 +608,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Utilizar una instancia bajo demanda de Amazon RDS con IOPS provisionadas (PIOPS). Configurar las alarmas de Amazon CloudWatch para enviar notificaciones cuando se superen los PIOPS. Aumentar y disminuir los PIOPS según sea necesario."
+          "text": "Utilizar una instancia bajo demanda de Amazon RDS con IOPS provisionadas (PIOPS). Configurar las alarmas de Amazon CloudWatch para enviar notificaciones cuando se superen los PIOPS. Aumentar y disminuir los PIOPS según sea necesario.",
+          "rationale": "RDS con PIOPS bajo demanda no escala a millones de escrituras cada 0,5 segundos y no ofrece consultas eficientes por esos tres atributos sin un rediseño costoso."
         },
         {
           "id": "b",
-          "text": "Utilizar una instancia reservada de Amazon RDS con IOPS provisionadas (PIOPS). Configurar las alarmas de Amazon CloudWatch para enviar notificaciones cuando se superen los PIOPS. Aumentar y disminuir los PIOPS según sea necesario."
+          "text": "Utilizar una instancia reservada de Amazon RDS con IOPS provisionadas (PIOPS). Configurar las alarmas de Amazon CloudWatch para enviar notificaciones cuando se superen los PIOPS. Aumentar y disminuir los PIOPS según sea necesario.",
+          "rationale": "Una instancia reservada de RDS con PIOPS reduce el costo, pero sigue sin escalar horizontalmente para millones de paquetes ni permite consultar por tres claves distintas."
         },
         {
           "id": "c",
-          "text": "Utilizar Amazon DynamoDB con índices secundarios globales. Activar el Auto Scaling para la tabla de DynamoDB y los índices secundarios globales. Activar TTL para la tabla de DynamoDB."
+          "text": "Utilizar Amazon DynamoDB con índices secundarios globales. Activar el Auto Scaling para la tabla de DynamoDB y los índices secundarios globales. Activar TTL para la tabla de DynamoDB.",
+          "rationale": "DynamoDB con índices secundarios globales soporta altas tasas de lectura y escritura, consultas por ID de seguimiento, cliente y pedido, Auto Scaling y TTL para expirar datos."
         },
         {
           "id": "d",
-          "text": "Utilizar Amazon DynamoDB. Activar el Auto Scaling para la tabla de DynamoDB. Programar una secuencia de comandos de eliminación automática para los elementos de más de 1 mes."
+          "text": "Utilizar Amazon DynamoDB. Activar el Auto Scaling para la tabla de DynamoDB. Programar una secuencia de comandos de eliminación automática para los elementos de más de 1 mes.",
+          "rationale": "DynamoDB sin índices secundarios globales no permite consultar por ID de cliente y pedido, y un script de borrado añade costo y administración frente al TTL nativo."
         }
       ],
       "correctAnswers": [
@@ -554,19 +638,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Refactorizar la aplicación de blog para usar la consulta paralela de Aurora."
+          "text": "Refactorizar la aplicación de blog para usar la consulta paralela de Aurora.",
+          "rationale": "La consulta paralela acelera consultas analíticas, pero no reduce el costo de instancias Aurora aprovisionadas que permanecen encendidas todo el tiempo."
         },
         {
           "id": "b",
-          "text": "Convertir la base de datos de Aurora original en Amazon Aurora Serverless."
+          "text": "Convertir la base de datos de Aurora original en Amazon Aurora Serverless.",
+          "rationale": "Aurora Serverless ajusta la capacidad automáticamente y se factura por segundo, ideal para lecturas breves y esporádicas varias veces al día, reduciendo el costo frente a instancias siempre activas."
         },
         {
           "id": "c",
-          "text": "Convertir la base de datos de Aurora original en una base de datos global de Aurora."
+          "text": "Convertir la base de datos de Aurora original en una base de datos global de Aurora.",
+          "rationale": "Una base de datos global de Aurora replica entre regiones para baja latencia y recuperación, no para ahorrar en una carga de lectura esporádica."
         },
         {
           "id": "d",
-          "text": "Activar el Auto Scaling en la base de datos de Aurora original."
+          "text": "Activar el Auto Scaling en la base de datos de Aurora original.",
+          "rationale": "El Auto Scaling de Aurora añade réplicas de lectura, pero las instancias siguen aprovisionadas y no escalan a cero entre usos, así que no minimiza el costo."
         }
       ],
       "correctAnswers": [
@@ -580,23 +668,28 @@
       "options": [
         {
           "id": "a",
-          "text": "Utilizar la acción ModifyVolume de Amazon EC2 para reducir el tamaño de los volúmenes de io2 poco utilizados."
+          "text": "Utilizar la acción ModifyVolume de Amazon EC2 para reducir el tamaño de los volúmenes de io2 poco utilizados.",
+          "rationale": "ModifyVolume no puede reducir el tamaño de un volumen EBS; solo permite aumentar capacidad, ajustar IOPS o cambiar el tipo de volumen."
         },
         {
           "id": "b",
-          "text": "Utilizar la acción ModifyVolume de Amazon EC2 para cambiar el tipo de volumen de los volúmenes de io2 poco utilizados a SSD de uso general (gp3)."
+          "text": "Utilizar la acción ModifyVolume de Amazon EC2 para cambiar el tipo de volumen de los volúmenes de io2 poco utilizados a SSD de uso general (gp3).",
+          "rationale": "ModifyVolume cambia el tipo de io2 a gp3 en caliente, sin tiempo de inactividad, y reduce el costo de los volúmenes poco utilizados."
         },
         {
           "id": "c",
-          "text": "Utilizar la acción ModifyInstanceAttribute de Amazon EC2 para habilitar la optimización de EBS en las instancias del servidor de aplicaciones."
+          "text": "Utilizar la acción ModifyInstanceAttribute de Amazon EC2 para habilitar la optimización de EBS en las instancias del servidor de aplicaciones.",
+          "rationale": "Habilitar la optimización de EBS mejora el rendimiento de E/S, pero no reduce el costo de los volúmenes io2 ni analiza su uso real."
         },
         {
           "id": "d",
-          "text": "Utilizar la acción GetMetricData de Amazon CloudWatch para evaluar las operaciones de lectura y escritura, y los bytes de lectura y escritura de cada volumen."
+          "text": "Utilizar la acción GetMetricData de Amazon CloudWatch para evaluar las operaciones de lectura y escritura, y los bytes de lectura y escritura de cada volumen.",
+          "rationale": "GetMetricData de CloudWatch proporciona las IOPS y el rendimiento reales de cada volumen, permitiendo identificar los io2 infrautilizados antes de modificarlos."
         },
         {
           "id": "e",
-          "text": "Utilizar una acción PutBucketPolicy de Amazon S3 para migrar instantáneas de volumen existentes a Amazon S3 Glacier Flexible Retrieval."
+          "text": "Utilizar una acción PutBucketPolicy de Amazon S3 para migrar instantáneas de volumen existentes a Amazon S3 Glacier Flexible Retrieval.",
+          "rationale": "PutBucketPolicy aplica políticas a buckets S3 y no migra instantáneas de EBS a Glacier; las instantáneas no se gestionan con políticas de bucket."
         }
       ],
       "correctAnswers": [
@@ -611,19 +704,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Crear una distribución de Amazon CloudFront con un _origin access control_ (OAC, control de acceso de origen) y actualizar la política del bucket para conceder permiso únicamente al OAC."
+          "text": "Crear una distribución de Amazon CloudFront con un _origin access control_ (OAC, control de acceso de origen) y actualizar la política del bucket para conceder permiso únicamente al OAC.",
+          "rationale": "CloudFront con origin access control y una política de bucket que solo permite al OAC impide el acceso directo a los objetos de S3, forzando el paso por la distribución."
         },
         {
           "id": "b",
-          "text": "Crear un sitio web estático y, a continuación, actualizar la política del bucket para solicitar a los usuarios que accedan a los recursos con la URL estática del sitio web."
+          "text": "Crear un sitio web estático y, a continuación, actualizar la política del bucket para solicitar a los usuarios que accedan a los recursos con la URL estática del sitio web.",
+          "rationale": "Publicar el sitio estático y pedir a los usuarios usar la URL del sitio web no impide que enlacen directamente a los objetos del bucket."
         },
         {
           "id": "c",
-          "text": "Crear una distribución de Amazon CloudFront con una ACL web de AWS WAF que permita el acceso al servidor de origen solo a través de la distribución."
+          "text": "Crear una distribución de Amazon CloudFront con una ACL web de AWS WAF que permita el acceso al servidor de origen solo a través de la distribución.",
+          "rationale": "Una ACL web de WAF filtra solicitudes por reglas, pero no restringe el acceso al origen S3, que sigue siendo público y accesible directamente."
         },
         {
           "id": "d",
-          "text": "Crear un sitio web estático y, a continuación, configurar un conjunto de registros de Amazon Route 53 con un alias que apunte al sitio web estático. Proporcionar esta URL a los usuarios."
+          "text": "Crear un sitio web estático y, a continuación, configurar un conjunto de registros de Amazon Route 53 con un alias que apunte al sitio web estático. Proporcionar esta URL a los usuarios.",
+          "rationale": "Un alias de Route 53 apunta al sitio estático, pero los objetos del bucket continúan accesibles mediante sus URL directas de S3."
         }
       ],
       "correctAnswers": [
@@ -637,19 +734,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Preconfigurar nuevas instancias de Amazon EC2 que ejecuten el código de la aplicación en AWS tras un Balanceador de carga de aplicaciones y una instancia de base de datos Multi-AZ de Amazon RDS."
+          "text": "Preconfigurar nuevas instancias de Amazon EC2 que ejecuten el código de la aplicación en AWS tras un Balanceador de carga de aplicaciones y una instancia de base de datos Multi-AZ de Amazon RDS.",
+          "rationale": "Recrear la aplicación y una base nueva desde cero exige migrar datos manualmente y provoca más interrupción que una migración continua con DMS."
         },
         {
           "id": "b",
-          "text": "Crear una imagen del escritorio del usuario y migrar a Amazon EC2 con VM Import. Colocar la instancia EC2 en un grupo de Auto Scaling."
+          "text": "Crear una imagen del escritorio del usuario y migrar a Amazon EC2 con VM Import. Colocar la instancia EC2 en un grupo de Auto Scaling.",
+          "rationale": "Importar el escritorio completo con VM Import replica también el controlador de dominio y el entorno de escritorio, sin dar alta disponibilidad Multi-AZ ni migración de datos gestionada."
         },
         {
           "id": "c",
-          "text": "Crear un paquete de importación del código de aplicación para cargarlo en AWS Lambda e incluir una función para crear otra función Lambda para migrar datos a una base de datos de Amazon RDS."
+          "text": "Crear un paquete de importación del código de aplicación para cargarlo en AWS Lambda e incluir una función para crear otra función Lambda para migrar datos a una base de datos de Amazon RDS.",
+          "rationale": "Reescribir la aplicación como funciones Lambda y migrar datos con otra función no es una migración de mínima interrupción y añade riesgo y esfuerzo elevados."
         },
         {
           "id": "d",
-          "text": "Utilizar AWS Database Migration Service (AWS DMS) para migrar la base de datos de backend a una instancia de base de datos Multi-AZ de Amazon RDS. Migrar el código de aplicación a AWS Elastic Beanstalk."
+          "text": "Utilizar AWS Database Migration Service (AWS DMS) para migrar la base de datos de backend a una instancia de base de datos Multi-AZ de Amazon RDS. Migrar el código de aplicación a AWS Elastic Beanstalk.",
+          "rationale": "DMS replica la base de datos en segundo plano manteniendo el origen sincronizado, y Elastic Beanstalk con RDS Multi-AZ ofrece alta disponibilidad con mínima interrupción."
         }
       ],
       "correctAnswers": [
@@ -663,19 +764,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Cree otra instancia EC2 en la misma subred y vuelva a instalar Active Directory en ella. Desinstale Active Directory en la instancia EC2 actual."
+          "text": "Cree otra instancia EC2 en la misma subred y vuelva a instalar Active Directory en ella. Desinstale Active Directory en la instancia EC2 actual.",
+          "rationale": "Mover Active Directory a otra instancia en la misma subred mantiene la administración manual y no separa el controlador de dominio del sitio público."
         },
         {
           "id": "b",
-          "text": "Configure AWS IAM Identity Center con la federación del Lenguaje de marcado para confirmaciones de seguridad (SAML, Security Assertion Markup Language) 2.0 con el controlador de Active Directory actual. Modifique el grupo de seguridad de la instancia EC2 para denegar el acceso público a Active Directory."
+          "text": "Configure AWS IAM Identity Center con la federación del Lenguaje de marcado para confirmaciones de seguridad (SAML, Security Assertion Markup Language) 2.0 con el controlador de Active Directory actual. Modifique el grupo de seguridad de la instancia EC2 para denegar el acceso público a Active Directory.",
+          "rationale": "Federar con IAM Identity Center y denegar acceso público al grupo de seguridad no elimina el controlador de dominio autogestionado ni su carga administrativa."
         },
         {
           "id": "c",
-          "text": "Utilizar AWS Directory Service para crear un conector de Active Directory. Hacer proxy de solicitudes de Active Directory en el controlador de dominio de Active Directory que se ejecuta en la instancia EC2 actual."
+          "text": "Utilizar AWS Directory Service para crear un conector de Active Directory. Hacer proxy de solicitudes de Active Directory en el controlador de dominio de Active Directory que se ejecuta en la instancia EC2 actual.",
+          "rationale": "Un conector de AD en AWS Directory Service hace proxy hacia el controlador existente, que sigue autogestionado y en la misma instancia que el sitio web."
         },
         {
           "id": "d",
-          "text": "Utilizar AWS Managed Microsoft AD para crear una instancia de Active Directory administrada. Desinstale Active Directory en la instancia EC2 actual."
+          "text": "Utilizar AWS Managed Microsoft AD para crear una instancia de Active Directory administrada. Desinstale Active Directory en la instancia EC2 actual.",
+          "rationale": "AWS Managed Microsoft AD ofrece Active Directory administrado por AWS, eliminando la carga operativa y separando el dominio del servidor web público."
         }
       ],
       "correctAnswers": [
@@ -689,19 +794,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Crear una conexión de gateway privada virtual entre cada par de VPC de proveedores de servicios y VPC de consumidores de servicios."
+          "text": "Crear una conexión de gateway privada virtual entre cada par de VPC de proveedores de servicios y VPC de consumidores de servicios.",
+          "rationale": "Crear una conexión de gateway privada virtual entre cada par de VPC no escala a miles de consumidores ni ofrece el enrutamiento privado tolerante a fallos requerido."
         },
         {
           "id": "b",
-          "text": "Crear un balanceador de carga de aplicaciones interno en la VPC del proveedor de servicios y respaldar los servidores de aplicaciones."
+          "text": "Crear un balanceador de carga de aplicaciones interno en la VPC del proveedor de servicios y respaldar los servidores de aplicaciones.",
+          "rationale": "Un ALB interno solo distribuye tráfico dentro de la VPC del proveedor y no es accesible desde VPC de otras cuentas sin PrivateLink."
         },
         {
           "id": "c",
-          "text": "Crear un servidor proxy en la VPC del proveedor de servicios para dirigir las solicitudes de los consumidores de servicios a los servidores de aplicaciones."
+          "text": "Crear un servidor proxy en la VPC del proveedor de servicios para dirigir las solicitudes de los consumidores de servicios a los servidores de aplicaciones.",
+          "rationale": "Un servidor proxy en la VPC del proveedor es un punto único de fallo y requiere exposición de red, sin el enrutamiento privado y tolerante a fallos pedido."
         },
         {
           "id": "d",
-          "text": "Crear un servicio de punto de enlace de la VPC y conceder permisos a consumidores de servicios específicos para crear una conexión."
+          "text": "Crear un servicio de punto de enlace de la VPC y conceder permisos a consumidores de servicios específicos para crear una conexión.",
+          "rationale": "Un servicio de punto de enlace de VPC con AWS PrivateLink expone la aplicación de forma privada y tolerante a fallos a consumidores de otras cuentas, sin salir de la red de AWS."
         }
       ],
       "correctAnswers": [
@@ -715,19 +824,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Crear una instancia NAT en la subred privada de cada zona de disponibilidad. Actualizar las tablas de enrutamiento de cada subred privada para dirigir el tráfico vinculado a Internet a la instancia NAT."
+          "text": "Crear una instancia NAT en la subred privada de cada zona de disponibilidad. Actualizar las tablas de enrutamiento de cada subred privada para dirigir el tráfico vinculado a Internet a la instancia NAT.",
+          "rationale": "Una instancia NAT debe residir en una subred pública con ruta a Internet; ubicada en la subred privada no puede reenviar tráfico y añade administración y punto único de fallo."
         },
         {
           "id": "b",
-          "text": "Crear una gateway NAT en cada zona de disponibilidad. Actualizar las tablas de enrutamiento de cada subred privada para dirigir el tráfico vinculado a Internet a la gateway NAT."
+          "text": "Crear una gateway NAT en cada zona de disponibilidad. Actualizar las tablas de enrutamiento de cada subred privada para dirigir el tráfico vinculado a Internet a la gateway NAT.",
+          "rationale": "Una gateway NAT en cada zona de disponibilidad, con rutas en las tablas privadas, permite salir a Internet de forma independiente por zona y mantiene las instancias privadas."
         },
         {
           "id": "c",
-          "text": "Configurar una puerta de enlace de Internet. Agregar una ruta a la gateway que se conecta a cada tabla de enrutamiento de subred privada."
+          "text": "Configurar una puerta de enlace de Internet. Agregar una ruta a la gateway que se conecta a cada tabla de enrutamiento de subred privada.",
+          "rationale": "Una gateway de Internet permite salida directa, pero las instancias privadas sin IP pública no pueden usarla, y una ruta compartida no aísla cada zona de disponibilidad."
         },
         {
           "id": "d",
-          "text": "Crear una gateway NAT adjunta a la VPC. Agregar una ruta a la gateway que se conecta a cada tabla de enrutamiento de subred privada."
+          "text": "Crear una gateway NAT adjunta a la VPC. Agregar una ruta a la gateway que se conecta a cada tabla de enrutamiento de subred privada.",
+          "rationale": "Una gateway NAT se asocia a una sola zona de disponibilidad y no se adjunta a la VPC completa; una sola gateway compartida hace que la caída de su zona afecte a todas."
         }
       ],
       "correctAnswers": [
@@ -741,19 +854,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Ejecutar las instancias de base de datos en Aurora Serverless."
+          "text": "Ejecutar las instancias de base de datos en Aurora Serverless.",
+          "rationale": "Aurora Serverless escala la capacidad automáticamente y se factura por uso, incluso puede pausarse, ideal para un clúster de desarrollo usado minutos varias veces por semana."
         },
         {
           "id": "b",
-          "text": "Crear una función de AWS Lambda para detener las instancias de base de datos si no hay conexiones activas."
+          "text": "Crear una función de AWS Lambda para detener las instancias de base de datos si no hay conexiones activas.",
+          "rationale": "Una función Lambda que detiene instancias no reduce el costo del almacenamiento ni del clúster y añade complejidad, además de no escalar la capacidad automáticamente."
         },
         {
           "id": "c",
-          "text": "Crear una programación de detención y comienzo para las instancias de base de datos."
+          "text": "Crear una programación de detención y comienzo para las instancias de base de datos.",
+          "rationale": "Programar detenciones y arranques deja el clúster aprovisionado y sigue cobrando almacenamiento, y las ventanas de uso irregulares complican la programación."
         },
         {
           "id": "d",
-          "text": "Adquirir una instancia reservada para las instancias de base de datos."
+          "text": "Adquirir una instancia reservada para las instancias de base de datos.",
+          "rationale": "Una instancia reservada exige un compromiso de uno o tres años y no conviene para un uso esporádico de pocos minutos varias veces por semana."
         }
       ],
       "correctAnswers": [
@@ -767,19 +884,23 @@
       "options": [
         {
           "id": "a",
-          "text": "AWS Step Functions que invoquen funciones de AWS Lambda"
+          "text": "AWS Step Functions que invoquen funciones de AWS Lambda",
+          "rationale": "Step Functions orquesta flujos de trabajo, pero no es un almacén ordenado de elementos en espera ni conserva la posición de cada cliente."
         },
         {
           "id": "b",
-          "text": "Una cola FIFO en Amazon Simple Queue Service (Amazon SQS)"
+          "text": "Una cola FIFO en Amazon Simple Queue Service (Amazon SQS)",
+          "rationale": "Una cola FIFO de SQS conserva estrictamente el orden de llegada y retiene los mensajes hasta que se eliminan, garantizando que el primero en espera reciba la mesa."
         },
         {
           "id": "c",
-          "text": "Una cola estándar en Amazon Simple Queue Service (Amazon SQS)"
+          "text": "Una cola estándar en Amazon Simple Queue Service (Amazon SQS)",
+          "rationale": "Una cola estándar de SQS ofrece al menos una entrega y orden best-effort, por lo que puede reordenar mensajes e incumplir la prioridad de llegada."
         },
         {
           "id": "d",
-          "text": "Amazon Simple Notification Service (Amazon SNS)"
+          "text": "Amazon Simple Notification Service (Amazon SNS)",
+          "rationale": "SNS distribuye notificaciones push a suscriptores y no almacena mensajes en espera ni mantiene el orden de los clientes."
         }
       ],
       "correctAnswers": [
@@ -793,19 +914,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Utilizar una instancia de proxy."
+          "text": "Utilizar una instancia de proxy.",
+          "rationale": "Una instancia de proxy añade un punto único de fallo y administración, y sigue requiriendo conectividad de red que expone el tráfico."
         },
         {
           "id": "b",
-          "text": "Utilizar una puerta de enlace de Internet."
+          "text": "Utilizar una puerta de enlace de Internet.",
+          "rationale": "Una gateway de Internet requiere IP pública o elastic IP en las instancias y expone el tráfico a Internet, incumpliendo el requisito de máxima seguridad."
         },
         {
           "id": "c",
-          "text": "Utilizar AWS PrivateLink."
+          "text": "Utilizar AWS PrivateLink.",
+          "rationale": "AWS PrivateLink crea un punto de enlace de VPC que permite a las instancias privadas alcanzar SNS sin IP pública ni salida a Internet, manteniendo el tráfico en la red de AWS."
         },
         {
           "id": "d",
-          "text": "Utilizar una gateway NAT."
+          "text": "Utilizar una gateway NAT.",
+          "rationale": "Una gateway NAT envía el tráfico al punto de enlace público de SNS a través de Internet, sin el aislamiento privado que proporciona un punto de enlace de VPC."
         }
       ],
       "correctAnswers": [
@@ -819,19 +944,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Utilizar un volumen compartido de Amazon FSx para Lustre para el almacenamiento de documentos. Utilizar una implementación Multi-AZ de una instancia de base de datos RDS para MySQL para conservar los metadatos del documento."
+          "text": "Utilizar un volumen compartido de Amazon FSx para Lustre para el almacenamiento de documentos. Utilizar una implementación Multi-AZ de una instancia de base de datos RDS para MySQL para conservar los metadatos del documento.",
+          "rationale": "FSx for Lustre es un sistema de archivos de alto rendimiento para HPC, no la opción más económica para documentos raramente accedidos, y mantiene RDS para los metadatos."
         },
         {
           "id": "b",
-          "text": "Utilizar un Amazon S3 Bucket con la clase de almacenamiento S3 Standard - Acceso poco frecuente (S3 Standard-IA) para el almacenamiento de documentos. Utilizar una tabla de Amazon DynamoDB para conservar los metadatos del documento."
+          "text": "Utilizar un Amazon S3 Bucket con la clase de almacenamiento S3 Standard - Acceso poco frecuente (S3 Standard-IA) para el almacenamiento de documentos. Utilizar una tabla de Amazon DynamoDB para conservar los metadatos del documento.",
+          "rationale": "S3 Standard-IA almacena los documentos de forma duradera y Multi-AZ con acceso inmediato y bajo costo, y DynamoDB guarda los metadatos con menos administración que RDS."
         },
         {
           "id": "c",
-          "text": "Utilizar un sistema de archivos de Amazon Elastic File System (Amazon EFS) con la clase de almacenamiento EFS Standard - Acceso poco frecuente (EFS Standard-IA) para el almacenamiento de documentos. Utilizar una implementación Multi-AZ de una instancia de base de datos RDS para MySQL para conservar los metadatos del documento."
+          "text": "Utilizar un sistema de archivos de Amazon Elastic File System (Amazon EFS) con la clase de almacenamiento EFS Standard - Acceso poco frecuente (EFS Standard-IA) para el almacenamiento de documentos. Utilizar una implementación Multi-AZ de una instancia de base de datos RDS para MySQL para conservar los metadatos del documento.",
+          "rationale": "EFS Standard-IA sigue siendo almacenamiento de archivos más caro que S3 para documentos casi nunca leídos, y RDS Multi-AZ añade costo frente a DynamoDB."
         },
         {
           "id": "d",
-          "text": "Utilizar un Amazon S3 Bucket con la clase de almacenamiento S3 Glacier Deep Archive para el almacenamiento de documentos. Utilizar una tabla de Amazon DynamoDB para conservar los metadatos del documento."
+          "text": "Utilizar un Amazon S3 Bucket con la clase de almacenamiento S3 Glacier Deep Archive para el almacenamiento de documentos. Utilizar una tabla de Amazon DynamoDB para conservar los metadatos del documento.",
+          "rationale": "S3 Glacier Deep Archive tiene acceso diferido de horas, por lo que no cumple el requisito de disponibilidad inmediata de los documentos."
         }
       ],
       "correctAnswers": [
@@ -845,19 +974,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Aumentar el tiempo de espera de inactividad del ALB a 5 minutos."
+          "text": "Aumentar el tiempo de espera de inactividad del ALB a 5 minutos.",
+          "rationale": "Aumentar el tiempo de espera de inactividad del ALB mantiene las solicitudes largas ocupando conexiones y no libera capacidad para otros usuarios."
         },
         {
           "id": "b",
-          "text": "Actualizar el código de la aplicación del lado del cliente para aumentar el tiempo de espera de las solicitudes a 5 minutos."
+          "text": "Actualizar el código de la aplicación del lado del cliente para aumentar el tiempo de espera de las solicitudes a 5 minutos.",
+          "rationale": "Aumentar el tiempo de espera en el cliente solo hace que espere más, sin reducir el consumo de conexiones ni la carga de los servidores de aplicación."
         },
         {
           "id": "c",
-          "text": "Publicar los informes en Amazon S3 y utilice Amazon CloudFront para descargarlos al usuario."
+          "text": "Publicar los informes en Amazon S3 y utilice Amazon CloudFront para descargarlos al usuario.",
+          "rationale": "Publicar los informes en S3 con CloudFront acelera la descarga, pero la generación sigue siendo síncrona y consume las conexiones entrantes."
         },
         {
           "id": "d",
-          "text": "Utilizar Amazon SQS con AWS Lambda para generar informes."
+          "text": "Utilizar Amazon SQS con AWS Lambda para generar informes.",
+          "rationale": "Enviar la generación de informes a una cola SQS procesada por Lambda libera las conexiones del ALB y hace el trabajo asíncrono, manteniendo el sistema responsivo."
         }
       ],
       "correctAnswers": [
@@ -871,19 +1004,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Utilizar Amazon S3 para servir la aplicación frontend estática, que envía solicitudes a Amazon EC2 para ejecutar la aplicación backend. La aplicación backend procesará y almacenará los datos en Amazon RDS."
+          "text": "Utilizar Amazon S3 para servir la aplicación frontend estática, que envía solicitudes a Amazon EC2 para ejecutar la aplicación backend. La aplicación backend procesará y almacenará los datos en Amazon RDS.",
+          "rationale": "Mover solo el frontend a S3 reduce la carga, pero mantiene la llamada síncrona a una única instancia EC2 de backend, sin cola ni escalado automático, así que no desacopla ni escala."
         },
         {
           "id": "b",
-          "text": "Utilizar Amazon S3 para servir la aplicación frontend estática y enviar solicitudes a Amazon API Gateway, que las escribe en una cola de Amazon SQS. Colocar las instancias de backend en un grupo de escalado automático y escale en función de la longitud de la cola para procesar y almacenar los datos en Amazon RDS."
+          "text": "Utilizar Amazon S3 para servir la aplicación frontend estática y enviar solicitudes a Amazon API Gateway, que las escribe en una cola de Amazon SQS. Colocar las instancias de backend en un grupo de escalado automático y escale en función de la longitud de la cola para procesar y almacenar los datos en Amazon RDS.",
+          "rationale": "S3 sirve el frontend estático, API Gateway y SQS desacoplan las solicitudes, y el grupo de Auto Scaling con escalado por longitud de cola elimina puntos únicos de fallo y permite escalar el backend."
         },
         {
           "id": "c",
-          "text": "Utilizar una instancia EC2 para servir la aplicación frontend estática y escribir solicitudes en una cola de Amazon SQS. Colocar la instancia de backend en un grupo de Auto Scaling y escale en función de la profundidad de la cola para procesar y almacenar los datos en Amazon RDS."
+          "text": "Utilizar una instancia EC2 para servir la aplicación frontend estática y escribir solicitudes en una cola de Amazon SQS. Colocar la instancia de backend en un grupo de Auto Scaling y escale en función de la profundidad de la cola para procesar y almacenar los datos en Amazon RDS.",
+          "rationale": "Mantiene una instancia EC2 sirviendo el frontend estático como punto único de fallo y no usa un servicio administrado de API, por lo que la arquitectura sigue parcialmente acoplada."
         },
         {
           "id": "d",
-          "text": "Utilizar Amazon S3 para servir la aplicación frontend estática y escribir solicitudes en un tema de Amazon Simple Notification Service (Amazon SNS). Suscribir el punto de enlace HTTP/S de la instancia Amazon EC2 de backend al tema, además, procese y almacene los datos en Amazon RDS."
+          "text": "Utilizar Amazon S3 para servir la aplicación frontend estática y escribir solicitudes en un tema de Amazon Simple Notification Service (Amazon SNS). Suscribir el punto de enlace HTTP/S de la instancia Amazon EC2 de backend al tema, además, procese y almacene los datos en Amazon RDS.",
+          "rationale": "SNS distribuye notificaciones de forma push, no almacena mensajes para procesamiento diferido y no ofrece escalado por profundidad de cola, por lo que no desacopla las solicitudes."
         }
       ],
       "correctAnswers": [
@@ -897,19 +1034,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Crear una réplica de lectura de RDS con el cifrado en reposo activado. Promover la réplica de lectura para que sea la primaria y cambiar la aplicación a la nueva primaria. Eliminar la instancia RDS anterior."
+          "text": "Crear una réplica de lectura de RDS con el cifrado en reposo activado. Promover la réplica de lectura para que sea la primaria y cambiar la aplicación a la nueva primaria. Eliminar la instancia RDS anterior.",
+          "rationale": "Las réplicas de lectura deben tener el mismo cifrado que la instancia origen, así que no se puede crear una réplica cifrada de una base de datos no cifrada."
         },
         {
           "id": "b",
-          "text": "Crear un Amazon S3 Bucket con el cifrado del lado del servidor activado. Mover todos los datos a Amazon S3. Eliminar la instancia RDS."
+          "text": "Crear un Amazon S3 Bucket con el cifrado del lado del servidor activado. Mover todos los datos a Amazon S3. Eliminar la instancia RDS.",
+          "rationale": "Mover los datos a S3 cambia el motor relacional por almacenamiento de objetos y no satisface el requisito de cifrar toda la base RDS existente."
         },
         {
           "id": "c",
-          "text": "Configurar el modo Multi-AZ de RDS con el cifrado en reposo activado. Llevar a cabo una conmutación por error en la instancia en espera para eliminar la instancia original."
+          "text": "Configurar el modo Multi-AZ de RDS con el cifrado en reposo activado. Llevar a cabo una conmutación por error en la instancia en espera para eliminar la instancia original.",
+          "rationale": "Multi-AZ y el cifrado solo se definen al crear la instancia; la conmutación por error no cifra los datos existentes ni la instancia original."
         },
         {
           "id": "d",
-          "text": "Tomar una instantánea de la instancia RDS. Crear una copia cifrada de la instantánea. Restaurar la instancia RDS desde la instantánea cifrada."
+          "text": "Tomar una instantánea de la instancia RDS. Crear una copia cifrada de la instantánea. Restaurar la instancia RDS desde la instantánea cifrada.",
+          "rationale": "El cifrado de RDS solo se define al crear la instancia, así que se copia la instantánea a una cifrada y se restaura una nueva instancia cifrada."
         }
       ],
       "correctAnswers": [
@@ -923,19 +1064,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Utilizar Amazon Kinesis a fin de poner en cola las transacciones para procesarlas en DynamoDB."
+          "text": "Utilizar Amazon Kinesis a fin de poner en cola las transacciones para procesarlas en DynamoDB.",
+          "rationale": "Kinesis añade una capa de streaming y complejidad, pero DynamoDB seguirá limitando las escrituras porque el rendimiento aprovisionado no aumenta durante los picos."
         },
         {
           "id": "b",
-          "text": "Utilizar Amazon Simple Queue Service (Amazon SQS) para poner en cola las transacciones hacia DynamoDB."
+          "text": "Utilizar Amazon Simple Queue Service (Amazon SQS) para poner en cola las transacciones hacia DynamoDB.",
+          "rationale": "SQS amortigua los picos, pero no incrementa la capacidad de escritura de DynamoDB y añade latencia y complejidad de procesamiento innecesarias."
         },
         {
           "id": "c",
-          "text": "Implementar DynamoDB Accelerator (DAX)."
+          "text": "Implementar DynamoDB Accelerator (DAX).",
+          "rationale": "DAX acelera las lecturas en memoria, no las escrituras ni la capacidad de escritura aprovisionada, que es el cuello de botella durante las ventas relámpago."
         },
         {
           "id": "d",
-          "text": "Cambiar DynamoDB al modo bajo demanda durante las ventas relámpago."
+          "text": "Cambiar DynamoDB al modo bajo demanda durante las ventas relámpago.",
+          "rationale": "El modo bajo demanda se adapta automáticamente a picos repentinos de tráfico sin capacidad aprovisionada, resolviendo la limitación durante las ventas relámpago."
         }
       ],
       "correctAnswers": [
@@ -949,19 +1094,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Utilizar Amazon Textract. Crear léxicos personalizados para los nombres y abreviaturas de los productos. Utilizar la operación de la API StartTranscriptionJob para cada sección del manual del producto."
+          "text": "Utilizar Amazon Textract. Crear léxicos personalizados para los nombres y abreviaturas de los productos. Utilizar la operación de la API StartTranscriptionJob para cada sección del manual del producto.",
+          "rationale": "Textract extrae texto de documentos, no genera audio, y StartTranscriptionJob es de Amazon Transcribe, por lo que no produce la versión de audio solicitada."
         },
         {
           "id": "b",
-          "text": "Utilizar Amazon Polly. Crear léxicos personalizados para los nombres y abreviaturas de los productos. Utilizar la operación de la API StartSpeechSynthesiTask para cada sección del manual del producto."
+          "text": "Utilizar Amazon Polly. Crear léxicos personalizados para los nombres y abreviaturas de los productos. Utilizar la operación de la API StartSpeechSynthesiTask para cada sección del manual del producto.",
+          "rationale": "Polly convierte texto en voz y los léxicos personalizados permiten pronunciar bien nombres y abreviaturas; StartSpeechSynthesisTask es la API asíncrona adecuada."
         },
         {
           "id": "c",
-          "text": "Utilizar Amazon Polly. Crear Speech Synthesis Markup Language (SSML) personalizado para los nombres y abreviaturas de los productos. Utilizar la operación de la API StartDocumentTextDetection para cada sección del manual del producto."
+          "text": "Utilizar Amazon Polly. Crear Speech Synthesis Markup Language (SSML) personalizado para los nombres y abreviaturas de los productos. Utilizar la operación de la API StartDocumentTextDetection para cada sección del manual del producto.",
+          "rationale": "SSML no permite definir alias de pronunciación para vocabulario personalizado como los léxicos, y StartDocumentTextDetection pertenece a Textract, no a Polly."
         },
         {
           "id": "d",
-          "text": "Utilizar Amazon Textract. Crear Speech Synthesis Markup Language (SSML) personalizado para los nombres y abreviaturas de los productos. Utilizar la operación de la API StartDocumentTextDetection para cada sección del manual del producto."
+          "text": "Utilizar Amazon Textract. Crear Speech Synthesis Markup Language (SSML) personalizado para los nombres y abreviaturas de los productos. Utilizar la operación de la API StartDocumentTextDetection para cada sección del manual del producto.",
+          "rationale": "Textract no sintetiza voz y StartDocumentTextDetection solo detecta texto en documentos, por lo que no genera audio del manual."
         }
       ],
       "correctAnswers": [
@@ -975,19 +1124,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Crear un rol de IAM con los permisos necesarios para acceder a la tabla de DynamoDB. Asignar el rol a la función Lambda."
+          "text": "Crear un rol de IAM con los permisos necesarios para acceder a la tabla de DynamoDB. Asignar el rol a la función Lambda.",
+          "rationale": "Asignar a la función un rol de IAM con permisos mínimos es el método recomendado: credenciales temporales gestionadas por el servicio, sin claves de larga duración."
         },
         {
           "id": "b",
-          "text": "Crear un usuario de IAM y crear claves secretas y de acceso para el usuario. Otorgar al usuario los permisos necesarios para acceder a la tabla de DynamoDB. Pedir al desarrollador que use estas claves para acceder a los recursos."
+          "text": "Crear un usuario de IAM y crear claves secretas y de acceso para el usuario. Otorgar al usuario los permisos necesarios para acceder a la tabla de DynamoDB. Pedir al desarrollador que use estas claves para acceder a los recursos.",
+          "rationale": "Crear un usuario de IAM con claves de acceso genera credenciales de larga duración que hay que almacenar y rotar, lo que es menos seguro."
         },
         {
           "id": "c",
-          "text": "Crear un nombre de usuario y contraseña de DynamoDB y dárselos al desarrollador para que lo use en la función Lambda."
+          "text": "Crear un nombre de usuario y contraseña de DynamoDB y dárselos al desarrollador para que lo use en la función Lambda.",
+          "rationale": "DynamoDB no usa nombres de usuario ni contraseñas para acceder a las tablas; la autenticación se realiza con credenciales de IAM."
         },
         {
           "id": "d",
-          "text": "Crear un rol de IAM que permita el acceso desde AWS Lambda. Asignar el rol a la tabla de DynamoDB."
+          "text": "Crear un rol de IAM que permita el acceso desde AWS Lambda. Asignar el rol a la tabla de DynamoDB.",
+          "rationale": "El rol se asigna a la función Lambda, no a la tabla DynamoDB, y la política debe permitir acciones sobre la tabla y no al revés."
         }
       ],
       "correctAnswers": [
@@ -1001,19 +1154,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Amazon Kinesis Data Streams"
+          "text": "Amazon Kinesis Data Streams",
+          "rationale": "Kinesis Data Streams captura y procesa grandes volúmenes de clics en tiempo real y conserva el orden de los registros por partición y por usuario."
         },
         {
           "id": "b",
-          "text": "AWS CloudTrail"
+          "text": "AWS CloudTrail",
+          "rationale": "CloudTrail registra llamadas a la API de AWS para auditoría, no los clics de los usuarios ni los patrones de navegación del sitio web."
         },
         {
           "id": "c",
-          "text": "Cola FIFO de Amazon Simple Queue Service (Amazon SQS)"
+          "text": "Cola FIFO de Amazon Simple Queue Service (Amazon SQS)",
+          "rationale": "La cola FIFO de SQS garantiza orden y entrega exacta, pero su rendimiento es limitado y no está pensada para 50 000 eventos por segundo."
         },
         {
           "id": "d",
-          "text": "Cola estándar de Amazon Simple Queue Service (Amazon SQS)"
+          "text": "Cola estándar de Amazon Simple Queue Service (Amazon SQS)",
+          "rationale": "La cola estándar de SQS no garantiza el orden de los mensajes, requisito imprescindible para procesar secuencialmente los clics de cada usuario."
         }
       ],
       "correctAnswers": [
@@ -1027,19 +1184,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Almacenar los archivos de forma segura en Amazon S3 y hacer que la aplicación genere una URL prefirmada de Amazon S3 para que el usuario los descargue."
+          "text": "Almacenar los archivos de forma segura en Amazon S3 y hacer que la aplicación genere una URL prefirmada de Amazon S3 para que el usuario los descargue.",
+          "rationale": "S3 almacena los archivos y las URL prefirmadas con vencimiento permiten que cada usuario descargue solo sus archivos sin cargar el servidor web."
         },
         {
           "id": "b",
-          "text": "Almacenar los archivos en un volumen cifrado de Amazon Elastic Block Store (Amazon EBS) y utilizar un conjunto independiente de servidores para entregar las descargas."
+          "text": "Almacenar los archivos en un volumen cifrado de Amazon Elastic Block Store (Amazon EBS) y utilizar un conjunto independiente de servidores para entregar las descargas.",
+          "rationale": "EBS se adjunta a instancias en una sola zona de disponibilidad y exige servidores adicionales dedicados, lo que no reduce el costo ni aisla los archivos."
         },
         {
           "id": "c",
-          "text": "Hacer que la aplicación cifre los archivos y los almacene en el almacén de instancias local de Amazon EC2 antes de entregarlos para su descarga."
+          "text": "Hacer que la aplicación cifre los archivos y los almacene en el almacén de instancias local de Amazon EC2 antes de entregarlos para su descarga.",
+          "rationale": "El almacén de instancias es efímero y se pierde al detener la instancia, y la entrega seguiría consumiendo el ancho de banda del servidor web."
         },
         {
           "id": "d",
-          "text": "Crear una distribución de Amazon CloudFront para distribuir y almacenar en caché los archivos."
+          "text": "Crear una distribución de Amazon CloudFront para distribuir y almacenar en caché los archivos.",
+          "rationale": "CloudFront acelera la entrega y el almacenamiento en caché, pero no autentica usuarios ni limita la descarga a los archivos propios de cada uno."
         }
       ],
       "correctAnswers": [
@@ -1053,19 +1214,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Un volumen de uso general de Amazon Elastic Block Store (Amazon EBS)"
+          "text": "Un volumen de uso general de Amazon Elastic Block Store (Amazon EBS)",
+          "rationale": "Los volúmenes gp2 y gp3 de uso general equilibran precio y rendimiento, pero no garantizan IOPS coherentes en cargas aleatorias intensivas de base de datos."
         },
         {
           "id": "b",
-          "text": "Un almacén de instancias de Amazon EC2"
+          "text": "Un almacén de instancias de Amazon EC2",
+          "rationale": "El almacén de instancias es efímero y no ofrece persistencia a largo plazo, además de perderse al detener o terminar la instancia."
         },
         {
           "id": "c",
-          "text": "Un volumen de IOPS provisionadas de Amazon Elastic Block Store (Amazon EBS)"
+          "text": "Un volumen de IOPS provisionadas de Amazon Elastic Block Store (Amazon EBS)",
+          "rationale": "Los volúmenes de IOPS provisionadas ofrecen IOPS coherentes y persistentes, ideales para cargas aleatorias intensivas sensibles al rendimiento como bases de datos."
         },
         {
           "id": "d",
-          "text": "Un volumen magnético de Amazon Elastic Block Store (Amazon EBS)"
+          "text": "Un volumen magnético de Amazon Elastic Block Store (Amazon EBS)",
+          "rationale": "Los volúmenes magnéticos son la opción más lenta, con IOPS bajas y variables, inadecuados para lecturas y escrituras aleatorias de alto rendimiento."
         }
       ],
       "correctAnswers": [
@@ -1079,19 +1244,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Crear una cola de SQS para los mensajes con errores. El microservicio A agrega mensajes con errores a esa cola después de que el microservicio B lo recibe y no procesa el mensaje cuatro veces."
+          "text": "Crear una cola de SQS para los mensajes con errores. El microservicio A agrega mensajes con errores a esa cola después de que el microservicio B lo recibe y no procesa el mensaje cuatro veces.",
+          "rationale": "Añadir manualmente los mensajes a otra cola desde el microservicio A exige lógica personalizada y no aprovecha la política de reintentos de SQS."
         },
         {
           "id": "b",
-          "text": "Crear una cola de SQS para los mensajes con errores. Configurar la cola de SQS para los mensajes con errores a fin de extraer los mensajes de la cola principal de SQS después de que se configure el mensaje original cuatro veces."
+          "text": "Crear una cola de SQS para los mensajes con errores. Configurar la cola de SQS para los mensajes con errores a fin de extraer los mensajes de la cola principal de SQS después de que se configure el mensaje original cuatro veces.",
+          "rationale": "Una cola SQS no puede extraer mensajes de otra cola; el reenvío debe hacerlo la cola principal mediante una política de mensajes no entregados."
         },
         {
           "id": "c",
-          "text": "Crear una cola de mensajes no entregados de SQS. El microservicio B agrega mensajes con errores a esa cola después de recibirlos y no procesa el mensaje cuatro veces."
+          "text": "Crear una cola de mensajes no entregados de SQS. El microservicio B agrega mensajes con errores a esa cola después de recibirlos y no procesa el mensaje cuatro veces.",
+          "rationale": "Que el consumidor mueva los mensajes requiere código adicional y no se basa en el mecanismo nativo de reintentos y redirección de SQS."
         },
         {
           "id": "d",
-          "text": "Crear una cola de mensajes no entregados de SQS. Configurar la cola principal de SQS para entregar los mensajes a la cola de mensajes no entregados después de que se reciba el mensaje cuatro veces."
+          "text": "Crear una cola de mensajes no entregados de SQS. Configurar la cola principal de SQS para entregar los mensajes a la cola de mensajes no entregados después de que se reciba el mensaje cuatro veces.",
+          "rationale": "La cola de mensajes no entregados con una política de redirección en la cola principal mueve automáticamente los mensajes tras cuatro recepciones fallidas."
         }
       ],
       "correctAnswers": [
@@ -1105,19 +1274,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Utilizar Amazon ElastiCache (Redis OSS) para almacenar en caché las respuestas del servicio externo."
+          "text": "Utilizar Amazon ElastiCache (Redis OSS) para almacenar en caché las respuestas del servicio externo.",
+          "rationale": "ElastiCache cachea respuestas, pero crear objetos externos es una operación de escritura que no se puede cachear y seguiría bloqueando la ruta de solicitud."
         },
         {
           "id": "b",
-          "text": "Cambiar el tamaño de la instancia EC2 para aumentar la memoria y la capacidad de cómputo."
+          "text": "Cambiar el tamaño de la instancia EC2 para aumentar la memoria y la capacidad de cómputo.",
+          "rationale": "Aumentar el tamaño de la instancia añade capacidad temporalmente, pero no resuelve las llamadas lentas ni los tiempos de espera de los clientes."
         },
         {
           "id": "c",
-          "text": "Utilizar Amazon Simple Queue Service (Amazon SQS) para descargar las solicitudes de larga duración a fin de que empleados distintos las procesen de manera asincrónica."
+          "text": "Utilizar Amazon Simple Queue Service (Amazon SQS) para descargar las solicitudes de larga duración a fin de que empleados distintos las procesen de manera asincrónica.",
+          "rationale": "Enviar las solicitudes lentas a SQS las procesa de forma asíncrona fuera de la ruta interactiva, liberando recursos y reduciendo la latencia de los clientes."
         },
         {
           "id": "d",
-          "text": "Aumentar el tiempo de espera de inactividad del equilibrador de carga para permitir que se completen las solicitudes de larga duración."
+          "text": "Aumentar el tiempo de espera de inactividad del equilibrador de carga para permitir que se completen las solicitudes de larga duración.",
+          "rationale": "Aumentar el tiempo de espera solo mantiene las conexiones abiertas más tiempo y agrava el consumo de recursos sin mejorar el rendimiento."
         }
       ],
       "correctAnswers": [
@@ -1131,19 +1304,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Configurar una conexión DX con el socio de DX más confiable."
+          "text": "Configurar una conexión DX con el socio de DX más confiable.",
+          "rationale": "Elegir el socio más confiable sigue siendo una sola conexión con un único punto de fallo, insuficiente para lograr alta resistencia."
         },
         {
           "id": "b",
-          "text": "Configurar una conexión DX con una VPN encima."
+          "text": "Configurar una conexión DX con una VPN encima.",
+          "rationale": "Una VPN sobre DX puede servir de respaldo, pero no aporta la resiliencia de conexiones independientes terminadas en ubicaciones distintas."
         },
         {
           "id": "c",
-          "text": "Configurar las conexiones DX en varias ubicaciones DX."
+          "text": "Configurar las conexiones DX en varias ubicaciones DX.",
+          "rationale": "Conexiones DX independientes en varias ubicaciones terminan en dispositivos distintos y ofrecen la máxima resiliencia ante fallos de ubicación o dispositivo."
         },
         {
           "id": "d",
-          "text": "Configurar varias interfaces virtuales encima de una conexión DX."
+          "text": "Configurar varias interfaces virtuales encima de una conexión DX.",
+          "rationale": "Las interfaces virtuales sobre una sola conexión comparten el mismo enlace físico y dispositivo, por lo que no eliminan el punto único de fallo."
         }
       ],
       "correctAnswers": [
@@ -1157,23 +1334,28 @@
       "options": [
         {
           "id": "a",
-          "text": "Transferencia de datos de salida"
+          "text": "Transferencia de datos de salida",
+          "rationale": "La transferencia de datos de salida solo se factura cuando hay tráfico real; con las instancias detenidas no se genera tráfico ni costo."
         },
         {
           "id": "b",
-          "text": "Volúmenes de Amazon Elastic Block Store (Amazon EBS)"
+          "text": "Volúmenes de Amazon Elastic Block Store (Amazon EBS)",
+          "rationale": "Los volúmenes de EBS se facturan por el almacenamiento aprovisionado independientemente del estado de la instancia, incluso cuando está detenida."
         },
         {
           "id": "c",
-          "text": "Direcciones IP elásticas"
+          "text": "Direcciones IP elásticas",
+          "rationale": "AWS cobra una tarifa por hora por direcciones IP elásticas no asociadas a una instancia en ejecución, por lo que siguen generando costos."
         },
         {
           "id": "d",
-          "text": "AWS Auto Scaling"
+          "text": "AWS Auto Scaling",
+          "rationale": "AWS Auto Scaling no tiene costo propio; solo se paga por los recursos que lanza, y esos recursos están detenidos."
         },
         {
           "id": "e",
-          "text": "Transferencias de datos regionales"
+          "text": "Transferencias de datos regionales",
+          "rationale": "Las transferencias regionales solo se cobran por datos efectivamente transferidos entre regiones, lo que no ocurre con las instancias detenidas."
         }
       ],
       "correctAnswers": [
@@ -1188,19 +1370,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Una tabla de Amazon DynamoDB a la que pueden acceder todas las instancias de clúster de ECS"
+          "text": "Una tabla de Amazon DynamoDB a la que pueden acceder todas las instancias de clúster de ECS",
+          "rationale": "DynamoDB es una base NoSQL de clave-valor, no un sistema de archivos compartido para los datos de salida de las tareas ECS."
         },
         {
           "id": "b",
-          "text": "Un volumen de Amazon Elastic Block Store (Amazon EBS) montado en las instancias de clúster de ECS"
+          "text": "Un volumen de Amazon Elastic Block Store (Amazon EBS) montado en las instancias de clúster de ECS",
+          "rationale": "Un volumen EBS se adjunta a una sola instancia y no se puede compartir entre las múltiples instancias del clúster ECS."
         },
         {
           "id": "c",
-          "text": "Un sistema de archivos de Amazon Elastic File System (Amazon EFS) con modo de rendimiento por ráfagas"
+          "text": "Un sistema de archivos de Amazon Elastic File System (Amazon EFS) con modo de rendimiento por ráfagas",
+          "rationale": "El modo por ráfagas escala el rendimiento con el tamaño del sistema de archivos, que es pequeño, y no ofrece el mayor rendimiento inmediato."
         },
         {
           "id": "d",
-          "text": "Un sistema de archivos de Amazon Elastic File System (Amazon EFS) con modo de rendimiento aprovisionado"
+          "text": "Un sistema de archivos de Amazon Elastic File System (Amazon EFS) con modo de rendimiento aprovisionado",
+          "rationale": "EFS con rendimiento aprovisionado permite fijar MiB/s de forma instantánea e independiente del tamaño, y es compartido por todas las instancias del clúster."
         }
       ],
       "correctAnswers": [
@@ -1214,19 +1400,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Los cargos por transferencia de datos de EC2 entre las instancias son mucho más altos que los esperados."
+          "text": "Los cargos por transferencia de datos de EC2 entre las instancias son mucho más altos que los esperados.",
+          "rationale": "La transferencia de datos entre instancias de la misma zona no se cobra, y además las instancias están detenidas por la noche y los fines de semana."
         },
         {
           "id": "b",
-          "text": "Las tasas de EC2 y EBS son más altas en us-east-1 que en la mayoría de las demás regiones de AWS."
+          "text": "Las tasas de EC2 y EBS son más altas en us-east-1 que en la mayoría de las demás regiones de AWS.",
+          "rationale": "Las tarifas de us-east-1 no son las más altas, y el error se repite todos los días sin depender de la región elegida."
         },
         {
           "id": "c",
-          "text": "Los cargos de Lambda para detener y comenzar las instancias son mucho más altos que los esperados."
+          "text": "Los cargos de Lambda para detener y comenzar las instancias son mucho más altos que los esperados.",
+          "rationale": "El costo de Lambda por detener y arrancar instancias es insignificante frente al almacenamiento y no explica la diferencia mensual observada."
         },
         {
           "id": "d",
-          "text": "Se factura a la empresa el almacenamiento de EBS por las noches y los fines de semana."
+          "text": "Se factura a la empresa el almacenamiento de EBS por las noches y los fines de semana.",
+          "rationale": "El almacenamiento de EBS se factura mientras los volúmenes existen, incluso con las instancias detenidas por la noche y los fines de semana."
         }
       ],
       "correctAnswers": [
@@ -1240,19 +1430,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Activar el cifrado predeterminado para el Amazon S3 Bucket en el que se almacenan las copias de seguridad."
+          "text": "Activar el cifrado predeterminado para el Amazon S3 Bucket en el que se almacenan las copias de seguridad.",
+          "rationale": "El cifrado predeterminado de S3 no afecta a las copias de seguridad de RDS, que se almacenan y cifran con claves gestionadas por RDS."
         },
         {
           "id": "b",
-          "text": "Modificar la sección de respaldo de la configuración de la base de datos para activar la casilla Enable encryption (Activar cifrado)."
+          "text": "Modificar la sección de respaldo de la configuración de la base de datos para activar la casilla Enable encryption (Activar cifrado).",
+          "rationale": "RDS no permite activar el cifrado de una instancia existente modificando su configuración; el cifrado solo se define al crear la instancia."
         },
         {
           "id": "c",
-          "text": "Crear una instantánea de la base de datos. Copiarlo en una instantánea cifrada. Restaurar la base de datos desde la instantánea cifrada."
+          "text": "Crear una instantánea de la base de datos. Copiarlo en una instantánea cifrada. Restaurar la base de datos desde la instantánea cifrada.",
+          "rationale": "Se copia la instantánea a una instantánea cifrada y se restaura desde ella, creando una instancia cifrada cuyas copias automáticas futuras también estarán cifradas."
         },
         {
           "id": "d",
-          "text": "Configurar una réplica de lectura cifrada en RDS para MySQL. Promover la réplica de lectura cifrada para que sea la primaria. Eliminar la instancia de base de datos original."
+          "text": "Configurar una réplica de lectura cifrada en RDS para MySQL. Promover la réplica de lectura cifrada para que sea la primaria. Eliminar la instancia de base de datos original.",
+          "rationale": "Las réplicas de lectura heredan el cifrado de la instancia origen, así que no se puede crear una réplica cifrada de una base no cifrada."
         }
       ],
       "correctAnswers": [
@@ -1266,23 +1460,28 @@
       "options": [
         {
           "id": "a",
-          "text": "Aumentar la asignación de memoria para esta función Lambda a 1 024 MB si este cambio hace que el tiempo de ejecución de cada función sea inferior a 1 minuto."
+          "text": "Aumentar la asignación de memoria para esta función Lambda a 1 024 MB si este cambio hace que el tiempo de ejecución de cada función sea inferior a 1 minuto.",
+          "rationale": "Duplicar la memoria a 1024 MB y bajar la duración por debajo de un minuto reduce el GB-segundo total, porque el tiempo baja más que la memoria."
         },
         {
           "id": "b",
-          "text": "Reducir la asignación de memoria para esta función Lambda a 256 MB si este cambio hace que el tiempo de ejecución de cada función sea inferior a 5 minutos."
+          "text": "Reducir la asignación de memoria para esta función Lambda a 256 MB si este cambio hace que el tiempo de ejecución de cada función sea inferior a 5 minutos.",
+          "rationale": "Reducir a 256 MB y tardar hasta 5 minutos aumenta el producto de memoria por tiempo y encarece la ejecución de la función."
         },
         {
           "id": "c",
-          "text": "Aumentar la asignación de memoria para esta función Lambda a 1 024 MB si este cambio hace que el tiempo de ejecución de cada función sea inferior a 90 segundos."
+          "text": "Aumentar la asignación de memoria para esta función Lambda a 1 024 MB si este cambio hace que el tiempo de ejecución de cada función sea inferior a 90 segundos.",
+          "rationale": "Con 1024 MB y menos de 90 segundos el costo en GB-segundo sigue siendo mayor que el actual, así que no reduce el gasto."
         },
         {
           "id": "d",
-          "text": "Aumentar la asignación de memoria para esta función Lambda a 2 048 MB si este cambio hace que el tiempo de ejecución de cada función sea inferior a 1 minuto."
+          "text": "Aumentar la asignación de memoria para esta función Lambda a 2 048 MB si este cambio hace que el tiempo de ejecución de cada función sea inferior a 1 minuto.",
+          "rationale": "Con 2048 MB y menos de un minuto el producto de memoria por tiempo es mayor que el actual de 512 MB durante dos minutos."
         },
         {
           "id": "e",
-          "text": "Reducir la asignación de memoria para esta función Lambda a 256 MB si este cambio hace que el tiempo de ejecución de cada función sea inferior a 4 minutos."
+          "text": "Reducir la asignación de memoria para esta función Lambda a 256 MB si este cambio hace que el tiempo de ejecución de cada función sea inferior a 4 minutos.",
+          "rationale": "Reducir a 256 MB con menos de 4 minutos baja el producto de memoria por tiempo respecto a 512 MB por 2 minutos, reduciendo el costo."
         }
       ],
       "correctAnswers": [
@@ -1297,19 +1496,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Respaldo y restauración"
+          "text": "Respaldo y restauración",
+          "rationale": "Respaldo y restauración tiene un RTO de horas o días y exige aprovisionar toda la infraestructura, superando ampliamente los 30 minutos exigidos."
         },
         {
           "id": "b",
-          "text": "Espera activa"
+          "text": "Espera activa",
+          "rationale": "La espera activa mantiene una réplica completa en la región secundaria, lo que duplica la arquitectura y excede las restricciones presupuestarias."
         },
         {
           "id": "c",
-          "text": "Luz piloto"
+          "text": "Luz piloto",
+          "rationale": "La luz piloto replica solo los componentes esenciales, no usa la región secundaria hasta el desastre y ofrece un RTO de decenas de minutos con bajo costo."
         },
         {
           "id": "d",
-          "text": "Activo/activo de varios sitios"
+          "text": "Activo/activo de varios sitios",
+          "rationale": "Activo y activo multi-sitio ejecuta la carga completa en ambas regiones, con el mayor costo y sin necesidad de una región pasiva."
         }
       ],
       "correctAnswers": [
@@ -1323,19 +1526,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Utilizar una cola First-In-First-Out (FIFO, Primero en entrar, primero en salir) de SQS. Asignar una prioridad más alta a las fotos de los usuarios de pago para que se procesen primero."
+          "text": "Utilizar una cola First-In-First-Out (FIFO, Primero en entrar, primero en salir) de SQS. Asignar una prioridad más alta a las fotos de los usuarios de pago para que se procesen primero.",
+          "rationale": "Una cola FIFO procesa en orden estricto de llegada y no permite priorizar a los usuarios de pago por encima de los gratuitos."
         },
         {
           "id": "b",
-          "text": "Utilizar dos colas estándar de SQS: una para usuarios de pago y otra para gratuitos. Configurar la aplicación en las instancias Amazon EC2 para priorizar el sondeo de la cola de pago sobre la gratuita."
+          "text": "Utilizar dos colas estándar de SQS: una para usuarios de pago y otra para gratuitos. Configurar la aplicación en las instancias Amazon EC2 para priorizar el sondeo de la cola de pago sobre la gratuita.",
+          "rationale": "Dos colas estándar separadas permiten que la aplicación consulte primero la cola de pago, logrando la prioridad sin las limitaciones de rendimiento de FIFO."
         },
         {
           "id": "c",
-          "text": "Utilizar dos colas FIFO de SQS: una para los usuarios de pago y otra para los gratuitos. Configurar la cola libre para usar sondeos cortos y la de pago para sondeos largos."
+          "text": "Utilizar dos colas FIFO de SQS: una para los usuarios de pago y otra para los gratuitos. Configurar la cola libre para usar sondeos cortos y la de pago para sondeos largos.",
+          "rationale": "El sondeo corto o largo no establece prioridad; ambas colas se seguirían procesando sin garantizar que los usuarios de pago vayan primero."
         },
         {
           "id": "d",
-          "text": "Utilizar una cola estándar de SQS. Establecer en cero el tiempo de espera de visibilidad de las fotos de los usuarios de pago. Configure la aplicación en las instancias Amazon EC2 para priorizar la configuración de visibilidad, de modo que las fotos de los usuarios de pago se procesen primero."
+          "text": "Utilizar una cola estándar de SQS. Establecer en cero el tiempo de espera de visibilidad de las fotos de los usuarios de pago. Configure la aplicación en las instancias Amazon EC2 para priorizar la configuración de visibilidad, de modo que las fotos de los usuarios de pago se procesen primero.",
+          "rationale": "El tiempo de visibilidad no asigna prioridad; ponerlo en cero solo hace que el mensaje sea visible de inmediato y se reprocese."
         }
       ],
       "correctAnswers": [
@@ -1349,19 +1556,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Utilizar Amazon Kinesis Data Streams para capturar los datos de los sitios web, Amazon Data Firehose para conservar los datos en Amazon S3 y Amazon Athena para consultar los datos."
+          "text": "Utilizar Amazon Kinesis Data Streams para capturar los datos de los sitios web, Amazon Data Firehose para conservar los datos en Amazon S3 y Amazon Athena para consultar los datos.",
+          "rationale": "Firehose a S3 con Athena añade latencia de minutos u horas y no permite consultar solo los datos nuevos con la rapidez requerida."
         },
         {
           "id": "b",
-          "text": "Utilizar Amazon Simple Notification Service (Amazon SNS) para recibir datos de los sitios web y delegar los mensajes a las funciones de AWS Lambda que ejecutan las consultas y conservan los datos. Cambiar Amazon RDS por Amazon Aurora Serverless para conservar los datos."
+          "text": "Utilizar Amazon Simple Notification Service (Amazon SNS) para recibir datos de los sitios web y delegar los mensajes a las funciones de AWS Lambda que ejecutan las consultas y conservan los datos. Cambiar Amazon RDS por Amazon Aurora Serverless para conservar los datos.",
+          "rationale": "SNS no almacena los datos para consultas analíticas y Lambda con Aurora Serverless no ofrece el acceso más rápido a la actividad reciente."
         },
         {
           "id": "c",
-          "text": "Utilizar Amazon Simple Queue Service (Amazon SQS) para capturar los datos de los sitios web, mantener la flota de instancias EC2 y cambiar a un tipo de instancia mayor en la configuración del grupo de escalado automático."
+          "text": "Utilizar Amazon Simple Queue Service (Amazon SQS) para capturar los datos de los sitios web, mantener la flota de instancias EC2 y cambiar a un tipo de instancia mayor en la configuración del grupo de escalado automático.",
+          "rationale": "SQS y una flota EC2 mayor mantienen el acoplamiento y no proporcionan un motor de consultas para que los analistas escriban SQL."
         },
         {
           "id": "d",
-          "text": "Utilizar Amazon Kinesis Data Streams para capturar los datos de los sitios web, Amazon Managed Service para Apache Flink a fin de consultar los datos y Amazon Data Firehose para conservar los datos en Amazon S3."
+          "text": "Utilizar Amazon Kinesis Data Streams para capturar los datos de los sitios web, Amazon Managed Service para Apache Flink a fin de consultar los datos y Amazon Data Firehose para conservar los datos en Amazon S3.",
+          "rationale": "Kinesis captura los clics, Managed Flink consulta los datos en streaming y Firehose los persiste en S3, dando el acceso más rápido sin perder datos."
         }
       ],
       "correctAnswers": [
@@ -1375,19 +1586,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Amazon DynamoDB Accelerator (DAX)"
+          "text": "Amazon DynamoDB Accelerator (DAX)",
+          "rationale": "DAX solo cachea DynamoDB, no una base de datos relacional, por lo que no se puede aplicar a esta arquitectura."
         },
         {
           "id": "b",
-          "text": "Amazon ElastiCache con carga diferida"
+          "text": "Amazon ElastiCache con carga diferida",
+          "rationale": "La carga diferida solo actualiza la caché tras un fallo de lectura, así que los datos pueden quedar obsoletos hasta que expiren."
         },
         {
           "id": "c",
-          "text": "Amazon Simple Queue Service (Amazon SQS)"
+          "text": "Amazon Simple Queue Service (Amazon SQS)",
+          "rationale": "SQS es un servicio de colas de mensajes, no una caché en memoria que acelere la recuperación de datos."
         },
         {
           "id": "d",
-          "text": "Amazon ElastiCache con escritura simultánea"
+          "text": "Amazon ElastiCache con escritura simultánea",
+          "rationale": "La escritura simultánea actualiza la caché en cada escritura a la base de datos, minimizando la latencia de lectura y evitando datos obsoletos."
         }
       ],
       "correctAnswers": [
@@ -1401,19 +1616,23 @@
       "options": [
         {
           "id": "a",
-          "text": "{ \"Version\": \"2012-10-17\", \"Statement\": \\[ { \"Sid\": \"PutUpdateDeleteOnBooks\", \"Effect\": \"Allow\", \"Action\": \\[ \"dynamodb:PutItem\", \"dynamodb:UpdateItem\", \"dynamodb:DeleteItem\" \\], \"Resource\": \"arn:aws:dynamodb:us-west-2:123456789012:table/\\*\" } \\] }"
+          "text": "{ \"Version\": \"2012-10-17\", \"Statement\": \\[ { \"Sid\": \"PutUpdateDeleteOnBooks\", \"Effect\": \"Allow\", \"Action\": \\[ \"dynamodb:PutItem\", \"dynamodb:UpdateItem\", \"dynamodb:DeleteItem\" \\], \"Resource\": \"arn:aws:dynamodb:us-west-2:123456789012:table/\\*\" } \\] }",
+          "rationale": "Usa el comodín en el recurso, lo que concede las acciones sobre todas las tablas y no aplica el mínimo privilegio."
         },
         {
           "id": "b",
-          "text": "{ \"Version\": \"2012-10-17\", \"Statement\": \\[ { \"Sid\": \"PutUpdateDeleteOnBooks\", \"Effect\": \"Allow\", \"Action\": \"dynamodb:\\*\", \"Resource\": \"arn:aws:dynamodb:us-west-2:123456789012:table/Books\" } \\] }"
+          "text": "{ \"Version\": \"2012-10-17\", \"Statement\": \\[ { \"Sid\": \"PutUpdateDeleteOnBooks\", \"Effect\": \"Allow\", \"Action\": \"dynamodb:\\*\", \"Resource\": \"arn:aws:dynamodb:us-west-2:123456789012:table/Books\" } \\] }",
+          "rationale": "Concede todas las acciones de DynamoDB sobre la tabla Books, incluyendo operaciones no requeridas como lectura o administración, por lo que no es mínimo privilegio."
         },
         {
           "id": "c",
-          "text": "{ \"Version\": \"2012-10-17\", \"Statement\": \\[ { \"Sid\": \"PutUpdateDeleteOnBooks\", \"Effect\": \"Allow\", \"Action\": \"dynamodb:\\*\", \"Resource\": \"arn:aws:dynamodb:us-west-2:123456789012:table/Books\" }, { \"Sid\": \"PutUpdateDeleteOnBooks\", \"Effect\": \"Deny\", \"Action\": \"dynamodb:\\*:\\*\", \"Resource\": \"arn:aws:dynamodb:us-west-2:123456789012:table/Books\" \\] }"
+          "text": "{ \"Version\": \"2012-10-17\", \"Statement\": \\[ { \"Sid\": \"PutUpdateDeleteOnBooks\", \"Effect\": \"Allow\", \"Action\": \"dynamodb:\\*\", \"Resource\": \"arn:aws:dynamodb:us-west-2:123456789012:table/Books\" }, { \"Sid\": \"PutUpdateDeleteOnBooks\", \"Effect\": \"Deny\", \"Action\": \"dynamodb:\\*:\\*\", \"Resource\": \"arn:aws:dynamodb:us-west-2:123456789012:table/Books\" \\] }",
+          "rationale": "La política incluye una declaración Deny con una acción inválida que contradice el Allow, por lo que no es válida ni mínima."
         },
         {
           "id": "d",
-          "text": "{ \"Version\": \"2012-10-17\", \"Statement\": \\[ { \"Sid\": \"PutUpdateDeleteOnBooks\", \"Effect\": \"Allow\", \"Action\": \\[ \"dynamodb:PutItem\", \"dynamodb:UpdateItem\", \"dynamodb:DeleteItem\" \\], \"Resource\": \"arn:aws:dynamodb:us-west-2:123456789012:table/Books\" } \\] }"
+          "text": "{ \"Version\": \"2012-10-17\", \"Statement\": \\[ { \"Sid\": \"PutUpdateDeleteOnBooks\", \"Effect\": \"Allow\", \"Action\": \\[ \"dynamodb:PutItem\", \"dynamodb:UpdateItem\", \"dynamodb:DeleteItem\" \\], \"Resource\": \"arn:aws:dynamodb:us-west-2:123456789012:table/Books\" } \\] }",
+          "rationale": "Limita las acciones exactas de escritura, actualización y borrado al ARN de la tabla Books, sin permisos sobre otras tablas ni acciones adicionales."
         }
       ],
       "correctAnswers": [
@@ -1427,19 +1646,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Utilizar Amazon EBS para los volúmenes raíz de las instancias EC2. Configurar la aplicación para crear el almacén de documentos en Amazon S3 Standard."
+          "text": "Utilizar Amazon EBS para los volúmenes raíz de las instancias EC2. Configurar la aplicación para crear el almacén de documentos en Amazon S3 Standard.",
+          "rationale": "S3 Standard es un servicio regional, altamente disponible y accesible desde todas las zonas de disponibilidad, con acceso inmediato a los documentos."
         },
         {
           "id": "b",
-          "text": "Utilizar al menos tres volúmenes de EBS de IOPS provisionadas para las instancias EC2. Montar los volúmenes en las instancias EC2 en una configuración RAID 5."
+          "text": "Utilizar al menos tres volúmenes de EBS de IOPS provisionadas para las instancias EC2. Montar los volúmenes en las instancias EC2 en una configuración RAID 5.",
+          "rationale": "RAID 5 sobre volúmenes EBS no es una configuración fiable entre instancias ni aporta disponibilidad regional; los datos siguen ligados a una zona."
         },
         {
           "id": "c",
-          "text": "Hacer instantáneas de los volúmenes de EBS con regularidad y crear nuevos volúmenes con esas instantáneas en zonas de disponibilidad adicionales."
+          "text": "Hacer instantáneas de los volúmenes de EBS con regularidad y crear nuevos volúmenes con esas instantáneas en zonas de disponibilidad adicionales.",
+          "rationale": "Las instantáneas crean copias de respaldo, pero no un almacén compartido y disponible de inmediato para todas las instancias."
         },
         {
           "id": "d",
-          "text": "Utilizar Amazon EBS para los volúmenes raíz de las instancias EC2. Configurar la aplicación para crear el almacén de documentos en Amazon S3 Glacier Flexible Retrieval."
+          "text": "Utilizar Amazon EBS para los volúmenes raíz de las instancias EC2. Configurar la aplicación para crear el almacén de documentos en Amazon S3 Glacier Flexible Retrieval.",
+          "rationale": "Glacier Flexible Retrieval tarda minutos u horas en recuperar los datos, incumpliendo la entrega inmediata solicitada varias veces al mes."
         }
       ],
       "correctAnswers": [
@@ -1453,23 +1676,28 @@
       "options": [
         {
           "id": "a",
-          "text": "Utilizar AWS CloudFormation para actualizar la infraestructura de producción y restaurar la pila si la actualización tiene errores."
+          "text": "Utilizar AWS CloudFormation para actualizar la infraestructura de producción y restaurar la pila si la actualización tiene errores.",
+          "rationale": "Actualizar directamente producción no crea un entorno de prueba separado y una reversión no elimina el impacto de un despliegue fallido."
         },
         {
           "id": "b",
-          "text": "Utilizar AWS CloudFormation con un parámetro establecido en el valor de preparación en un entorno independiente distinto al entorno de producción."
+          "text": "Utilizar AWS CloudFormation con un parámetro establecido en el valor de preparación en un entorno independiente distinto al entorno de producción.",
+          "rationale": "CloudFormation con un parámetro de entorno despliega una pila de preparación independiente donde probar antes de enviar tráfico a producción."
         },
         {
           "id": "c",
-          "text": "Utilizar AWS CloudFormation para implementar el entorno de preparación con una política de eliminación de instantáneas y reutilizar los recursos en el entorno de producción si se superan las pruebas."
+          "text": "Utilizar AWS CloudFormation para implementar el entorno de preparación con una política de eliminación de instantáneas y reutilizar los recursos en el entorno de producción si se superan las pruebas.",
+          "rationale": "Reutilizar los mismos recursos de producción no permite probar de forma aislada ni limita el impacto de los errores en las aplicaciones."
         },
         {
           "id": "d",
-          "text": "Aplicar el direccionamiento ponderado de Amazon Route 53 para probar el entorno de preparación y aumentar gradualmente el tráfico a medida que se superen las pruebas."
+          "text": "Aplicar el direccionamiento ponderado de Amazon Route 53 para probar el entorno de preparación y aumentar gradualmente el tráfico a medida que se superen las pruebas.",
+          "rationale": "El direccionamiento ponderado de Route 53 envía un porcentaje pequeño de tráfico a la versión nueva y lo aumenta gradualmente según las pruebas."
         },
         {
           "id": "e",
-          "text": "Aplicar el enrutamiento de conmutación por error de Amazon Route 53 para probar el entorno de preparación y conmutar por error al entorno de producción si se superan las pruebas."
+          "text": "Aplicar el enrutamiento de conmutación por error de Amazon Route 53 para probar el entorno de preparación y conmutar por error al entorno de producción si se superan las pruebas.",
+          "rationale": "El enrutamiento de conmutación por error envía todo el tráfico a un destino u otro, sin permitir una exposición gradual y controlada."
         }
       ],
       "correctAnswers": [
@@ -1484,19 +1712,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Agregar una gateway NAT y configurar la tabla de enrutamiento en la subred privada."
+          "text": "Agregar una gateway NAT y configurar la tabla de enrutamiento en la subred privada.",
+          "rationale": "Una gateway NAT permite salir a Internet, pero el tráfico hacia DynamoDB seguiría saliendo de la red de AWS por el punto de enlace público."
         },
         {
           "id": "b",
-          "text": "Habilitar el cifrado de DynamoDB en reposo mediante una clave de AWS Key Management Service (AWS KMS)."
+          "text": "Habilitar el cifrado de DynamoDB en reposo mediante una clave de AWS Key Management Service (AWS KMS).",
+          "rationale": "El cifrado en reposo protege los datos almacenados, pero no impide que el tráfico de la aplicación salga de la red de AWS."
         },
         {
           "id": "c",
-          "text": "Configurar una ACL de red en DynamoDB para limitar el tráfico a la subred privada."
+          "text": "Configurar una ACL de red en DynamoDB para limitar el tráfico a la subred privada.",
+          "rationale": "DynamoDB no admite ACL de red; esas listas solo existen en las subredes de la VPC y no en el servicio."
         },
         {
           "id": "d",
-          "text": "Crear un punto de enlace de la VPC para DynamoDB y configurar la política de punto de enlace."
+          "text": "Crear un punto de enlace de la VPC para DynamoDB y configurar la política de punto de enlace.",
+          "rationale": "Un punto de enlace de VPC de tipo gateway mantiene el tráfico hacia DynamoDB dentro de la red de AWS y su política controla el acceso."
         }
       ],
       "correctAnswers": [
@@ -1510,19 +1742,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Utilizar el alojamiento de sitios web de Amazon S3 para el sitio web de respaldo y una política de enrutamiento de latencia de Route 53."
+          "text": "Utilizar el alojamiento de sitios web de Amazon S3 para el sitio web de respaldo y una política de enrutamiento de latencia de Route 53.",
+          "rationale": "La política de latencia distribuye el tráfico según la menor latencia y no activa un sitio de respaldo cuando el principal falla."
         },
         {
           "id": "b",
-          "text": "Implementar la aplicación en otra región de AWS y utilizar las comprobaciones de estado de ELB para el enrutamiento de conmutación por error."
+          "text": "Implementar la aplicación en otra región de AWS y utilizar las comprobaciones de estado de ELB para el enrutamiento de conmutación por error.",
+          "rationale": "Las comprobaciones de estado de ELB operan sobre destinos del balanceador y no gestionan el enrutamiento DNS de conmutación por error entre regiones."
         },
         {
           "id": "c",
-          "text": "Implementar la aplicación en otra región de AWS y utilizar la redirección del lado del servidor en el sitio web principal."
+          "text": "Implementar la aplicación en otra región de AWS y utilizar la redirección del lado del servidor en el sitio web principal.",
+          "rationale": "La redirección del lado del servidor depende de que el sitio principal responda, algo imposible cuando está caído."
         },
         {
           "id": "d",
-          "text": "Utilizar el alojamiento de sitios web de Amazon S3 para el sitio web de respaldo y una política de enrutamiento de conmutación por error de Route 53."
+          "text": "Utilizar el alojamiento de sitios web de Amazon S3 para el sitio web de respaldo y una política de enrutamiento de conmutación por error de Route 53.",
+          "rationale": "S3 aloja el sitio estático de respaldo y la política de conmutación por error de Route 53 lo activa con una comprobación de estado cuando el principal falla."
         }
       ],
       "correctAnswers": [
@@ -1536,19 +1772,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Aumentar el rendimiento aprovisionado a 6 000 RCU."
+          "text": "Aumentar el rendimiento aprovisionado a 6 000 RCU.",
+          "rationale": "Aumentar las RCU aprovisionadas no resuelve los patrones de acceso desiguales ni el límite por partición de los elementos populares."
         },
         {
           "id": "b",
-          "text": "Cambiar la clave de partición para que conste de un resumen de la clave del producto y del tipo de producto en lugar de solo la clave de producto."
+          "text": "Cambiar la clave de partición para que conste de un resumen de la clave del producto y del tipo de producto en lugar de solo la clave de producto.",
+          "rationale": "Cambiar la clave de partición no ayuda porque el número de productos es constante y las claves populares seguirían concentrando el tráfico."
         },
         {
           "id": "c",
-          "text": "Aumentar DynamoDB almacenando solo los atributos clave del producto, con los detalles almacenados en Amazon S3."
+          "text": "Aumentar DynamoDB almacenando solo los atributos clave del producto, con los detalles almacenados en Amazon S3.",
+          "rationale": "Mover detalles a S3 añade latencia y complejidad, y no elimina las lecturas repetidas de los mismos elementos populares."
         },
         {
           "id": "d",
-          "text": "Utilizar DynamoDB Accelerator (DAX) para mantener los elementos de lectura frecuente."
+          "text": "Utilizar DynamoDB Accelerator (DAX) para mantener los elementos de lectura frecuente.",
+          "rationale": "DAX cachea en memoria los elementos leídos con frecuencia y absorbe el tráfico de los productos populares, reduciendo la limitación sin sobredimensionar las RCU."
         }
       ],
       "correctAnswers": [
@@ -1562,19 +1802,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Configurar las tablas de enrutamiento para ambas VPC."
+          "text": "Configurar las tablas de enrutamiento para ambas VPC.",
+          "rationale": "Tras crear la interconexión hay que añadir rutas en las tablas de enrutamiento de ambas VPC para que el tráfico fluya entre las subredes."
         },
         {
           "id": "b",
-          "text": "Comprobar que las puertas de enlace de Internet estén adjuntas a cada VPC."
+          "text": "Comprobar que las puertas de enlace de Internet estén adjuntas a cada VPC.",
+          "rationale": "Las puertas de enlace de Internet no son necesarias para el tráfico entre VPC y no intervienen en el enrutamiento de la interconexión."
         },
         {
           "id": "c",
-          "text": "Comprobar que ninguna de las VPC tenga interconexiones adicionales."
+          "text": "Comprobar que ninguna de las VPC tenga interconexiones adicionales.",
+          "rationale": "Las interconexiones adicionales no impiden el tráfico; lo que hay que evitar son los rangos CIDR superpuestos."
         },
         {
           "id": "d",
-          "text": "Resolver los rangos CIDR superpuestos."
+          "text": "Resolver los rangos CIDR superpuestos.",
+          "rationale": "Los rangos CIDR superpuestos deben evitarse al crear la interconexión, no resolverse después; el paso pendiente es configurar el enrutamiento."
         }
       ],
       "correctAnswers": [
@@ -1588,19 +1832,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Crear reglas del grupo de seguridad con el ID del grupo de seguridad como fuente o destino."
+          "text": "Crear reglas del grupo de seguridad con el ID del grupo de seguridad como fuente o destino.",
+          "rationale": "Referenciar el ID del grupo de seguridad como origen o destino permite que solo los recursos de ese nivel se comuniquen, aplicando el mínimo privilegio."
         },
         {
           "id": "b",
-          "text": "Crear reglas del grupo de seguridad con los bloques de CIDR de la subred como fuente o destino."
+          "text": "Crear reglas del grupo de seguridad con los bloques de CIDR de la subred como fuente o destino.",
+          "rationale": "Los bloques CIDR de subred incluyen todos los recursos de la subred, no solo los del nivel de aplicación correspondiente."
         },
         {
           "id": "c",
-          "text": "Crear reglas del grupo de seguridad con los bloques de CIDR de la VPC como fuente o destino."
+          "text": "Crear reglas del grupo de seguridad con los bloques de CIDR de la VPC como fuente o destino.",
+          "rationale": "Los bloques CIDR de la VPC son demasiado amplios y permiten tráfico de cualquier recurso de la VPC, violando el mínimo privilegio."
         },
         {
           "id": "d",
-          "text": "Crear reglas del grupo de seguridad con el ID de instancia como fuente o destino."
+          "text": "Crear reglas del grupo de seguridad con el ID de instancia como fuente o destino.",
+          "rationale": "Las reglas de grupo de seguridad no aceptan IDs de instancia como origen o destino; solo admiten CIDR, grupos de seguridad o prefijos."
         }
       ],
       "correctAnswers": [
@@ -1614,23 +1862,28 @@
       "options": [
         {
           "id": "a",
-          "text": "Crear un host bastión con reglas de grupo de seguridad que solo permitan el tráfico de la red corporativa."
+          "text": "Crear un host bastión con reglas de grupo de seguridad que solo permitan el tráfico de la red corporativa.",
+          "rationale": "Un host bastión con reglas que solo permiten SSH desde la red corporativa da acceso administrativo sin exponer los servidores web a Internet."
         },
         {
           "id": "b",
-          "text": "Denegar todo el tráfico SSH de la red corporativa en la ACL de red entrante."
+          "text": "Denegar todo el tráfico SSH de la red corporativa en la ACL de red entrante.",
+          "rationale": "Denegar todo el tráfico SSH de la red corporativa impediría precisamente el acceso que los desarrolladores necesitan para administrar los servidores."
         },
         {
           "id": "c",
-          "text": "Crear un host bastión que autentique a los usuarios en el directorio corporativo."
+          "text": "Crear un host bastión que autentique a los usuarios en el directorio corporativo.",
+          "rationale": "Autenticar contra el directorio corporativo añade control de identidad, pero no restringe por sí mismo el origen del tráfico ni protege los servidores privados."
         },
         {
           "id": "d",
-          "text": "Adjuntar un rol de IAM al host bastión con los permisos pertinentes."
+          "text": "Adjuntar un rol de IAM al host bastión con los permisos pertinentes.",
+          "rationale": "Un rol de IAM otorga permisos a la API de AWS, no controla el acceso SSH ni el tráfico de red hacia los servidores web."
         },
         {
           "id": "e",
-          "text": "Configurar el grupo de seguridad de los servidores web para permitir el tráfico SSH desde un host bastión."
+          "text": "Configurar el grupo de seguridad de los servidores web para permitir el tráfico SSH desde un host bastión.",
+          "rationale": "Permitir SSH en los servidores web solo desde el grupo de seguridad del bastión garantiza que no se acceda directamente desde Internet."
         }
       ],
       "correctAnswers": [
@@ -1645,23 +1898,28 @@
       "options": [
         {
           "id": "a",
-          "text": "Reducir el tamaño de los objetos de S3 a menos de 128 MB."
+          "text": "Reducir el tamaño de los objetos de S3 a menos de 128 MB.",
+          "rationale": "Reducir los objetos por debajo de 128 MB no mejora el rendimiento; de hecho se recomiendan objetos mayores y menos numerosos."
         },
         {
           "id": "b",
-          "text": "Almacenar los archivos como objetos grandes y únicos en Amazon S3."
+          "text": "Almacenar los archivos como objetos grandes y únicos en Amazon S3.",
+          "rationale": "Un único objeto grande impide el paralelismo y aumenta los datos escaneados, empeorando el rendimiento de las consultas en Athena."
         },
         {
           "id": "c",
-          "text": "Utilizar un proceso de extracción, transformación y carga (ETL) de AWS Glue para convertir los archivos .csv al formato Apache Parquet."
+          "text": "Utilizar un proceso de extracción, transformación y carga (ETL) de AWS Glue para convertir los archivos .csv al formato Apache Parquet.",
+          "rationale": "Convertir los CSV a Parquet con Glue reduce los datos leídos gracias a la compresión columnar y acelera y abarata las consultas de Athena."
         },
         {
           "id": "d",
-          "text": "Utilizar Amazon Managed Service para Apache Flink con el fin de ejecutar las consultas como parte de la operación de procesamiento por lotes."
+          "text": "Utilizar Amazon Managed Service para Apache Flink con el fin de ejecutar las consultas como parte de la operación de procesamiento por lotes.",
+          "rationale": "Managed Flink procesa streaming y no sustituye a Athena para las consultas SQL puntuales sobre los datos almacenados en S3."
         },
         {
           "id": "e",
-          "text": "Particionar los datos por fecha y región en Amazon S3."
+          "text": "Particionar los datos por fecha y región en Amazon S3.",
+          "rationale": "Particionar por fecha y región permite que Athena lea solo las particiones relevantes, reduciendo los datos escaneados y mejorando rendimiento y fiabilidad."
         }
       ],
       "correctAnswers": [
@@ -1676,19 +1934,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Rediseñar el sitio web para utilizar Amazon API Gateway y utilizar AWS Lambda para entregar contenido."
+          "text": "Rediseñar el sitio web para utilizar Amazon API Gateway y utilizar AWS Lambda para entregar contenido.",
+          "rationale": "Rediseñar el sitio con API Gateway y Lambda es un cambio profundo que no se implementa de inmediato ni descarga el contenido multimedia estático."
         },
         {
           "id": "b",
-          "text": "Entregar las imágenes y los videos mediante una distribución de Amazon CloudFront creada con el sitio de noticias como origen."
+          "text": "Entregar las imágenes y los videos mediante una distribución de Amazon CloudFront creada con el sitio de noticias como origen.",
+          "rationale": "CloudFront con el sitio como origen cachea imágenes y videos en los puntos de presencia, absorbiendo el pico de tráfico de forma inmediata."
         },
         {
           "id": "c",
-          "text": "Utilizar Amazon ElastiCache (Redis OSS) para almacenar en caché y reducir las solicitudes de carga del origen."
+          "text": "Utilizar Amazon ElastiCache (Redis OSS) para almacenar en caché y reducir las solicitudes de carga del origen.",
+          "rationale": "ElastiCache requiere refactorizar la aplicación para cachear objetos y no descarga la entrega de contenido multimedia desde el origen."
         },
         {
           "id": "d",
-          "text": "Agregar instancias de servidor mediante Amazon EC2 y utilizar Amazon Route 53 con una política de direccionamiento de conmutación por error."
+          "text": "Agregar instancias de servidor mediante Amazon EC2 y utilizar Amazon Route 53 con una política de direccionamiento de conmutación por error.",
+          "rationale": "Añadir instancias y usar conmutación por error no es inmediato ni reduce la carga del origen, y además no existe una región secundaria."
         }
       ],
       "correctAnswers": [
@@ -1702,19 +1964,23 @@
       "options": [
         {
           "id": "a",
-          "text": "Utilizar Service Quotas para solicitar un aumento en la cantidad de instancias EC2 que la empresa puede lanzar."
+          "text": "Utilizar Service Quotas para solicitar un aumento en la cantidad de instancias EC2 que la empresa puede lanzar.",
+          "rationale": "El error indica que se alcanzó la cuota de instancias EC2 de la cuenta; Service Quotas permite solicitar su aumento para lanzar todas las instancias."
         },
         {
           "id": "b",
-          "text": "Volver a crear el grupo de Auto Scaling para asegurarse de que esté conectado al Application Load Balancer."
+          "text": "Volver a crear el grupo de Auto Scaling para asegurarse de que esté conectado al Application Load Balancer.",
+          "rationale": "Recrear el grupo de Auto Scaling no altera el límite de la cuenta y el error de cuota persistiría al intentar lanzar instancias."
         },
         {
           "id": "c",
-          "text": "Modificar la métrica de CloudWatch que la empresa supervisa para lanzar las instancias."
+          "text": "Modificar la métrica de CloudWatch que la empresa supervisa para lanzar las instancias.",
+          "rationale": "Cambiar la métrica de CloudWatch solo modifica la supervisión y no afecta en absoluto a la cuota de instancias de la cuenta."
         },
         {
           "id": "d",
-          "text": "Modificar el grupo de Auto Scaling para aumentar el número máximo de instancias que la empresa puede lanzar."
+          "text": "Modificar el grupo de Auto Scaling para aumentar el número máximo de instancias que la empresa puede lanzar.",
+          "rationale": "Aumentar el máximo del grupo no sirve si la cuota de la cuenta impide lanzar más instancias EC2."
         }
       ],
       "correctAnswers": [
