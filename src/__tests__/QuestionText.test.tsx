@@ -112,7 +112,12 @@ describe('multipleAnswerHint', () => {
     expect(multipleAnswerHint(1)).toBe('Select the one correct option.')
   })
 
+  it('uses the word for ten', () => {
+    expect(multipleAnswerHint(10)).toBe('Select the ten correct options.')
+  })
+
   it('falls back to digits above ten', () => {
+    expect(multipleAnswerHint(11)).toBe('Select the 11 correct options.')
     expect(multipleAnswerHint(12)).toBe('Select the 12 correct options.')
   })
 })
