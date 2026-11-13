@@ -29,6 +29,9 @@ export type UserAnswers = Record<string, string[]>
 
 export type ExamPhase = 'loading' | 'welcome' | 'exam' | 'summary'
 
+/** Timed exam simulation or untimed practice. */
+export type ExamMode = 'timed' | 'practice'
+
 export interface ExamEntry {
   id: string
   title: string
