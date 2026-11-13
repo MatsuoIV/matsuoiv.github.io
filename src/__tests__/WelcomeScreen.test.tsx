@@ -62,4 +62,29 @@ describe('WelcomeScreen', () => {
     render(<WelcomeScreen {...defaultProps} />)
     expect(screen.getByText(/random order/i)).toBeInTheDocument()
   })
+
+  it('offers timed and practice modes', () => {
+    render(<WelcomeScreen {...defaultProps} />)
+    expect(screen.getByRole('radiogroup', { name: /exam mode/i })).toBeInTheDocument()
+    expect(screen.getByRole('radio', { name: /timed/i })).toBeChecked()
+    expect(screen.getByRole('radio', { name: /practice/i })).not.toBeChecked()
+  })
+
+  it('notifies the selected mode', async () => {
+    const onModeChange = vi.fn()
+    render(<WelcomeScreen {...defaultProps} onModeChange={onModeChange} />)
+    await userEvent.click(screen.getByRole('radio', { name: /practice/i }))
+    expect(onModeChange).toHaveBeenCalledWith('practice')
+  })
+
+  it('labels the action as Start practice in practice mode', () => {
+    render(<WelcomeScreen {...defaultProps} mode="practice" />)
+    expect(screen.getByRole('button', { name: /start practice/i })).toBeInTheDocument()
+  })
+
+  it('hides the mode selector when the exam has no time limit', () => {
+    render(<WelcomeScreen {...defaultProps} durationSeconds={0} />)
+    expect(screen.queryByRole('radiogroup')).not.toBeInTheDocument()
+    expect(screen.getByText(/no time limit/i)).toBeInTheDocument()
+  })
 })

@@ -8,7 +8,7 @@ import { WelcomeScreen } from './components/WelcomeScreen'
 import { ExamPicker } from './components/ExamPicker'
 import { QuestionNavigator } from './components/QuestionNavigator'
 import { EXAM_DURATION_SECONDS } from './config'
-import type { ExamEntry } from './types/exam'
+import type { ExamEntry, ExamMode } from './types/exam'
 import './App.css'
 
 export default function App() {
@@ -54,6 +54,10 @@ interface ExamRunnerProps {
 }
 
 function ExamRunner({ exam, onChangeExam }: ExamRunnerProps) {
+  const baseDuration = exam.durationMinutes ? exam.durationMinutes * 60 : EXAM_DURATION_SECONDS
+  const [mode, setMode] = useState<ExamMode>(baseDuration > 0 ? 'timed' : 'practice')
+  const durationSeconds = mode === 'practice' ? 0 : baseDuration
+
   const {
     phase,
     examData,
@@ -73,10 +77,7 @@ function ExamRunner({ exam, onChangeExam }: ExamRunnerProps) {
     restartExam,
     getScore,
     isAnswerCorrect,
-  } = useExam(
-    `${import.meta.env.BASE_URL}data/${exam.file}`,
-    exam.durationMinutes ? exam.durationMinutes * 60 : EXAM_DURATION_SECONDS
-  )
+  } = useExam(`${import.meta.env.BASE_URL}data/${exam.file}`, durationSeconds)
 
   if (phase === 'loading') {
     return (
@@ -100,7 +101,9 @@ function ExamRunner({ exam, onChangeExam }: ExamRunnerProps) {
         title={examData.title}
         description={examData.description}
         totalQuestions={examData.questions.length}
-        durationSeconds={exam.durationMinutes ? exam.durationMinutes * 60 : EXAM_DURATION_SECONDS}
+        durationSeconds={baseDuration}
+        mode={mode}
+        onModeChange={setMode}
         onStart={startExam}
         onChangeExam={onChangeExam}
       />
@@ -112,7 +115,11 @@ function ExamRunner({ exam, onChangeExam }: ExamRunnerProps) {
       <header className="app-header">
         <div className="app-header-top">
           <h1 className="app-title">{examData.title}</h1>
-          {phase === 'exam' && <ExamTimer timeLeft={timeLeft} />}
+          {phase === 'exam' && (
+            mode === 'practice'
+              ? <span className="exam-mode-pill">∞ Practice · no timer</span>
+              : <ExamTimer timeLeft={timeLeft} />
+          )}
         </div>
       </header>
 
